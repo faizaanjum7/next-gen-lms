@@ -61,14 +61,14 @@ export default function Hero() {
                             {/* Circle Background */}
                             <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-[300px] h-[300px] md:w-[400px] md:h-[400px] bg-[#d5f2ee] rounded-full -z-10" />
 
-                            {/* Left Student Image Placeholder */}
-                            <div className="absolute top-10 left-0 md:left-10 w-32 h-32 md:w-40 md:h-40 bg-gray-200 rounded-full overflow-hidden border-4 border-white shadow-lg flex items-center justify-center">
-                                <span className="text-xs text-center text-gray-500">Student 1</span>
+                            {/* Left Student Image */}
+                            <div className="absolute top-10 left-0 md:left-10 w-32 h-32 md:w-40 md:h-40 bg-gray-200 rounded-full overflow-hidden border-4 border-white shadow-lg">
+                                <Image src="/student1.png" alt="Student 1" fill className="object-cover" sizes="(max-width: 768px) 128px, 160px" />
                             </div>
 
-                            {/* Right Student Image Placeholder */}
-                            <div className="absolute bottom-10 right-0 md:right-10 w-40 h-40 md:w-48 md:h-48 bg-gray-200 rounded-full overflow-hidden border-4 border-white shadow-lg flex items-center justify-center">
-                                <span className="text-xs text-center text-gray-500">Student 2</span>
+                            {/* Right Student Image */}
+                            <div className="absolute bottom-10 right-0 md:right-10 w-40 h-40 md:w-48 md:h-48 bg-gray-200 rounded-full overflow-hidden border-4 border-white shadow-lg">
+                                <Image src="/student 2.png" alt="Student 2" fill className="object-cover" sizes="(max-width: 768px) 160px, 192px" />
                             </div>
 
                             {/* Floating badge/element */}
