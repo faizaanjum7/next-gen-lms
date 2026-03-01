@@ -3,6 +3,8 @@
 import React, { useState, useEffect } from "react";
 import { Mail, Lock, EyeOff, Eye, LineChart, ClipboardList, Brain, Route, Users } from "lucide-react";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
+import { useAuth } from "@/lib/AuthContext";
 
 const slides = [
     {
@@ -55,6 +57,21 @@ const slides = [
 export default function LoginPage() {
     const [activeSlideIndex, setActiveSlideIndex] = useState(0);
     const [showPassword, setShowPassword] = useState(false);
+    const [email, setEmail] = useState("");
+    const [password, setPassword] = useState("");
+    const { login } = useAuth();
+    const router = useRouter();
+
+    const handleLogin = (e: React.FormEvent) => {
+        e.preventDefault();
+        // Mock authentication, just need any un-empty email/password
+        if (email && password) {
+            // Extract a display name from email (e.g., example@gmail.com -> Example)
+            const name = email.split('@')[0].charAt(0).toUpperCase() + email.split('@')[0].slice(1);
+            login({ name });
+            router.push('/');
+        }
+    };
 
     useEffect(() => {
         const timer = setInterval(() => {
@@ -93,14 +110,17 @@ export default function LoginPage() {
                     </div>
 
                     {/* Form */}
-                    <div className="flex flex-col gap-6">
+                    <form onSubmit={handleLogin} className="flex flex-col gap-6">
                         <div className="flex flex-col gap-2">
                             <label className="text-lg font-bold text-gray-900">Email</label>
                             <div className="relative">
                                 <Mail className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-800 w-6 h-6" />
                                 <input
                                     type="email"
+                                    value={email}
+                                    onChange={(e) => setEmail(e.target.value)}
                                     placeholder="example@gmail.com"
+                                    required
                                     className="w-full bg-white pl-12 pr-4 py-3.5 rounded-xl border border-gray-300 focus:outline-none focus:border-[#2EC4B6] focus:ring-1 focus:ring-[#2EC4B6] text-gray-800 font-medium placeholder:text-gray-400 placeholder:font-semibold transition-all"
                                 />
                             </div>
@@ -112,13 +132,17 @@ export default function LoginPage() {
                                 <Lock className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-800 w-6 h-6" />
                                 <input
                                     type={showPassword ? "text" : "password"}
+                                    value={password}
+                                    onChange={(e) => setPassword(e.target.value)}
                                     placeholder="Password"
+                                    required
                                     className="w-full bg-white pl-12 pr-12 py-3.5 rounded-xl border border-gray-300 focus:outline-none focus:border-[#2EC4B6] focus:ring-1 focus:ring-[#2EC4B6] text-gray-800 font-medium placeholder:text-gray-400 placeholder:font-semibold transition-all"
                                 />
                                 <button
                                     type="button"
                                     onClick={() => setShowPassword(!showPassword)}
                                     className="absolute right-4 top-1/2 -translate-y-1/2 text-gray-800 hover:text-gray-600 focus:outline-none cursor-pointer"
+                                    aria-label={showPassword ? "Hide password" : "Show password"}
                                 >
                                     {showPassword ? (
                                         <Eye className="w-6 h-6" />
@@ -129,7 +153,7 @@ export default function LoginPage() {
                             </div>
                         </div>
 
-                        <button className="w-full bg-[#2EC4B6] text-white py-4 rounded-xl text-xl font-semibold mt-2 border-2 border-transparent hover:bg-transparent hover:text-[#2EC4B6] hover:border-[#2EC4B6] transition-all cursor-pointer">
+                        <button type="submit" className="w-full bg-[#2EC4B6] text-white py-4 rounded-xl text-xl font-semibold mt-2 border-2 border-transparent hover:bg-transparent hover:text-[#2EC4B6] hover:border-[#2EC4B6] transition-all cursor-pointer">
                             Log in
                         </button>
 
@@ -146,7 +170,7 @@ export default function LoginPage() {
                                 Forgot password?
                             </Link>
                         </div>
-                    </div>
+                    </form>
                 </div>
 
                 {/* Right Side: Features Carousel */}

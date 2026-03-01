@@ -3,6 +3,8 @@
 import React, { useState, useEffect } from "react";
 import { Mail, Lock, EyeOff, Eye, LineChart, ClipboardList, Brain, Route, Users } from "lucide-react";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
+import { useAuth } from "@/lib/AuthContext";
 
 const slides = [
     {
@@ -56,6 +58,20 @@ export default function SignupPage() {
     const [activeSlideIndex, setActiveSlideIndex] = useState(0);
     const [showPassword, setShowPassword] = useState(false);
     const [showConfirmPassword, setShowConfirmPassword] = useState(false);
+    const [email, setEmail] = useState("");
+    const [password, setPassword] = useState("");
+    const [confirmPassword, setConfirmPassword] = useState("");
+    const { login } = useAuth();
+    const router = useRouter();
+
+    const handleSignup = (e: React.FormEvent) => {
+        e.preventDefault();
+        if (email && password && password === confirmPassword) {
+            const name = email.split('@')[0].charAt(0).toUpperCase() + email.split('@')[0].slice(1);
+            login({ name });
+            router.push('/');
+        }
+    };
 
     useEffect(() => {
         const timer = setInterval(() => {
@@ -82,14 +98,17 @@ export default function SignupPage() {
                     </div>
 
                     {/* Form */}
-                    <div className="flex flex-col gap-6">
+                    <form onSubmit={handleSignup} className="flex flex-col gap-6">
                         <div className="flex flex-col gap-2">
                             <label className="text-[15px] font-bold text-gray-900">Email</label>
                             <div className="relative">
                                 <Mail className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-800 w-6 h-6" />
                                 <input
                                     type="email"
+                                    value={email}
+                                    onChange={(e) => setEmail(e.target.value)}
                                     placeholder="example@gmail.com"
+                                    required
                                     className="w-full bg-white pl-12 pr-4 py-3.5 rounded-xl border border-gray-300 focus:outline-none focus:border-[#2EC4B6] focus:ring-1 focus:ring-[#2EC4B6] text-gray-800 font-medium placeholder:text-gray-400 placeholder:font-semibold transition-all"
                                 />
                             </div>
@@ -101,7 +120,10 @@ export default function SignupPage() {
                                 <Lock className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-800 w-6 h-6" />
                                 <input
                                     type={showPassword ? "text" : "password"}
+                                    value={password}
+                                    onChange={(e) => setPassword(e.target.value)}
                                     placeholder="Password"
+                                    required
                                     className="w-full bg-white pl-12 pr-12 py-3.5 rounded-xl border border-gray-300 focus:outline-none focus:border-[#2EC4B6] focus:ring-1 focus:ring-[#2EC4B6] text-gray-800 font-medium placeholder:text-gray-400 placeholder:font-semibold transition-all"
                                 />
                                 <button
@@ -124,7 +146,10 @@ export default function SignupPage() {
                                 <Lock className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-800 w-6 h-6" />
                                 <input
                                     type={showConfirmPassword ? "text" : "password"}
+                                    value={confirmPassword}
+                                    onChange={(e) => setConfirmPassword(e.target.value)}
                                     placeholder="Type the password again"
+                                    required
                                     className="w-full bg-white pl-12 pr-12 py-3.5 rounded-xl border border-gray-300 focus:outline-none focus:border-[#2EC4B6] focus:ring-1 focus:ring-[#2EC4B6] text-gray-800 font-medium placeholder:text-gray-400 placeholder:font-semibold transition-all"
                                 />
                                 <button
@@ -145,6 +170,7 @@ export default function SignupPage() {
                             <input
                                 type="checkbox"
                                 id="terms"
+                                required
                                 className="w-4 h-4 rounded border-gray-300 text-[#2EC4B6] focus:ring-[#2EC4B6]"
                             />
                             <label htmlFor="terms" className="text-[12px] text-gray-600 font-medium">
@@ -152,7 +178,7 @@ export default function SignupPage() {
                             </label>
                         </div>
 
-                        <button className="w-full bg-[#2EC4B6] text-white py-4 rounded-xl text-xl font-semibold mt-2 border-2 border-transparent hover:bg-transparent hover:text-[#2EC4B6] hover:border-[#2EC4B6] transition-all cursor-pointer">
+                        <button type="submit" className="w-full bg-[#2EC4B6] text-white py-4 rounded-xl text-xl font-semibold mt-2 border-2 border-transparent hover:bg-transparent hover:text-[#2EC4B6] hover:border-[#2EC4B6] transition-all cursor-pointer">
                             Sign Up
                         </button>
 
@@ -170,7 +196,7 @@ export default function SignupPage() {
                                 Login
                             </Link>
                         </div>
-                    </div>
+                    </form>
                 </div>
 
                 {/* Right Side: Features Carousel */}
