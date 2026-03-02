@@ -2,14 +2,142 @@
 
 import { useSearchParams, useRouter } from "next/navigation";
 import Navbar from "@/components/Navbar";
-import { Suspense, useState, useEffect } from "react";
-import { Check, Calendar, Clock, X } from "lucide-react";
+import { Suspense, useState, useEffect, useRef } from "react";
+import { Check, Calendar, Clock, X, Send } from "lucide-react";
 
 function AIHRContent() {
     const searchParams = useSearchParams();
     const router = useRouter();
     const courseParam = searchParams?.get("course");
     const levelParam = searchParams?.get("level");
+
+    // Assessment Process State
+    const [assessmentState, setAssessmentState] = useState<'idle' | 'processing' | 'chat' | 'results'>('idle');
+    const [isFullscreen, setIsFullscreen] = useState(false);
+    const [isAssessmentFinished, setIsAssessmentFinished] = useState(false);
+
+    // Chat State
+    const courseQuestions = {
+        "web-dev": [
+            { title: "Question 1", text: "State difference between SVG (Scalable Vector Graphics) and Canvas" },
+            { title: "Question 2", text: "Explain the concept of closures in JavaScript and provide a practical use case." },
+            { title: "Question 3", text: "How does CSS Flexbox differ from CSS Grid, and when should you use each?" }
+        ]
+    };
+
+    const assessmentQuestions = (courseParam && courseQuestions[courseParam as keyof typeof courseQuestions])
+        || courseQuestions["web-dev"];
+
+    const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
+    const [chatHistory, setChatHistory] = useState<{ role: 'ai' | 'user', content: React.ReactNode }[]>([
+        {
+            role: 'ai',
+            content: (
+                <div className="flex flex-col gap-2">
+                    <span className="font-bold text-[18px]">{assessmentQuestions[0].title}</span>
+                    <span className="text-[17px] font-medium leading-relaxed">{assessmentQuestions[0].text}</span>
+                </div>
+            )
+        }
+    ]);
+    const [answerInput, setAnswerInput] = useState('');
+    const chatEndRef = useRef<HTMLDivElement | null>(null);
+
+    // Auto-scroll chat
+    useEffect(() => {
+        if (assessmentState === 'chat' && chatEndRef.current) {
+            chatEndRef.current.scrollIntoView({ behavior: 'smooth' });
+        }
+    }, [chatHistory, assessmentState]);
+
+    // Fullscreen enforcement
+    useEffect(() => {
+        const onFullscreenChange = () => {
+            setIsFullscreen(!!document.fullscreenElement);
+        };
+        document.addEventListener('fullscreenchange', onFullscreenChange);
+        return () => document.removeEventListener('fullscreenchange', onFullscreenChange);
+    }, []);
+
+    const enterFullscreen = async () => {
+        try {
+            if (!document.fullscreenElement) {
+                await document.documentElement.requestFullscreen();
+            }
+        } catch (err) {
+            console.error("Error attempting to enable fullscreen:", err);
+        }
+    };
+
+    const handleStartAssessment = async () => {
+        await enterFullscreen();
+        setAssessmentState('processing');
+
+        // Simulate processing delay
+        setTimeout(() => {
+            setAssessmentState('chat');
+        }, 3500);
+    };
+
+    const handleSendAnswer = () => {
+        if (!answerInput.trim()) return;
+
+        const newHistory = [
+            ...chatHistory,
+            {
+                role: 'user' as const,
+                content: (
+                    <div className="text-[17px] font-medium leading-relaxed">{answerInput}</div>
+                )
+            }
+        ];
+        setChatHistory(newHistory);
+        setAnswerInput('');
+
+        // Move to next question or complete
+        if (currentQuestionIndex < assessmentQuestions.length - 1) {
+            const nextIndex = currentQuestionIndex + 1;
+            setTimeout(() => {
+                setChatHistory(prev => [
+                    ...prev,
+                    {
+                        role: 'ai' as const,
+                        content: (
+                            <div className="flex flex-col gap-2">
+                                <span className="font-bold text-[18px]">{assessmentQuestions[nextIndex].title}</span>
+                                <span className="text-[17px] font-medium leading-relaxed">{assessmentQuestions[nextIndex].text}</span>
+                            </div>
+                        )
+                    }
+                ]);
+                setCurrentQuestionIndex(nextIndex);
+            }, 1000); // simulate bot delay
+        } else {
+            setTimeout(() => {
+                setChatHistory(prev => [
+                    ...prev,
+                    {
+                        role: 'ai' as const,
+                        content: (
+                            <div className="flex flex-col gap-2">
+                                <span className="font-bold text-[18px]">Assessment Completed</span>
+                                <span className="text-[17px] font-medium leading-relaxed">Thank you for completing the assessment! AI HR is currently evaluating your answers. You will receive your results shortly.</span>
+                            </div>
+                        )
+                    }
+                ]);
+
+                // Show results after a brief evaluating delay
+                setTimeout(() => {
+                    setIsAssessmentFinished(true);
+                    setAssessmentState('results');
+                    if (document.fullscreenElement) {
+                        document.exitFullscreen().catch(err => console.error(err));
+                    }
+                }, 3000);
+            }, 1000);
+        }
+    };
 
     // Scheduling State
     const [isScheduling, setIsScheduling] = useState(false);
@@ -75,6 +203,218 @@ function AIHRContent() {
     const defaultAssessments = ["Conceptual questions", "Practical exercises", "Real-world scenarios"];
     const assessments = courseParam && assessmentMappings[courseParam] ? assessmentMappings[courseParam] : defaultAssessments;
 
+    if (assessmentState === 'processing') {
+        return (
+            <main className="min-h-screen bg-[#eefbf9] font-sans text-gray-900 pb-32">
+                <Navbar />
+                <div className="pt-28 px-4 max-w-[720px] mx-auto flex justify-center">
+                    <div className="w-full bg-[#e6f2f0] border-[2px] border-[#FF9F1C] rounded-2xl p-8 md:px-14 md:py-16 shadow-lg relative flex flex-col items-center justify-center min-h-[450px]">
+
+                        <div className="relative w-32 h-32 mb-8 flex justify-center items-center">
+                            <svg className="animate-spin w-full h-full" viewBox="0 0 100 100" fill="none">
+                                <defs>
+                                    <linearGradient id="spinnerGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                                        <stop offset="0%" stopColor="#FF9F1C" />
+                                        <stop offset="50%" stopColor="#FF9F1C" stopOpacity="0.5" />
+                                        <stop offset="100%" stopColor="#FF9F1C" stopOpacity="0" />
+                                    </linearGradient>
+                                </defs>
+                                <circle
+                                    cx="50" cy="50" r="40"
+                                    stroke="url(#spinnerGradient)"
+                                    strokeWidth="8"
+                                    strokeLinecap="round"
+                                    className="opacity-100"
+                                />
+                            </svg>
+                        </div>
+
+                        <h2 className="text-3xl md:text-4xl font-bold text-[#FF9F1C] mb-6 tracking-wide">
+                            Processing...
+                        </h2>
+                        <p className="text-gray-900 font-bold text-[17px] text-center mb-8 max-w-lg">
+                            AI HR is evaluating your responses to provide an objective skill assessment.
+                        </p>
+                        <p className="text-gray-500 font-medium text-[15px] text-center">
+                            This may take a moment. Please do not close the window.
+                        </p>
+                    </div>
+                </div>
+            </main>
+        );
+    }
+
+    if (assessmentState === 'chat' || assessmentState === 'results') {
+        return (
+            <>
+                {assessmentState === 'chat' && !isAssessmentFinished && !isFullscreen && (
+                    <div className="fixed inset-0 z-[200] bg-[#1A1A1A]/95 text-white flex flex-col items-center justify-center p-8 backdrop-blur-md">
+                        <h2 className="text-4xl font-bold text-red-500 mb-6 flex items-center gap-3">
+                            <span className="bg-red-500/20 p-2 rounded-full"><X className="w-8 h-8" /></span> Assessment Paused
+                        </h2>
+                        <p className="text-xl text-center mb-10 max-w-2xl leading-relaxed text-gray-200">
+                            You have exited full-screen mode. To ensure exam integrity and focus, this assessment must be completed securely. Please return to full-screen to continue.
+                        </p>
+                        <button
+                            onClick={enterFullscreen}
+                            className="bg-[#FF9F1C] hover:bg-[#e09841] text-black font-bold text-xl py-4 px-10 rounded-xl transition-all shadow-lg hover:shadow-xl hover:-translate-y-1"
+                        >
+                            Resume Assessment
+                        </button>
+                    </div>
+                )}
+
+                <div className="fixed inset-0 z-[100] bg-[#eefbf9] flex flex-col md:flex-row font-sans overflow-hidden">
+                    {/* Sidebar */}
+                    <div className="w-full md:w-[320px] bg-[#e6f2f0] border-r border-[#a8e0d6] p-6 flex flex-col h-full shadow-sm z-10 shrink-0">
+                        <div className="font-bold text-[#FF9F1C] text-2xl mb-8 tracking-wide">AI Assessment</div>
+
+                        <div className="flex-1 overflow-y-auto space-y-4 pr-2">
+                            <div className="text-xs font-bold text-gray-500 uppercase tracking-widest mb-3">History</div>
+                            {isAssessmentFinished ? (
+                                <>
+                                    <button
+                                        onClick={() => setAssessmentState('results')}
+                                        className={`w-full text-left p-4 rounded-xl border-2 shadow-sm relative overflow-hidden group transition-all ${assessmentState === 'results' ? 'bg-white border-[#a8e0d6]' : 'bg-transparent border-transparent hover:bg-white/50'}`}
+                                    >
+                                        {assessmentState === 'results' && <div className="absolute left-0 top-0 bottom-0 w-1.5 bg-[#FF9F1C]"></div>}
+                                        <div className="font-bold text-gray-900 text-[15px] mb-1">Assessment Results</div>
+                                        <div className="text-gray-600 text-[13px] font-medium mt-1">{displayCourse}</div>
+                                    </button>
+                                    <button
+                                        onClick={() => setAssessmentState('chat')}
+                                        className={`w-full text-left p-4 rounded-xl border-2 shadow-sm relative overflow-hidden group transition-all ${assessmentState === 'chat' ? 'bg-white border-[#a8e0d6]' : 'bg-transparent border-transparent hover:bg-white/50'}`}
+                                    >
+                                        {assessmentState === 'chat' && <div className="absolute left-0 top-0 bottom-0 w-1.5 bg-[#FF9F1C]"></div>}
+                                        <div className="font-bold text-gray-900 text-[15px] mb-1">Chat Transcript</div>
+                                        <div className="text-gray-600 text-[13px] font-medium mt-1">{displayCourse} (History)</div>
+                                    </button>
+                                </>
+                            ) : (
+                                <button className="w-full text-left bg-white p-4 rounded-xl border-2 border-[#a8e0d6] shadow-sm relative overflow-hidden group">
+                                    <div className="absolute left-0 top-0 bottom-0 w-1.5 bg-[#FF9F1C]"></div>
+                                    <div className="font-bold text-gray-900 text-[15px] mb-1">Active Assessment</div>
+                                    <div className="text-gray-600 text-[13px] font-medium mt-1">{displayCourse}</div>
+                                </button>
+                            )}
+                        </div>
+
+                        <div className="mt-auto pt-6 border-t border-[#a8e0d6]">
+                            <button onClick={() => {
+                                if (document.fullscreenElement) { document.exitFullscreen().catch(() => { }); }
+                                setAssessmentState('idle');
+                                setIsAssessmentFinished(false);
+                            }} className="text-gray-600 hover:text-red-500 font-bold w-full text-left flex items-center justify-center gap-2 px-4 py-3 rounded-xl transition-colors bg-white border border-gray-300 hover:bg-red-50 hover:border-red-200 shadow-sm">
+                                <X className="w-5 h-5 stroke-[3]" /> End Assessment
+                            </button>
+                        </div>
+                    </div>
+
+                    {/* Main Chat/Result Area */}
+                    <div className="flex-1 flex justify-center items-start md:items-center bg-[#eefbf9] p-4 md:p-8 h-full relative overflow-y-auto overflow-x-hidden">
+
+                        {assessmentState === 'chat' && (
+                            <div className="w-full max-w-5xl h-full max-h-[90vh] bg-[#e6f2f0] border-[2px] border-[#FF9F1C] rounded-2xl shadow-xl relative flex flex-col overflow-hidden shrink-0">
+
+                                {/* Chat History Container */}
+                                <div className="flex-1 overflow-y-auto p-6 md:p-10 space-y-6 flex flex-col scroll-smooth">
+                                    {chatHistory.map((msg, i) => (
+                                        <div key={i} className={`flex w-full ${msg.role === 'ai' ? 'justify-start' : 'justify-end'}`}>
+                                            {msg.role === 'ai' ? (
+                                                <div className="bg-[#f2aa5c] text-black px-8 py-6 rounded-2xl rounded-tl-sm max-w-[85%] shadow-sm">
+                                                    {msg.content}
+                                                </div>
+                                            ) : (
+                                                <div className="bg-white text-gray-900 px-8 py-6 rounded-2xl rounded-tr-sm max-w-[85%] shadow-sm border border-[#a8e0d6]">
+                                                    {msg.content}
+                                                </div>
+                                            )}
+                                        </div>
+                                    ))}
+                                    <div ref={chatEndRef} />
+                                </div>
+
+                                {/* Input Area */}
+                                {!isAssessmentFinished && (
+                                    <div className="p-6 md:p-10 pt-4 bg-[#e6f2f0] w-full border-t border-[#a8e0d6]/50">
+                                        <form onSubmit={(e) => { e.preventDefault(); handleSendAnswer(); }} className="relative">
+                                            <input
+                                                type="text"
+                                                value={answerInput}
+                                                onChange={(e) => setAnswerInput(e.target.value)}
+                                                placeholder="Type your answer..."
+                                                className="w-full bg-white rounded-xl py-4 pl-6 pr-14 text-[16px] focus:outline-none focus:ring-2 focus:ring-[#FF9F1C] shadow-sm text-gray-900 placeholder:text-gray-500 border border-gray-200"
+                                            />
+                                            <button
+                                                type="submit"
+                                                disabled={!answerInput.trim()}
+                                                className="absolute right-3 top-1/2 -translate-y-1/2 bg-[#FF9F1C] hover:bg-[#e09841] text-white p-2.5 rounded-lg disabled:opacity-50 disabled:cursor-not-allowed transition-colors shadow-sm inline-flex items-center justify-center"
+                                            >
+                                                <Send className="w-5 h-5 -ml-0.5" />
+                                            </button>
+                                        </form>
+                                    </div>
+                                )}
+                            </div>
+                        )}
+
+                        {assessmentState === 'results' && (
+                            <div className="w-full max-w-3xl bg-[#e6f2f0] border-[2px] border-[#FF9F1C] rounded-2xl p-8 md:px-12 md:py-10 shadow-xl relative flex flex-col my-auto shrink-0 animate-in fade-in zoom-in-95 duration-500">
+                                <h2 className="text-3xl md:text-4xl font-black text-[#FF9F1C] text-center mb-8">
+                                    Skill Assessment Complete!
+                                </h2>
+
+                                <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 mb-8">
+                                    <div className="border border-[#a8e0d6] rounded-xl p-6 text-center flex flex-col justify-center gap-2 bg-[#dcefe9] shadow-sm">
+                                        <div className="font-bold text-gray-700 text-[17px]">Your self-accessed level</div>
+                                        <div className="font-bold text-gray-900 text-[22px] tracking-wide">{displayLevel}</div>
+                                    </div>
+                                    <div className="border border-[#a8e0d6] rounded-xl p-6 text-center flex flex-col justify-center gap-2 bg-[#dcefe9] shadow-sm">
+                                        <div className="font-bold text-[#b4690e] text-[17px]">AI HR recommended level</div>
+                                        <div className="font-bold text-gray-900 text-[22px] tracking-wide">{displayLevel}</div>
+                                    </div>
+                                </div>
+
+                                <div className="mb-8 space-y-6">
+                                    <div>
+                                        <h4 className="font-bold text-[#6b5846] mb-3 text-[17px]">Strengths</h4>
+                                        <ul className="list-disc pl-6 text-gray-800 font-medium space-y-1">
+                                            <li><span className="text-gray-900">Demonstrated good foundational knowledge.</span></li>
+                                        </ul>
+                                    </div>
+
+                                    <div>
+                                        <h4 className="font-bold text-[#8c1c1c] mb-3 text-[17px]">Areas to Improve</h4>
+                                        <ul className="list-disc pl-6 text-gray-800 font-medium space-y-1">
+                                            <li><span className="text-gray-900">Continue practicing advanced concepts and problem-solving.</span></li>
+                                        </ul>
+                                    </div>
+
+                                    <div>
+                                        <h4 className="font-bold text-[#96621f] mb-3 text-[17px]">Reason for Level Decision</h4>
+                                        <p className="text-gray-900 font-medium leading-relaxed">
+                                            Based on your performance across conceptual, coding, and real-world scenario questions, the AI HR system has determined your current skill level.
+                                        </p>
+                                    </div>
+                                </div>
+
+                                <div className="flex justify-center mt-2">
+                                    <button
+                                        onClick={() => router.push('/learning-path')}
+                                        className="bg-[#f2aa5c] hover:bg-[#e09841] text-black font-bold text-[17px] py-4 px-10 rounded-xl w-full max-w-[400px] shadow-sm transition-colors duration-300"
+                                    >
+                                        Start My Learning Path
+                                    </button>
+                                </div>
+                            </div>
+                        )}
+
+                    </div>
+                </div>
+            </>
+        );
+    }
+
     return (
         <main className="min-h-screen bg-[#eefbf9] font-sans text-gray-900 selection:bg-[#3a8d84] selection:text-white pb-32">
             <Navbar />
@@ -130,7 +470,7 @@ function AIHRContent() {
                         {!isScheduling ? (
                             <div className="flex flex-col items-center gap-4 justify-center">
                                 <button
-                                    onClick={() => console.log('Starting assessment...')}
+                                    onClick={handleStartAssessment}
                                     className="bg-[#f2aa5c] hover:bg-[#e09841] text-black font-bold text-[16px] py-3.5 px-10 rounded-md w-full max-w-[400px] shadow-sm transition-colors duration-300"
                                 >
                                     Start Skill Assessment
