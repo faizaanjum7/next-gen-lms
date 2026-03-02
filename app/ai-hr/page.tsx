@@ -8,8 +8,8 @@ import { Check, Calendar, Clock, X, Send } from "lucide-react";
 function AIHRContent() {
     const searchParams = useSearchParams();
     const router = useRouter();
-    const courseParam = searchParams?.get("course");
-    const levelParam = searchParams?.get("level");
+    const courseParam = searchParams?.get("course") || "web-dev";
+    const levelParam = searchParams?.get("level") || "basic";
 
     // Assessment Process State
     const [assessmentState, setAssessmentState] = useState<'idle' | 'processing' | 'chat' | 'results'>('idle');
@@ -17,16 +17,35 @@ function AIHRContent() {
     const [isAssessmentFinished, setIsAssessmentFinished] = useState(false);
 
     // Chat State
-    const courseQuestions = {
+    const courseQuestions: Record<string, { title: string, text: string }[]> = {
         "web-dev": [
             { title: "Question 1", text: "State difference between SVG (Scalable Vector Graphics) and Canvas" },
             { title: "Question 2", text: "Explain the concept of closures in JavaScript and provide a practical use case." },
             { title: "Question 3", text: "How does CSS Flexbox differ from CSS Grid, and when should you use each?" }
+        ],
+        "data-science": [
+            { title: "Question 1", text: "Explain the difference between supervised and unsupervised machine learning." },
+            { title: "Question 2", text: "What is the curse of dimensionality, and how can it be mitigated?" },
+            { title: "Question 3", text: "Describe a scenario where you would use a Random Forest algorithm over a simple Decision Tree." }
+        ],
+        "ui-ux": [
+            { title: "Question 1", text: "What are the key differences between UI (User Interface) and UX (User Experience)?" },
+            { title: "Question 2", text: "Explain the importance of usability testing in the design process." },
+            { title: "Question 3", text: "How do you ensure a design is accessible for users with disabilities?" }
+        ],
+        "ai-ml": [
+            { title: "Question 1", text: "What is backpropagation in neural networks, and why is it important?" },
+            { title: "Question 2", text: "Explain the concept of overfitting and provide strategies to prevent it." },
+            { title: "Question 3", text: "Describe the differences between RNNs (Recurrent Neural Networks) and CNNs (Convolutional Neural Networks)." }
+        ],
+        "cybersecurity": [
+            { title: "Question 1", text: "What are the standard stages of a cyber attack (the Cyber Kill Chain)?" },
+            { title: "Question 2", text: "Explain the difference between symmetric and asymmetric encryption." },
+            { title: "Question 3", text: "How does a SQL injection attack work, and how can it be prevented?" }
         ]
     };
 
-    const assessmentQuestions = (courseParam && courseQuestions[courseParam as keyof typeof courseQuestions])
-        || courseQuestions["web-dev"];
+    const assessmentQuestions = courseQuestions[courseParam] || courseQuestions["web-dev"];
 
     const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
     const [chatHistory, setChatHistory] = useState<{ role: 'ai' | 'user', content: React.ReactNode }[]>([
@@ -177,19 +196,17 @@ function AIHRContent() {
     }, [showToast]);
 
     const courseNames: Record<string, string> = {
-        "web-dev": "Web development",
+        "web-dev": "Web Development",
         "data-science": "Data Science",
         "ui-ux": "UI/UX Design",
         "ai-ml": "AI & Machine Learning",
         "cybersecurity": "Cybersecurity",
     };
 
-    const displayCourse = courseParam ? (courseNames[courseParam] || courseParam) : "Web development";
+    const displayCourse = courseNames[courseParam] || "Web Development";
 
     // Capitalize first letter of level
-    const displayLevel = levelParam
-        ? levelParam.charAt(0).toUpperCase() + levelParam.slice(1)
-        : "Basic";
+    const displayLevel = levelParam.charAt(0).toUpperCase() + levelParam.slice(1);
 
     // Dynamic assessment mappings based on course
     const assessmentMappings: Record<string, string[]> = {
@@ -286,15 +303,15 @@ function AIHRContent() {
                                         className={`w-full text-left p-4 rounded-xl border-2 shadow-sm relative overflow-hidden group transition-all ${assessmentState === 'chat' ? 'bg-white border-[#a8e0d6]' : 'bg-transparent border-transparent hover:bg-white/50'}`}
                                     >
                                         {assessmentState === 'chat' && <div className="absolute left-0 top-0 bottom-0 w-1.5 bg-[#FF9F1C]"></div>}
-                                        <div className="font-bold text-gray-900 text-[15px] mb-1">Chat Transcript</div>
-                                        <div className="text-gray-600 text-[13px] font-medium mt-1">{displayCourse} (History)</div>
+                                        <div className="font-bold text-gray-900 text-[15px] mb-1">{displayCourse} Assessment</div>
+                                        <div className="text-gray-600 text-[13px] font-medium mt-1">Chat Transcript</div>
                                     </button>
                                 </>
                             ) : (
                                 <button className="w-full text-left bg-white p-4 rounded-xl border-2 border-[#a8e0d6] shadow-sm relative overflow-hidden group">
                                     <div className="absolute left-0 top-0 bottom-0 w-1.5 bg-[#FF9F1C]"></div>
                                     <div className="font-bold text-gray-900 text-[15px] mb-1">Active Assessment</div>
-                                    <div className="text-gray-600 text-[13px] font-medium mt-1">{displayCourse}</div>
+                                    <div className="text-gray-600 text-[13px] font-medium mt-1">{displayCourse} Assessment</div>
                                 </button>
                             )}
                         </div>
@@ -400,7 +417,7 @@ function AIHRContent() {
 
                                 <div className="flex justify-center mt-2">
                                     <button
-                                        onClick={() => router.push('/learning-path')}
+                                        onClick={() => router.push(`/learning-path?course=${courseParam}&level=${levelParam}`)}
                                         className="bg-[#f2aa5c] hover:bg-[#e09841] text-black font-bold text-[17px] py-4 px-10 rounded-xl w-full max-w-[400px] shadow-sm transition-colors duration-300"
                                     >
                                         Start My Learning Path

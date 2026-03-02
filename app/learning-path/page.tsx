@@ -12,6 +12,14 @@ function LearningPathContent() {
     const courseParam = searchParams?.get("course") || "web-dev";
     const levelParam = searchParams?.get("level") || "basic";
 
+    const courseFocusAreas: Record<string, string[]> = {
+        "web-dev": ["HTML & CSS", "Javascript Fundamentals", "Frontend Frameworks (React/Next)", "Database Integration"],
+        "data-science": ["Python Programming", "Statistical Analysis", "Machine Learning Basics", "Data Visualization"],
+        "ui-ux": ["User Research", "Wireframing & Prototyping", "Design Systems", "Usability Testing"],
+        "ai-ml": ["Python & Libraries", "Neural Networks", "Deep Learning", "Model Deployment"],
+        "cybersecurity": ["Network Security", "Ethical Hacking", "Cryptography", "Security Auditing"],
+    };
+
     const courseNames: Record<string, string> = {
         "web-dev": "Web Development",
         "data-science": "Data Science",
@@ -21,6 +29,7 @@ function LearningPathContent() {
     };
     const displayCourse = courseNames[courseParam] || "Web Development";
     const displayLevel = levelParam.charAt(0).toUpperCase() + levelParam.slice(1);
+    const displayFocusAreas = courseFocusAreas[courseParam] || courseFocusAreas["web-dev"];
 
     return (
         <main className="min-h-screen bg-[#eefbf9] font-sans text-gray-900 pb-32">
@@ -66,18 +75,11 @@ function LearningPathContent() {
                         <div>
                             <span className="font-bold text-gray-800 text-[16px] block mb-2">Focus Areas:</span>
                             <ul className="space-y-2 text-gray-600 font-bold ml-[18px]">
-                                <li className="flex items-center gap-3 text-[15px]">
-                                    <span className="w-1.5 h-1.5 rounded-full bg-gray-500 block"></span> HTML
-                                </li>
-                                <li className="flex items-center gap-3 text-[15px]">
-                                    <span className="w-1.5 h-1.5 rounded-full bg-gray-500 block"></span> CSS
-                                </li>
-                                <li className="flex items-center gap-3 text-[15px]">
-                                    <span className="w-1.5 h-1.5 rounded-full bg-gray-500 block"></span> Javascript Fundamentals
-                                </li>
-                                <li className="flex items-center gap-3 text-[15px]">
-                                    <span className="w-1.5 h-1.5 rounded-full bg-gray-500 block"></span> Database Integration
-                                </li>
+                                {displayFocusAreas.map((area, index) => (
+                                    <li key={index} className="flex items-center gap-3 text-[15px]">
+                                        <span className="w-1.5 h-1.5 rounded-full bg-gray-500 block"></span> {area}
+                                    </li>
+                                ))}
                             </ul>
                         </div>
                     </div>
