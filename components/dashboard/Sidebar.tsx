@@ -50,7 +50,7 @@ export default function Sidebar({ isSidebarOpen, setIsSidebarOpen }: SidebarProp
 
     return (
         <aside
-            className={`relative flex flex-col h-full bg-white border-r border-gray-200 transition-all duration-300 ease-in-out shrink-0 z-20 ${isSidebarOpen ? "w-[260px]" : "w-[80px]"
+            className={`relative flex flex-col h-full bg-white border-r border-gray-200 transition-all duration-300 ease-in-out shrink-0 z-20 ${isSidebarOpen ? "w-[240px]" : "w-[72px]"
                 }`}
         >
             {/* Toggle Button Positioned Half In/Half Out */}
@@ -71,15 +71,15 @@ export default function Sidebar({ isSidebarOpen, setIsSidebarOpen }: SidebarProp
                         <Link
                             key={item.name}
                             href={item.href}
-                            className={`flex items-center gap-4 px-3 py-3 rounded-xl transition-colors ${isActive
-                                    ? "bg-[#67ecd3] text-gray-900 shadow-sm font-semibold"
-                                    : "text-gray-600 hover:bg-gray-100 hover:text-gray-900 font-medium"
+                            className={`flex items-center gap-3 px-3 py-2.5 rounded-lg transition-colors ${isActive
+                                ? "bg-[#67ecd3] text-gray-900 shadow-sm font-semibold"
+                                : "text-gray-600 hover:bg-gray-100 hover:text-gray-900 font-medium"
                                 }`}
                             title={!isSidebarOpen ? item.name : undefined}
                         >
-                            <item.icon className="w-5 h-5 shrink-0" strokeWidth={isActive ? 2.5 : 2} />
+                            <item.icon className="w-4 h-4 shrink-0" strokeWidth={isActive ? 2.5 : 2} />
                             <span
-                                className={`text-[15px] whitespace-nowrap overflow-hidden transition-all duration-300 ${isSidebarOpen ? "opacity-100 w-auto" : "opacity-0 w-0 hidden"
+                                className={`text-[14px] whitespace-nowrap overflow-hidden transition-all duration-300 ${isSidebarOpen ? "opacity-100 w-auto" : "opacity-0 w-0 hidden"
                                     }`}
                             >
                                 {item.name}

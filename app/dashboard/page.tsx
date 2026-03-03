@@ -11,7 +11,7 @@ export default function DashboardPage() {
                 <div className="xl:col-span-2 space-y-6">
 
                     {/* Current Course Banner */}
-                    <div className="bg-white rounded-2xl p-4 md:p-6 shadow-sm border border-gray-100 flex flex-col md:flex-row items-start md:items-center justify-between gap-6 md:gap-4">
+                    <div className="bg-white rounded-2xl p-4 shadow-sm border border-gray-100 flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
                         <div className="flex items-center gap-4 flex-1 w-full">
                             <div className="bg-[#1e88e5] text-white w-12 h-12 rounded-xl flex items-center justify-center font-bold text-lg shrink-0">
                                 ML
@@ -42,10 +42,10 @@ export default function DashboardPage() {
                     </div>
 
                     {/* Status Cards */}
-                    <div className="bg-white rounded-2xl p-6 md:p-8 shadow-sm border border-gray-100">
-                        <h2 className="text-xl font-bold text-gray-900 mb-6">Status</h2>
+                    <div className="bg-white rounded-2xl p-5 md:p-6 shadow-sm border border-gray-100">
+                        <h2 className="text-lg font-bold text-gray-900 mb-4">Status</h2>
 
-                        <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 md:gap-6">
+                        <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 md:gap-4">
                             {/* Box 1 */}
                             <div className="bg-[#fcebd0] rounded-2xl p-5 md:p-6">
                                 <div className="bg-[#FF9F1C] w-10 h-10 rounded-full flex items-center justify-center mb-6">
@@ -79,9 +79,9 @@ export default function DashboardPage() {
                     </div>
 
                     {/* My Courses */}
-                    <div className="bg-white rounded-2xl p-6 md:p-8 shadow-sm border border-gray-100 overflow-x-auto">
-                        <div className="flex items-center justify-between mb-8 min-w-[600px]">
-                            <h2 className="text-xl font-bold text-gray-900">My Courses</h2>
+                    <div className="bg-white rounded-2xl p-5 md:p-6 shadow-sm border border-gray-100 overflow-x-auto">
+                        <div className="flex items-center justify-between mb-6 min-w-[500px]">
+                            <h2 className="text-lg font-bold text-gray-900">My Courses</h2>
                             <div className="flex gap-8">
                                 <span className="text-gray-600 font-medium cursor-pointer">Active</span>
                                 <span className="text-gray-400 font-medium cursor-pointer hover:text-gray-600">Completed</span>
@@ -171,9 +171,9 @@ export default function DashboardPage() {
                 <div className="space-y-6">
 
                     {/* Calendar Widget */}
-                    <div className="bg-white rounded-2xl p-6 md:p-8 shadow-sm border border-gray-100">
-                        <h2 className="text-xl font-bold text-gray-900 mb-2">Calendar</h2>
-                        <div className="text-sm font-medium text-gray-600 mb-6">January 2026</div>
+                    <div className="bg-white rounded-2xl p-5 md:p-6 shadow-sm border border-gray-100">
+                        <h2 className="text-lg font-bold text-gray-900 mb-1">Calendar</h2>
+                        <div className="text-[13px] font-medium text-gray-600 mb-4">January 2026</div>
 
                         <div className="grid grid-cols-7 gap-y-4 gap-x-1 text-center text-[13px]">
                             {/* Days Header */}
@@ -236,10 +236,10 @@ export default function DashboardPage() {
                     </div>
 
                     {/* Upcoming Events Widget */}
-                    <div className="bg-white rounded-2xl p-6 md:p-8 shadow-sm border border-gray-100">
-                        <h2 className="text-xl font-bold text-gray-900 mb-6">Upcoming</h2>
+                    <div className="bg-white rounded-2xl p-5 md:p-6 shadow-sm border border-gray-100">
+                        <h2 className="text-lg font-bold text-gray-900 mb-4">Upcoming</h2>
 
-                        <div className="space-y-6">
+                        <div className="space-y-4">
                             {/* Event 1 */}
                             <div className="flex gap-4 items-center">
                                 <div className="bg-[#fcedfc] text-center w-[60px] h-[64px] rounded-xl flex flex-col justify-center shrink-0">
