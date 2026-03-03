@@ -15,6 +15,7 @@ function AIHRContent() {
     const [assessmentState, setAssessmentState] = useState<'idle' | 'processing' | 'chat' | 'results'>('idle');
     const [isFullscreen, setIsFullscreen] = useState(false);
     const [isAssessmentFinished, setIsAssessmentFinished] = useState(false);
+    const [isGeneratingPath, setIsGeneratingPath] = useState(false);
 
     // Chat State
     const courseQuestions: Record<string, { title: string, text: string }[]> = {
@@ -417,10 +418,16 @@ function AIHRContent() {
 
                                 <div className="flex justify-center mt-2">
                                     <button
-                                        onClick={() => router.push(`/learning-path?course=${courseParam}&level=${levelParam}`)}
-                                        className="bg-[#f2aa5c] hover:bg-[#e09841] text-black font-bold text-[17px] py-4 px-10 rounded-xl w-full max-w-[400px] shadow-sm transition-colors duration-300"
+                                        onClick={() => {
+                                            setIsGeneratingPath(true);
+                                            setTimeout(() => {
+                                                router.push(`/learning-path?course=${courseParam}&level=${levelParam}`);
+                                            }, 3000);
+                                        }}
+                                        disabled={isGeneratingPath}
+                                        className={`${isGeneratingPath ? 'bg-[#3ebcb0] text-black opacity-100' : 'bg-[#f2aa5c] hover:bg-[#e09841] text-black'} font-bold text-[17px] py-4 px-10 rounded-xl w-full max-w-[400px] shadow-sm transition-all duration-300`}
                                     >
-                                        Start My Learning Path
+                                        {isGeneratingPath ? "Generating Learning Path..." : "Start My Learning Path"}
                                     </button>
                                 </div>
                             </div>
