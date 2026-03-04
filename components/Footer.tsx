@@ -9,7 +9,7 @@ export default function Footer() {
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-8 mb-12">
                     {/* Brand & Info */}
                     <div className="lg:col-span-2">
-                        <h3 className="text-2xl font-bold mb-6">Next-Gen LMS</h3>
+                        <h3 className="text-2xl font-bold mb-6 bg-gradient-to-r from-[#FF9F1C] to-[#2EC4B6] bg-clip-text text-transparent break-words max-w-fit">Next-Gen LMS</h3>
                         <p className="text-blue-50 mb-6 max-w-sm">
                             Empowering learners with AI-driven personalized education. Join us to transform your future today.
                         </p>

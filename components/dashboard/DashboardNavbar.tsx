@@ -7,8 +7,8 @@ export default function DashboardNavbar() {
             {/* Left side: Logo & Title */}
             <div className="flex items-center gap-8 md:gap-16">
                 <Link href="/" className="flex items-center">
-                    <span className="text-[22px] font-bold tracking-tight">
-                        <span className="text-[#f2aa5c]">Next-Gen</span> <span className="text-[#3fc9b9]">LMS</span>
+                    <span className="text-[22px] font-bold tracking-tight bg-gradient-to-r from-[#FF9F1C] to-[#2EC4B6] bg-clip-text text-transparent break-words">
+                        Next-Gen LMS
                     </span>
                 </Link>
                 <h1 className="text-2xl font-bold text-gray-900 hidden md:block">Dashboard</h1>
