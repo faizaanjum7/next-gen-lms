@@ -1,7 +1,27 @@
+"use client";
+
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { Search, Calendar, Bell, User, ChevronDown } from "lucide-react";
 
 export default function DashboardNavbar() {
+    const pathname = usePathname();
+
+    const getPageTitle = () => {
+        if (pathname.startsWith("/dashboard/courses")) return "Courses";
+        if (pathname.startsWith("/dashboard/projects")) return "Projects";
+        if (pathname.startsWith("/dashboard/ai-tutor")) return "AI Tutor";
+        if (pathname.startsWith("/dashboard/payments")) return "Payment History";
+        if (pathname.startsWith("/dashboard/quizzes")) return "Quizzes";
+        if (pathname.startsWith("/dashboard/assignments")) return "Assignments";
+        if (pathname.startsWith("/dashboard/announcements")) return "Announcements";
+        if (pathname.startsWith("/dashboard/certifications")) return "Certifications";
+        if (pathname.startsWith("/dashboard/reports")) return "Reports";
+        if (pathname.startsWith("/dashboard/faq")) return "FAQ";
+        if (pathname.startsWith("/dashboard/settings")) return "Settings";
+        if (pathname.startsWith("/dashboard/help")) return "Help";
+        return "Dashboard";
+    };
     return (
         <header className="h-16 bg-white border-b border-gray-200 flex items-center justify-between px-6 shrink-0 z-10 box-border">
             {/* Left side: Logo & Title */}
@@ -11,7 +31,7 @@ export default function DashboardNavbar() {
                         Next-Gen LMS
                     </span>
                 </Link>
-                <h1 className="text-2xl font-bold text-gray-900 hidden md:block">Dashboard</h1>
+                <h1 className="text-2xl font-bold text-gray-900 hidden md:block">{getPageTitle()}</h1>
             </div>
 
             {/* Middle: Search bar */}
