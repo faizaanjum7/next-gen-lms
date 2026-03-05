@@ -35,7 +35,7 @@ export default function DashboardPage() {
                                 <div className="font-bold text-gray-900">150<span className="text-gray-500 font-medium">/180 mins</span></div>
                             </div>
 
-                            <button className="bg-[#a8e0d6] hover:bg-[#8fd6cc] text-gray-900 font-bold px-5 py-2.5 rounded-xl flex items-center gap-2 transition-colors ml-auto md:ml-0">
+                            <button className="bg-[#cbf1e9] hover:bg-[#4fcebb] text-[#007367] hover:text-[#004d44] font-bold px-5 py-2 rounded-md flex items-center gap-2 transition-colors ml-auto md:ml-0">
                                 <Play className="w-4 h-4" /> Resume
                             </button>
                         </div>
@@ -82,9 +82,9 @@ export default function DashboardPage() {
                     <div className="bg-white rounded-2xl p-5 md:p-6 shadow-sm border border-gray-100 overflow-x-auto">
                         <div className="flex items-center justify-between mb-6 min-w-[500px]">
                             <h2 className="text-lg font-bold text-gray-900">My Courses</h2>
-                            <div className="flex gap-8">
-                                <span className="text-gray-600 font-medium cursor-pointer">Active</span>
-                                <span className="text-gray-400 font-medium cursor-pointer hover:text-gray-600">Completed</span>
+                            <div className="flex gap-2 bg-white rounded-lg p-1">
+                                <button className="text-gray-900 font-medium px-4 py-1.5 rounded-md bg-[#cbf1e9] transition-colors">Active</button>
+                                <button className="text-gray-500 font-medium px-4 py-1.5 rounded-md hover:bg-gray-50 transition-colors">Completed</button>
                             </div>
                         </div>
 
@@ -199,12 +199,22 @@ export default function DashboardPage() {
                             <div className="text-gray-500 py-1 font-medium">11</div>
 
                             <div className="text-gray-500 py-1 font-medium">12</div>
-                            <div className="bg-[#3ebcb0] text-white rounded-full w-8 h-8 flex items-center justify-center mx-auto relative font-medium shadow-sm">
-                                13
+                            <div className="relative flex justify-center py-1">
+                                <div className="absolute top-1 bottom-1 left-1/2 -right-1 bg-[#cbf1e9] -z-10"></div>
+                                <div className="bg-[#3ebcb0] text-white rounded-full w-8 h-8 flex items-center justify-center font-medium shadow-sm relative z-10">13</div>
                             </div>
-                            <div className="bg-[#e4f6f4] py-1 text-gray-700 font-medium">14</div>
-                            <div className="bg-[#e4f6f4] py-1 text-gray-700 font-medium rounded-r-full">15</div>
-                            <div className="bg-[#3ebcb0] py-1 text-white font-medium rounded-full w-8 h-8 flex items-center justify-center mx-auto shadow-sm">16</div>
+                            <div className="relative flex justify-center py-1">
+                                <div className="absolute top-1 bottom-1 -left-1 -right-1 bg-[#cbf1e9] -z-10"></div>
+                                <span className="text-gray-700 font-medium relative z-10 flex h-8 items-center">14</span>
+                            </div>
+                            <div className="relative flex justify-center py-1">
+                                <div className="absolute top-1 bottom-1 -left-1 -right-1 bg-[#cbf1e9] -z-10"></div>
+                                <span className="text-gray-700 font-medium relative z-10 flex h-8 items-center">15</span>
+                            </div>
+                            <div className="relative flex justify-center py-1">
+                                <div className="absolute top-1 bottom-1 right-1/2 -left-1 bg-[#cbf1e9] -z-10"></div>
+                                <div className="bg-[#3ebcb0] text-white rounded-full w-8 h-8 flex items-center justify-center font-medium shadow-sm relative z-10">16</div>
+                            </div>
                             <div className="text-gray-500 py-1 relative font-medium">
                                 17
                                 <span className="w-1 h-1 bg-[#ff8eef] rounded-full absolute bottom-0 left-1/2 -translate-x-1/2"></span>
