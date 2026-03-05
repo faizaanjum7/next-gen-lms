@@ -115,7 +115,7 @@ export default function CoursesPage() {
     const currentCourses = getCoursesForTab();
 
     return (
-        <div className="p-8 max-w-5xl mx-auto w-full">
+        <div className="p-6 md:p-8 w-full max-w-[1400px]">
             <h2 className="text-[20px] md:text-[22px] font-bold text-gray-900 mb-6">
                 Continue your learning journey...
             </h2>
