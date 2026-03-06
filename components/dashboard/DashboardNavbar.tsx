@@ -2,9 +2,15 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { Search, Calendar, Bell, User, ChevronDown } from "lucide-react";
+import { Search, Calendar, Bell, User, ChevronDown, Eye, EyeOff } from "lucide-react";
 
-export default function DashboardNavbar() {
+interface DashboardNavbarProps {
+    showHorizontalMenuToggle?: boolean;
+    isAiTutorMenuBarVisible?: boolean;
+    toggleAiTutorMenuBar?: () => void;
+}
+
+export default function DashboardNavbar({ showHorizontalMenuToggle, isAiTutorMenuBarVisible, toggleAiTutorMenuBar }: DashboardNavbarProps) {
     const pathname = usePathname();
 
     const getPageTitle = () => {
@@ -48,6 +54,19 @@ export default function DashboardNavbar() {
 
             {/* Right side: Actions & Profile */}
             <div className="flex items-center gap-3">
+                {showHorizontalMenuToggle && (
+                    <button
+                        onClick={toggleAiTutorMenuBar}
+                        className="p-2 mr-4 text-[#3fc9b9] transition-colors hidden sm:block"
+                        title={isAiTutorMenuBarVisible ? "Hide Menu" : "Show Menu"}
+                    >
+                        {isAiTutorMenuBarVisible ? (
+                            <Eye className="w-5 h-5" />
+                        ) : (
+                            <EyeOff className="w-5 h-5 text-gray-400" />
+                        )}
+                    </button>
+                )}
                 <button className="p-2 rounded-full border border-[#3fc9b9] text-[#3fc9b9] hover:bg-[#3fc9b9] hover:text-white transition-colors hidden sm:block">
                     <Calendar className="w-4 h-4" />
                 </button>
