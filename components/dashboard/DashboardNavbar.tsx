@@ -48,19 +48,19 @@ export default function DashboardNavbar() {
 
             {/* Right side: Actions & Profile */}
             <div className="flex items-center gap-3">
-                <button className="p-2 rounded-full border border-[#3fc9b9] text-[#3fc9b9] hover:bg-[#3fc9b9]/10 transition-colors hidden sm:block">
+                <button className="p-2 rounded-full border border-[#3fc9b9] text-[#3fc9b9] hover:bg-[#3fc9b9] hover:text-white transition-colors hidden sm:block">
                     <Calendar className="w-4 h-4" />
                 </button>
-                <button className="p-2 rounded-full border border-[#3fc9b9] text-[#3fc9b9] hover:bg-[#3fc9b9]/10 transition-colors">
+                <button className="p-2 rounded-full border border-[#3fc9b9] text-[#3fc9b9] hover:bg-[#3fc9b9] hover:text-white transition-colors">
                     <Bell className="w-4 h-4" />
                 </button>
                 <div className="h-6 w-px bg-gray-200 mx-1 hidden sm:block"></div>
-                <button className="flex items-center gap-2 hover:bg-gray-50 p-1 rounded-lg transition-colors">
-                    <div className="bg-[#3fc9b9]/20 p-1.5 rounded-full border border-[#3fc9b9]">
-                        <User className="w-4 h-4 text-[#3fc9b9]" />
+                <button className="flex items-center gap-2 hover:bg-[#3fc9b9] p-1 pr-3 rounded-full transition-colors group">
+                    <div className="bg-transparent p-1.5 rounded-full border border-[#3fc9b9] group-hover:border-white transition-colors">
+                        <User className="w-4 h-4 text-[#3fc9b9] group-hover:text-white transition-colors" />
                     </div>
-                    <span className="font-medium text-[14px] text-gray-900 hidden sm:block">Name</span>
-                    <ChevronDown className="w-3.5 h-3.5 text-gray-500 hidden sm:block" />
+                    <span className="font-medium text-[14px] text-[#3fc9b9] group-hover:text-white hidden sm:block transition-colors">Name</span>
+                    <ChevronDown className="w-3.5 h-3.5 text-[#3fc9b9] group-hover:text-white hidden sm:block transition-colors" />
                 </button>
             </div>
         </header>
