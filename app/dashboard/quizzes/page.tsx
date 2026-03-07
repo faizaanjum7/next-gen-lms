@@ -73,26 +73,31 @@ export default function QuizzesPage() {
 
     return (
         <div className="p-6 md:p-8 w-full max-w-[1400px]">
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            <div className="flex flex-wrap gap-8 md:gap-10">
                 {coursesWithQuizzes.map((course) => (
                     <div
                         key={course.id}
                         onClick={() => router.push(`/dashboard/quizzes/${course.id}`)}
-                        className="rounded-xl overflow-hidden cursor-pointer transition-transform hover:scale-[1.02] shadow-sm flex flex-col h-[320px]"
+                        className="rounded-[14px] cursor-pointer transition-transform hover:scale-[1.02] flex flex-col w-full sm:w-[320px] h-[340px]"
                         style={{
                             backgroundColor: course.colorTheme,
                             border: `1px solid ${course.borderColor}`
                         }}
                     >
                         {/* Course Image Area */}
-                        <div className="flex-grow flex items-center justify-center bg-white m-2 rounded-t-lg shadow-sm overflow-hidden relative">
+                        <div className="flex items-center justify-center bg-white m-3 rounded-[12px] overflow-hidden relative h-[220px] shrink-0 border border-gray-100">
                             {course.imagePath ? (
-                                <Image
-                                    src={course.imagePath}
-                                    alt={course.title}
-                                    fill
-                                    className="object-contain p-2"
-                                />
+                                <div className="absolute inset-0 flex items-center justify-center p-2">
+                                    <Image
+                                        src={course.imagePath}
+                                        alt={course.title}
+                                        fill
+                                        style={{ objectFit: 'contain', objectPosition: 'center center' }}
+                                        sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                                        className="p-2"
+                                        priority
+                                    />
+                                </div>
                             ) : (
                                 <div className="p-4 w-full h-full flex items-center justify-center">
                                     <div
@@ -112,11 +117,11 @@ export default function QuizzesPage() {
                         </div>
 
                         {/* Card Footer Content */}
-                        <div className="p-4 px-5 pt-2">
-                            <h2 className="text-lg font-bold text-gray-900 mb-1">
+                        <div className="px-4 pb-4 pt-1 flex flex-col justify-end">
+                            <h2 className="text-[18px] font-bold text-gray-900 mb-1">
                                 {course.title}
                             </h2>
-                            <p className="text-sm font-medium text-gray-700">
+                            <p className="text-[14px] text-gray-800 font-medium">
                                 {course.quizzesCount} Quizzes
                             </p>
                         </div>
