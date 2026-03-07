@@ -1,6 +1,7 @@
 "use client";
 
 import React from "react";
+import Image from "next/image";
 import { useRouter } from "next/navigation";
 
 // Mock data for courses containing quizzes
@@ -13,7 +14,7 @@ export const coursesWithQuizzes = [
         borderColor: "#57a8b8",
         gradientStart: "#d1ecf1",
         gradientEnd: "#96dce7",
-        iconContent: "Machine Learning",
+        imagePath: "/machinelearning.png",
     },
     {
         id: "web-development",
@@ -23,7 +24,7 @@ export const coursesWithQuizzes = [
         borderColor: "#c17c99",
         gradientStart: "#f8d9e5",
         gradientEnd: "#f0b4cb",
-        iconContent: "WEB DEVELOPMENT",
+        imagePath: "/webdev.png",
     },
     {
         id: "devops",
@@ -33,7 +34,7 @@ export const coursesWithQuizzes = [
         borderColor: "#8f70c3",
         gradientStart: "#e6dcf5",
         gradientEnd: "#c4a9eb",
-        iconContent: "DevOps",
+        imagePath: "/devops.png",
     },
     {
         id: "java",
@@ -43,7 +44,7 @@ export const coursesWithQuizzes = [
         borderColor: "#cf9758",
         gradientStart: "#fdebd4",
         gradientEnd: "#f8c88f",
-        iconContent: "☕ Java",
+        imagePath: "/java.png",
     },
     {
         id: "cloud-computing",
@@ -53,7 +54,7 @@ export const coursesWithQuizzes = [
         borderColor: "#6eb5a3",
         gradientStart: "#dcf7f1",
         gradientEnd: "#a6ecda",
-        iconContent: "CLOUD COMPUTING",
+        imagePath: "/cloudcomputing.png",
     },
     {
         id: "aws",
@@ -63,7 +64,7 @@ export const coursesWithQuizzes = [
         borderColor: "#8cb2be",
         gradientStart: "#e5f4f8",
         gradientEnd: "#c3e4ed",
-        iconContent: "AWS",
+        imagePath: "/aws.png",
     },
 ];
 
@@ -83,23 +84,31 @@ export default function QuizzesPage() {
                             border: `1px solid ${course.borderColor}`
                         }}
                     >
-                        {/* Illustration Placeholder Area */}
-                        <div className="p-4 flex-grow flex items-center justify-center bg-white m-2 rounded-t-lg shadow-sm overflow-hidden relative">
-                            <div
-                                className="absolute inset-0 opacity-20"
-                                style={{
-                                    background: `radial-gradient(circle at center, ${course.colorTheme} 0%, white 100%)`
-                                }}
-                            />
-                            <div
-                                className="absolute inset-0 opacity-10"
-                                style={{
-                                    backgroundImage: `url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23000000' fill-opacity='1'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E")`
-                                }}
-                            />
-                            <h3 className="text-xl md:text-2xl font-bold bg-clip-text text-transparent relative z-10" style={{ backgroundImage: `linear-gradient(to right, #2b3a4a, ${course.borderColor})` }}>
-                                {course.iconContent}
-                            </h3>
+                        {/* Course Image Area */}
+                        <div className="flex-grow flex items-center justify-center bg-white m-2 rounded-t-lg shadow-sm overflow-hidden relative">
+                            {course.imagePath ? (
+                                <Image
+                                    src={course.imagePath}
+                                    alt={course.title}
+                                    fill
+                                    className="object-contain p-2"
+                                />
+                            ) : (
+                                <div className="p-4 w-full h-full flex items-center justify-center">
+                                    <div
+                                        className="absolute inset-0 opacity-20"
+                                        style={{
+                                            background: `radial-gradient(circle at center, ${course.colorTheme} 0%, white 100%)`
+                                        }}
+                                    />
+                                    <h3
+                                        className="text-xl md:text-2xl font-bold bg-clip-text text-transparent relative z-10 text-center px-4"
+                                        style={{ backgroundImage: `linear-gradient(to right, #2b3a4a, ${course.borderColor})` }}
+                                    >
+                                        {course.title.toUpperCase()}
+                                    </h3>
+                                </div>
+                            )}
                         </div>
 
                         {/* Card Footer Content */}
