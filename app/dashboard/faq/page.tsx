@@ -68,20 +68,21 @@ export default function FAQPage() {
                                     {faq.question}
                                 </span>
                                 <span className="shrink-0 ml-2">
-                                    {isOpen ? (
-                                        <ChevronUp className="w-5 h-5 text-[#3bc4b6]" strokeWidth={2.5} />
-                                    ) : (
-                                        <ChevronDown className="w-5 h-5 text-[#3bc4b6]" strokeWidth={2.5} />
-                                    )}
+                                    <ChevronDown
+                                        className={`w-5 h-5 text-[#3bc4b6] transition-transform duration-300 ${isOpen ? "rotate-180" : ""}`}
+                                        strokeWidth={2.5}
+                                    />
                                 </span>
                             </button>
 
                             <div
-                                className={`transition-all duration-300 ease-in-out bg-white ${isOpen ? "max-h-[500px] opacity-100 pb-6 px-5 md:px-8" : "max-h-0 opacity-0 overflow-hidden"
+                                className={`grid transition-[grid-template-rows,opacity] duration-300 ease-in-out bg-white ${isOpen ? "grid-rows-[1fr] opacity-100" : "grid-rows-[0fr] opacity-0"
                                     }`}
                             >
-                                <div className="pt-2 text-gray-600 text-[15px] leading-relaxed border-t border-gray-100">
-                                    <div className="pt-4">{faq.answer}</div>
+                                <div className="overflow-hidden">
+                                    <div className="pb-6 px-5 md:px-8 text-gray-600 text-[15px] leading-relaxed">
+                                        <div className="pt-4 border-t border-gray-100">{faq.answer}</div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
