@@ -61,9 +61,8 @@ export default function Hero() {
                             {/* Circle Background */}
                             <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-[300px] h-[300px] md:w-[400px] md:h-[400px] bg-[#d5f2ee] rounded-full -z-10" />
 
-                            {/* Left Student Image */}
-                            <div className="absolute top-10 left-0 md:left-10 w-32 h-32 md:w-40 md:h-40 bg-gray-200 rounded-full overflow-hidden border-4 border-white shadow-lg">
-                                <Image src="/student1.png" alt="Student 1" fill className="object-cover" sizes="(max-width: 768px) 128px, 160px" />
+                            <div className="absolute top-10 left-0 md:left-10 w-32 h-32 md:w-40 md:h-40 bg-gray-200 rounded-full overflow-hidden border-4 border-white shadow-lg flex items-end justify-center">
+                                <Image src="/student1.png" alt="Student 1" fill className="object-contain" sizes="(max-width: 768px) 128px, 160px" />
                             </div>
 
                             {/* Right Student Image */}

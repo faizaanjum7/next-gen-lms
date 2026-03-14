@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import Image from "next/image";
+
 import { useRouter } from "next/navigation";
 
 export default function LearningPathView() {
@@ -15,34 +15,12 @@ export default function LearningPathView() {
     };
     return (
         <div className="min-h-screen bg-[#eefbf9] flex flex-col items-center justify-center pt-24 pb-12 px-4 relative overflow-hidden">
-            {/* Background images */}
-            <div className="absolute left-0 bottom-0 md:bottom-auto md:top-1/2 md:-translate-y-1/2 w-48 md:w-64 lg:w-80 h-[300px] md:h-[400px] lg:h-[500px] pointer-events-none opacity-20 md:opacity-100">
-                <Image
-                    src="/student1.png"
-                    alt="Student with books"
-                    fill
-                    className="object-contain object-left-bottom md:object-left"
-                    priority
-                />
-            </div>
-
-            <div className="absolute right-0 bottom-0 md:bottom-auto md:top-1/2 md:-translate-y-1/2 w-72 md:w-96 lg:w-[480px] h-[400px] md:h-[550px] lg:h-[700px] pointer-events-none opacity-20 md:opacity-100">
-                <Image
-                    src="/student 2.png"
-                    alt="Student pointing"
-                    fill
-                    className="object-contain object-right-bottom md:object-right"
-                    priority
-                />
-            </div>
+            {/* Background images removed */}
 
             {/* Main Content */}
             <div className="relative z-10 w-full max-w-2xl flex flex-col items-center text-center">
-                <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-12">
-                    <span className="text-[#2EC4B6]">Choose </span>
-                    <span className="text-[#649e8a]">Your </span>
-                    <span className="text-[#a4a067]">Learning </span>
-                    <span className="text-[#FF9F1C]">Path</span>
+                <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-12 bg-gradient-to-r from-[#2EC4B6] to-[#FF8A14] bg-clip-text text-transparent">
+                    Choose Your Learning Path
                 </h1>
 
                 <div className="w-full max-w-md bg-transparent flex flex-col items-start gap-4">
