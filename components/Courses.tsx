@@ -63,8 +63,13 @@ const courses = [
 
 export default function Courses() {
     const [showAll, setShowAll] = useState(false);
+    const [searchQuery, setSearchQuery] = useState("");
 
-    const displayedCourses = showAll ? courses : courses.slice(0, 3);
+    const filteredCourses = courses.filter((course) =>
+        course.title.toLowerCase().includes(searchQuery.toLowerCase())
+    );
+
+    const displayedCourses = showAll || searchQuery ? filteredCourses : filteredCourses.slice(0, 3);
 
     return (
         <section id="courses" className="py-20 bg-[#f8fdfc]">
@@ -73,12 +78,18 @@ export default function Courses() {
                     Explore <span className="text-[#FF9F1C]">Our Top</span> Courses
                 </h2>
 
-                {/* Search Bar - Visual only as per screenshot */}
+                {/* Search Bar */}
                 <div className="max-w-md mx-auto mb-12 relative">
                     <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
                         <Search className="h-5 w-5 text-gray-400" />
                     </div>
-                    <input type="text" className="block w-full pl-10 pr-3 py-3 border border-gray-300 rounded-full leading-5 bg-[#dbeceb] placeholder-gray-500 focus:outline-none focus:placeholder-gray-400 focus:ring-1 focus:ring-[#3a8d84] focus:border-[#3a8d84] sm:text-sm" placeholder="Search for courses..." readOnly />
+                    <input 
+                        type="text" 
+                        value={searchQuery}
+                        onChange={(e) => setSearchQuery(e.target.value)}
+                        className="block w-full pl-10 pr-3 py-3 border border-gray-300 rounded-full leading-5 bg-[#dbeceb] placeholder-gray-500 focus:outline-none focus:placeholder-gray-400 focus:ring-1 focus:ring-[#3a8d84] focus:border-[#3a8d84] sm:text-sm" 
+                        placeholder="Search for courses..." 
+                    />
                 </div>
 
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-12">
@@ -109,10 +120,10 @@ export default function Courses() {
                     ))}
                 </div>
 
-                {!showAll && (
+                {!showAll && !searchQuery && (
                     <Button 
                         onClick={() => setShowAll(true)}
-                        className="bg-[#FF9F1C] hover:bg-[#e88e10] text-white font-semibold py-2 px-6 rounded-md shadow-md transition-all duration-300"
+                        className="bg-[#FF9F1C] hover:bg-[#e88e10] text-white font-semibold py-2 px-6 rounded-md shadow-md transition-all duration-300 mt-12"
                     >
                         MORE COURSES
                     </Button>
