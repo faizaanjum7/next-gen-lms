@@ -1,7 +1,8 @@
+import { useState } from "react";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
-import { Folder, Search, Cloud } from "lucide-react"; // Placeholders for course images/icons
+import { Folder, Search, Cloud, Code, Database, MonitorPlay } from "lucide-react"; 
 
 const courses = [
     {
@@ -9,8 +10,8 @@ const courses = [
         category: "Development",
         students: "1.5k Students",
         rating: "4.9",
-        image: "bg-blue-100", // Placeholder color
-        icon: Folder, // Placeholder icon
+        image: "bg-blue-100",
+        icon: Folder, 
         iconColor: "text-blue-600",
     },
     {
@@ -31,9 +32,40 @@ const courses = [
         icon: Cloud,
         iconColor: "text-cyan-600",
     },
+    {
+        title: "Golang Full Stack",
+        category: "Development",
+        students: "2.1k Students",
+        rating: "4.9",
+        image: "bg-teal-100",
+        icon: Code,
+        iconColor: "text-teal-600",
+    },
+    {
+        title: "Data Structures & Algorithms",
+        category: "Computer Science",
+        students: "3.4k Students",
+        rating: "4.8",
+        image: "bg-purple-100",
+        icon: Database,
+        iconColor: "text-purple-600",
+    },
+    {
+        title: "React Mastery",
+        category: "Development",
+        students: "1.8k Students",
+        rating: "4.9",
+        image: "bg-yellow-100",
+        icon: MonitorPlay,
+        iconColor: "text-yellow-600",
+    },
 ];
 
 export default function Courses() {
+    const [showAll, setShowAll] = useState(false);
+
+    const displayedCourses = showAll ? courses : courses.slice(0, 3);
+
     return (
         <section id="courses" className="py-20 bg-[#f8fdfc]">
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
@@ -50,52 +82,41 @@ export default function Courses() {
                 </div>
 
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-12">
-                    {courses.map((course, index) => (
-                        <Card key={index} className="overflow-hidden hover:shadow-lg transition-shadow border-none shadow-md">
+                    {displayedCourses.map((course, index) => (
+                        <Card key={index} className="overflow-hidden hover:shadow-xl transition-all duration-300 border border-gray-100 shadow-md rounded-2xl bg-white hover:-translate-y-1">
                             <div className={`h-40 ${course.image} flex items-center justify-center relative`}>
                                 {/* Placeholder for course thumbnail */}
                                 <course.icon className={`w-16 h-16 ${course.iconColor}`} />
-                                <Badge className="absolute top-4 left-4 bg-white/90 text-black hover:bg-white">{course.category}</Badge>
+                                <Badge className="absolute top-4 left-4 bg-white/90 text-black hover:bg-white border-0 shadow-sm">{course.category}</Badge>
                             </div>
                             <CardContent className="p-6 text-left">
-                                <h3 className="font-bold text-lg mb-2">{course.title}</h3>
-                                <div className="flex items-center justify-between text-sm text-gray-500 mb-4">
-                                    <div className="flex items-center">
+                                <h3 className="font-bold text-lg mb-2 text-gray-900">{course.title}</h3>
+                                <div className="flex items-center justify-between text-sm text-gray-500 mb-6">
+                                    <div className="flex items-center bg-gray-50 px-2 py-1 rounded-md">
                                         <span className="mr-1">👤</span> {course.students}
                                     </div>
-                                    <div className="flex items-center text-[#FF9F1C]">
+                                    <div className="flex items-center bg-[#FF9F1C]/10 text-[#FF9F1C] px-2 py-1 rounded-md font-medium">
                                         <span className="mr-1">★</span> {course.rating}
                                     </div>
                                 </div>
-                                <div className="w-full bg-gray-200 rounded-full h-1.5 mb-4">
-                                    <div className="bg-[#FF9F1C] h-1.5 rounded-full" style={{ width: '60%' }}></div>
+                                <div className="pt-2 border-t border-gray-100">
+                                    <Button variant="orange" className="w-full mt-4 rounded-full font-semibold transition-transform hover:scale-[1.02] shadow-md">
+                                        Enroll Now
+                                    </Button>
                                 </div>
-                                <div className="flex justify-between items-center">
-                                    <span className="text-xs text-gray-400">60% Completed</span>
-                                    <span className="text-xs font-bold text-[#3a8d84]">Continue</span>
-                                </div>
-
-                                {/* 
-                    Note: The screenshot cards show "Introduction to..." or similar titles.
-                    And simpler content. I added a progress bar which might not be in the screenshot perfectly,
-                    checking screenshot again.
-                    Screenshot:
-                    Image area.
-                    Title "Java Programming"
-                    "Mrs. smith" | "12 Lessons"
-                    Rating stars.
-                    
-                    My implementation is close enough for a reusable component structure,
-                    I'll adjust to match visual style better if asked, but for layout it works.
-                */}
                             </CardContent>
                         </Card>
                     ))}
                 </div>
 
-                <Button variant="orange" size="lg" className="rounded-full px-8">
-                    MORE COURSES
-                </Button>
+                {!showAll && (
+                    <Button 
+                        onClick={() => setShowAll(true)}
+                        className="bg-[#FF9F1C] hover:bg-[#e88e10] text-white font-semibold py-2 px-6 rounded-md shadow-md transition-all duration-300"
+                    >
+                        MORE COURSES
+                    </Button>
+                )}
             </div>
         </section>
     );
