@@ -147,9 +147,9 @@ export default function SettingsPage() {
                                         )} />
                                     </button>
                                 </div>
-                                <div className="p-4 bg-yellow-50 rounded-xl border border-yellow-100 flex items-start gap-3">
-                                    <div className="p-1 bg-white rounded flex-shrink-0">💡</div>
-                                    <p className="text-xs text-yellow-800 leading-relaxed font-medium">
+                                <div className="p-4 bg-yellow-50 dark:bg-yellow-900/20 rounded-xl border border-yellow-100 dark:border-yellow-900/30 flex items-start gap-3 transition-colors">
+                                    <div className="p-1 bg-white dark:bg-yellow-800 rounded flex-shrink-0 transition-colors">💡</div>
+                                    <p className="text-xs text-yellow-800 dark:text-yellow-200 leading-relaxed font-medium transition-colors">
                                         Note: Dark mode is currently in beta and might not reflect perfectly on all legacy components.
                                     </p>
                                 </div>
@@ -191,7 +191,7 @@ export default function SettingsPage() {
     };
 
     return (
-        <main className="min-h-screen bg-[#eefbf9] font-sans text-gray-900 selection:bg-[#2EC4B6] selection:text-white flex flex-col">
+        <main className="min-h-screen bg-[#eefbf9] dark:bg-[#0f172a] font-sans text-gray-900 dark:text-white transition-colors selection:bg-[#2EC4B6] selection:text-white flex flex-col">
             <Navbar />
             
             <div className="flex-1 pt-32 pb-20 px-6">
@@ -215,7 +215,7 @@ export default function SettingsPage() {
                                     onClick={() => setActiveTab("account")}
                                     className={cn(
                                         "flex items-center gap-3 px-4 py-3 font-bold rounded-xl transition-all",
-                                        activeTab === "account" ? "bg-white dark:bg-[#1e293b] text-[#2EC4B6] shadow-sm border border-gray-100 dark:border-gray-800" : "text-gray-500 dark:text-gray-400 hover:bg-white dark:hover:bg-[#1e293b]"
+                                        activeTab === "account" ? "bg-white dark:bg-[#1e293b] text-[#2EC4B6] shadow-sm border border-gray-100 dark:border-gray-800" : "text-gray-500 dark:text-gray-400 hover:bg-white dark:hover:bg-[#1e293b] hover:text-[#2EC4B6]"
                                     )}
                                 >
                                     <Shield className="w-4 h-4" /> Account
@@ -224,7 +224,7 @@ export default function SettingsPage() {
                                     onClick={() => setActiveTab("notifications")}
                                     className={cn(
                                         "flex items-center gap-3 px-4 py-3 font-bold rounded-xl transition-all",
-                                        activeTab === "notifications" ? "bg-white dark:bg-[#1e293b] text-[#2EC4B6] shadow-sm border border-gray-100 dark:border-gray-800" : "text-gray-500 dark:text-gray-400 hover:bg-white dark:hover:bg-[#1e293b]"
+                                        activeTab === "notifications" ? "bg-white dark:bg-[#1e293b] text-[#2EC4B6] shadow-sm border border-gray-100 dark:border-gray-800" : "text-gray-500 dark:text-gray-400 hover:bg-white dark:hover:bg-[#1e293b] hover:text-[#2EC4B6]"
                                     )}
                                 >
                                     <Bell className="w-4 h-4" /> Notifications
@@ -233,7 +233,7 @@ export default function SettingsPage() {
                                     onClick={() => setActiveTab("appearance")}
                                     className={cn(
                                         "flex items-center gap-3 px-4 py-3 font-bold rounded-xl transition-all",
-                                        activeTab === "appearance" ? "bg-white dark:bg-[#1e293b] text-[#2EC4B6] shadow-sm border border-gray-100 dark:border-gray-800" : "text-gray-500 dark:text-gray-400 hover:bg-white dark:hover:bg-[#1e293b]"
+                                        activeTab === "appearance" ? "bg-white dark:bg-[#1e293b] text-[#2EC4B6] shadow-sm border border-gray-100 dark:border-gray-800" : "text-gray-500 dark:text-gray-400 hover:bg-white dark:hover:bg-[#1e293b] hover:text-[#2EC4B6]"
                                     )}
                                 >
                                     <Moon className="w-4 h-4" /> Appearance
@@ -242,7 +242,7 @@ export default function SettingsPage() {
                                     onClick={() => setActiveTab("language")}
                                     className={cn(
                                         "flex items-center gap-3 px-4 py-3 font-bold rounded-xl transition-all",
-                                        activeTab === "language" ? "bg-white dark:bg-[#1e293b] text-[#2EC4B6] shadow-sm border border-gray-100 dark:border-gray-800" : "text-gray-500 dark:text-gray-400 hover:bg-white dark:hover:bg-[#1e293b]"
+                                        activeTab === "language" ? "bg-white dark:bg-[#1e293b] text-[#2EC4B6] shadow-sm border border-gray-100 dark:border-gray-800" : "text-gray-500 dark:text-gray-400 hover:bg-white dark:hover:bg-[#1e293b] hover:text-[#2EC4B6]"
                                     )}
                                 >
                                     <Languages className="w-4 h-4" /> Language
