@@ -18,6 +18,8 @@ import {
     LogOut,
     ChevronLeft,
     ChevronRight,
+    Bot,
+    Terminal,
 } from "lucide-react";
 
 interface SidebarProps {
@@ -32,7 +34,9 @@ export default function Sidebar({ isSidebarOpen, setIsSidebarOpen }: SidebarProp
         { name: "Dashboard", href: "/dashboard", icon: LayoutGrid },
         { name: "Courses", href: "/dashboard/courses", icon: BookOpen },
         { name: "Projects", href: "/dashboard/projects", icon: Folder },
+        { name: "Code Play Studio", href: "/dashboard/code-play-studio", icon: Terminal },
         { name: "AI Tutor", href: "/dashboard/ai-tutor", icon: Sparkles },
+        { name: "AI HR", href: "/dashboard/ai-hr", icon: Bot },
         { name: "Payment History", href: "/dashboard/payments", icon: Wallet },
         { name: "Quizzes", href: "/dashboard/quizzes", icon: ClipboardList },
         { name: "Assignments", href: "/dashboard/assignments", icon: ClipboardType },
