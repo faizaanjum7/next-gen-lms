@@ -4,12 +4,14 @@ import { useSearchParams, useRouter } from "next/navigation";
 import Navbar from "@/components/Navbar";
 import { Suspense, useState, useEffect, useRef } from "react";
 import { Check, Calendar, Clock, X, Send } from "lucide-react";
+import { useAuth } from "@/lib/AuthContext";
 
 function AIHRContent() {
     const searchParams = useSearchParams();
     const router = useRouter();
     const courseParam = searchParams?.get("course") || "web-dev";
     const levelParam = searchParams?.get("level") || "basic";
+    const { addNotification } = useAuth();
 
     // Helper to format unknown course slugs like "full-stack-java" -> "Full Stack Java"
     const formatCourseName = (slug: string) => {
@@ -192,7 +194,9 @@ function AIHRContent() {
 
         // Simulating an API call/success
         const formattedDate = new Date(scheduleDate).toLocaleDateString();
-        setToastMessage(`Assessment scheduled for ${formattedDate} at ${scheduleTime}`);
+        const msg = `Assessment scheduled for ${formattedDate} at ${scheduleTime}`;
+        addNotification(msg);
+        setToastMessage(msg);
         setIsScheduling(false);
         setShowToast(true);
 

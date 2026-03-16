@@ -3,7 +3,7 @@
 import { useState, useRef, useEffect } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { Menu, UserCircle, ChevronDown, LogOut } from "lucide-react";
+import { Menu, UserCircle, ChevronDown, LogOut, Bell, Settings as SettingsIcon, User as UserIcon, Trash2, X } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { useAuth } from "@/lib/AuthContext";
 
@@ -12,8 +12,9 @@ export default function Navbar() {
     const [isProfileMenuOpen, setIsProfileMenuOpen] = useState(false);
     const [activeTab, setActiveTab] = useState<'login' | 'signup'>('signup');
     const router = useRouter();
-    const { user, logout } = useAuth();
+    const { user, logout, notifications, removeNotification } = useAuth();
     const profileMenuRef = useRef<HTMLDivElement>(null);
+    const [showNotifications, setShowNotifications] = useState(false);
 
     useEffect(() => {
         function handleClickOutside(event: MouseEvent) {
@@ -55,18 +56,80 @@ export default function Navbar() {
                                 </button>
 
                                 {isProfileMenuOpen && (
-                                    <div className="absolute right-0 mt-2 w-48 bg-white rounded-md shadow-lg py-1 z-50 ring-1 ring-black ring-opacity-5">
-                                        <button
-                                            onClick={() => {
-                                                logout();
-                                                setIsProfileMenuOpen(false);
-                                                router.push('/');
-                                            }}
-                                            className="flex items-center gap-2 px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 w-full text-left"
-                                        >
-                                            <LogOut className="w-4 h-4" />
-                                            Log Out
-                                        </button>
+                                    <div className="absolute right-0 mt-2 w-72 bg-white rounded-xl shadow-xl z-50 ring-1 ring-black ring-opacity-5 overflow-hidden flex flex-col border border-gray-100">
+                                        <div className="p-4 border-b border-gray-50 bg-gray-50/50">
+                                            <p className="text-sm font-semibold text-gray-900">{user.name}</p>
+                                            <p className="text-xs text-gray-500 truncate">Account Active</p>
+                                        </div>
+
+                                        <div className="py-2">
+                                            <Link
+                                                href="/profile"
+                                                onClick={() => setIsProfileMenuOpen(false)}
+                                                className="flex items-center gap-3 px-4 py-2.5 text-sm text-gray-700 hover:bg-[#eefbf9] hover:text-[#2EC4B6] transition-colors"
+                                            >
+                                                <UserIcon className="w-4 h-4" />
+                                                Edit Profile
+                                            </Link>
+                                            <Link
+                                                href="/settings"
+                                                onClick={() => setIsProfileMenuOpen(false)}
+                                                className="flex items-center gap-3 px-4 py-2.5 text-sm text-gray-700 hover:bg-[#eefbf9] hover:text-[#2EC4B6] transition-colors"
+                                            >
+                                                <SettingsIcon className="w-4 h-4" />
+                                                Settings
+                                            </Link>
+                                            
+                                            <div className="border-t border-gray-50 my-1"></div>
+                                            
+                                            {/* Notifications Section */}
+                                            <div className="px-4 py-2 flex items-center justify-between">
+                                                <div className="flex items-center gap-2 text-sm font-bold text-gray-900">
+                                                    <Bell className="w-4 h-4" />
+                                                    Notifications
+                                                </div>
+                                                {notifications.length > 0 && (
+                                                    <span className="bg-[#FF9F1C] text-white text-[10px] px-1.5 py-0.5 rounded-full min-w-[18px] text-center">
+                                                        {notifications.length}
+                                                    </span>
+                                                )}
+                                            </div>
+                                            
+                                            <div className="max-h-48 overflow-y-auto px-2 pb-2">
+                                                {notifications.length > 0 ? (
+                                                    notifications.map((notif) => (
+                                                        <div key={notif.id} className="group relative bg-gray-50 rounded-lg p-3 mb-2 last:mb-0 border border-transparent hover:border-[#2EC4B6]/20 transition-all">
+                                                            <p className="text-xs text-gray-700 pr-6 leading-relaxed">{notif.message}</p>
+                                                            <button 
+                                                                onClick={(e) => {
+                                                                    e.stopPropagation();
+                                                                    removeNotification(notif.id);
+                                                                }}
+                                                                className="absolute top-2 right-2 text-gray-400 hover:text-red-500 opacity-0 group-hover:opacity-100 transition-opacity"
+                                                            >
+                                                                <X className="w-3 h-3" />
+                                                            </button>
+                                                        </div>
+                                                    ))
+                                                ) : (
+                                                    <p className="text-xs text-gray-400 text-center py-4 italic">No new notifications</p>
+                                                )}
+                                            </div>
+                                        </div>
+
+                                        <div className="p-2 border-t border-gray-50 bg-gray-50/30">
+                                            <button
+                                                onClick={() => {
+                                                    logout();
+                                                    setIsProfileMenuOpen(false);
+                                                    router.push('/');
+                                                }}
+                                                className="flex items-center gap-3 px-3 py-2 text-sm font-semibold text-red-600 hover:bg-red-50 rounded-lg w-full text-left transition-colors"
+                                            >
+                                                <LogOut className="w-4 h-4" />
+                                                Log Out
+                                            </button>
+                                        </div>
                                     </div>
                                 )}
                             </div>

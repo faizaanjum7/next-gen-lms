@@ -68,9 +68,9 @@ export default function Footer() {
                     </p>
                     <div className="flex space-x-4">
                         <Link href="#" className="p-2 bg-white/10 rounded-lg hover:bg-white hover:text-[#3a8d84] transition-all duration-300"><Facebook className="w-5 h-5" /></Link>
-                        <Link href="#" className="p-2 bg-white/10 rounded-lg hover:bg-white hover:text-[#3a8d84] transition-all duration-300"><Twitter className="w-5 h-5" /></Link>
-                        <Link href="#" className="p-2 bg-white/10 rounded-lg hover:bg-white hover:text-[#3a8d84] transition-all duration-300"><Instagram className="w-5 h-5" /></Link>
-                        <Link href="#" className="p-2 bg-white/10 rounded-lg hover:bg-white hover:text-[#3a8d84] transition-all duration-300"><Linkedin className="w-5 h-5" /></Link>
+                        <Link href="https://x.com/litruach" className="p-2 bg-white/10 rounded-lg hover:bg-white hover:text-[#3a8d84] transition-all duration-300"><Twitter className="w-5 h-5" /></Link>
+                        <Link href="https://www.instagram.com/litruachofficial/" className="p-2 bg-white/10 rounded-lg hover:bg-white hover:text-[#3a8d84] transition-all duration-300"><Instagram className="w-5 h-5" /></Link>
+                        <Link href="www.linkedin.com/in/lit-ruach-5b78033a5" className="p-2 bg-white/10 rounded-lg hover:bg-white hover:text-[#3a8d84] transition-all duration-300"><Linkedin className="w-5 h-5" /></Link>
                     </div>
                 </div>
             </div>
