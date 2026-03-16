@@ -40,7 +40,7 @@ const announcements = [
 export default function AnnouncementsPage() {
     return (
         <div className="p-6 md:p-8 w-full max-w-[1200px]">
-            <h1 className="text-2xl md:text-3xl font-bold text-gray-900 mb-6">
+            <h1 className="text-2xl md:text-3xl font-bold text-gray-900 dark:text-white mb-6 transition-colors">
                 Latest Announcements
             </h1>
 
@@ -48,7 +48,7 @@ export default function AnnouncementsPage() {
                 {announcements.map((announcement) => (
                     <div
                         key={announcement.id}
-                        className="bg-white rounded-md p-5 md:px-6 md:py-5 flex flex-col md:flex-row justify-between items-start md:items-center gap-4 transition-shadow hover:shadow-md"
+                        className="bg-white dark:bg-[#1e293b] rounded-md p-5 md:px-6 md:py-5 flex flex-col md:flex-row justify-between items-start md:items-center gap-4 transition-all hover:shadow-md"
                         style={{
                             border: "1px solid #7edbd2",
                             boxShadow: "0 2px 8px rgba(46, 196, 182, 0.15)"
@@ -58,14 +58,14 @@ export default function AnnouncementsPage() {
                             <h3 className="text-lg md:text-[1.15rem] mb-1.5 leading-tight">
                                 <span className="font-semibold" style={{ color: "#2E8B57" }}>{announcement.titlePrefix}</span>
                                 {announcement.titleSuffix && (
-                                    <span className="font-bold text-gray-900 ml-1.5">{announcement.titleSuffix}</span>
+                                    <span className="font-bold text-gray-900 dark:text-white ml-1.5 transition-colors">{announcement.titleSuffix}</span>
                                 )}
                             </h3>
-                            <p className="text-[14px] mb-3">
-                                <span className="font-bold text-gray-900">Posted:</span>
-                                <span className="text-gray-800 ml-1.5">{announcement.date}</span>
+                            <p className="text-[14px] mb-3 transition-colors">
+                                <span className="font-bold text-gray-900 dark:text-white">Posted:</span>
+                                <span className="text-gray-800 dark:text-gray-300 ml-1.5">{announcement.date}</span>
                             </p>
-                            <div className="text-[14px] text-gray-800 space-y-0.5">
+                            <div className="text-[14px] text-gray-800 dark:text-gray-300 space-y-0.5 transition-colors">
                                 {announcement.desc.split('\n').map((line, i) => (
                                     <p key={i}>{line}</p>
                                 ))}

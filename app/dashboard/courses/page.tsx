@@ -115,25 +115,25 @@ export default function CoursesPage() {
     const currentCourses = getCoursesForTab();
 
     return (
-        <div className="p-6 md:p-8 w-full max-w-[1400px]">
-            <h2 className="text-[20px] md:text-[22px] font-bold text-gray-900 mb-6">
+        <div className="p-6 md:p-8 w-full max-w-[1400px] transition-colors">
+            <h2 className="text-[20px] md:text-[22px] font-bold text-gray-900 dark:text-white mb-6">
                 Continue your learning journey...
             </h2>
 
             {/* Tabs Navigation */}
-            <div className="flex flex-wrap gap-8 border-b border-gray-200 mb-8 overflow-x-auto scrollbar-hide">
+            <div className="flex flex-wrap gap-8 border-b border-gray-200 dark:border-gray-800 mb-8 overflow-x-auto scrollbar-hide">
                 {TABS.map((tab) => {
                     const isActive = activeTab === tab;
                     return (
                         <button
                             key={tab}
                             onClick={() => setActiveTab(tab)}
-                            className={`pb-3 text-base font-semibold whitespace-nowrap transition-colors relative ${isActive ? "text-gray-900" : "text-gray-400 hover:text-gray-600"
+                            className={`pb-3 text-base font-semibold whitespace-nowrap transition-colors relative ${isActive ? "text-gray-900 dark:text-white" : "text-gray-400 dark:text-gray-500 hover:text-gray-600 dark:hover:text-gray-300"
                                 }`}
                         >
                             {tab}
                             {isActive && (
-                                <span className="absolute bottom-[-1px] left-0 w-full h-[3px] bg-gray-900 rounded-t-full" />
+                                <span className="absolute bottom-[-1px] left-0 w-full h-[3px] bg-gray-900 dark:bg-[#2EC4B6] rounded-t-full" />
                             )}
                         </button>
                     );

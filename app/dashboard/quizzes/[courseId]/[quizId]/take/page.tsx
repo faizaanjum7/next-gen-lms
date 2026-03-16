@@ -78,19 +78,19 @@ export default function ActiveQuizPage({
 
     return (
         <div
-            className="fixed inset-0 z-[100] bg-[#fafbfc] flex flex-col select-none overflow-y-auto"
+            className="fixed inset-0 z-[100] bg-[#fafbfc] dark:bg-[#0f172a] flex flex-col select-none overflow-y-auto transition-colors"
             onCopy={(e) => e.preventDefault()}
             onPaste={(e) => e.preventDefault()}
             onContextMenu={(e) => e.preventDefault()}
         >
             {/* Top Header */}
-            <div className="h-[72px] bg-white border-b border-gray-200 flex items-center justify-between px-6 md:px-12 flex-shrink-0">
+            <div className="h-[72px] bg-white dark:bg-[#1e293b] border-b border-gray-200 dark:border-gray-800 flex items-center justify-between px-6 md:px-12 flex-shrink-0 transition-colors">
                 <h1 className="text-xl font-bold flex gap-2">
                     <span className="text-[#3fc1b3]">{courseName}</span>
                     <span className="text-[#dcab46]">Quiz {quizNum}</span>
                 </h1>
 
-                <div className="flex items-center gap-2 bg-[#fbe7c4] border border-[#f3bd62] rounded-md px-4 py-1.5 md:py-2 min-w-[120px] justify-center text-[#1a1a1a]">
+                <div className="flex items-center gap-2 bg-[#fbe7c4] dark:bg-[#3d3a2e] border border-[#f3bd62] dark:border-[#6b5a3a] rounded-md px-4 py-1.5 md:py-2 min-w-[120px] justify-center text-[#1a1a1a] dark:text-white transition-colors">
                     <Clock className="w-5 h-5 text-[#40a399]" />
                     <span className="font-bold text-lg md:text-xl tracking-wide">{mins}:{secs}</span>
                 </div>
@@ -98,9 +98,9 @@ export default function ActiveQuizPage({
 
             {/* Main Content Area */}
             <div className="flex-1 flex flex-col items-center py-10 px-4">
-                <div className="w-full max-w-[1000px] bg-white border border-[#4edfcb] rounded-sm p-6 md:p-12 mb-8 relative min-h-[500px] flex flex-col">
+                <div className="w-full max-w-[1000px] bg-white dark:bg-[#1e293b] border border-[#4edfcb] dark:border-[#2a9c4a] rounded-sm p-6 md:p-12 mb-8 relative min-h-[500px] flex flex-col transition-colors">
 
-                    <h2 className="text-[18px] md:text-[20px] font-bold text-gray-900 mb-8">
+                    <h2 className="text-[18px] md:text-[20px] font-bold text-gray-900 dark:text-white mb-8 transition-colors">
                         {currentQ + 1}. {mockQuestions[currentQ].text}
                     </h2>
 
@@ -109,12 +109,12 @@ export default function ActiveQuizPage({
                             <div
                                 key={idx}
                                 onClick={() => setSelectedOption(idx)}
-                                className={`border border-[#4edfcb] rounded-md p-4 flex items-center gap-4 cursor-pointer transition-colors ${selectedOption === idx ? 'bg-[#f0fbf9]' : 'hover:bg-gray-50'}`}
+                                className={`border border-[#4edfcb] dark:border-[#2a9c4a] rounded-md p-4 flex items-center gap-4 cursor-pointer transition-colors ${selectedOption === idx ? 'bg-[#f0fbf9] dark:bg-[#1a2e2b]' : 'hover:bg-gray-50 dark:hover:bg-gray-800'}`}
                             >
                                 <div className={`w-5 h-5 rounded-full border-2 flex items-center justify-center flex-shrink-0 ${selectedOption === idx ? 'border-[#4edfcb]' : 'border-[#4edfcb]'}`}>
-                                    {selectedOption === idx && <div className="w-2.5 h-2.5 bg-[#4edfcb] rounded-full" />}
+                                    {selectedOption === idx && <div className="w-2.5 h-2.5 bg-[#4edfcb] dark:bg-[#2a9c4a] rounded-full" />}
                                 </div>
-                                <span className="text-base font-medium text-gray-800">{option}</span>
+                                <span className="text-base font-medium text-gray-800 dark:text-gray-200 transition-colors">{option}</span>
                             </div>
                         ))}
                     </div>

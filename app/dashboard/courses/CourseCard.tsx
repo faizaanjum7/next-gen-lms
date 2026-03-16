@@ -64,7 +64,7 @@ export default function CourseCard({
     const progressPercentage = (progress.current / progress.total) * 100;
 
     return (
-        <div className="bg-white rounded-xl p-6 flex flex-col md:flex-row shadow-[0_2px_10px_rgba(0,0,0,0.04)] border border-gray-100 gap-6 w-full relative mb-4">
+        <div className="bg-white dark:bg-[#1e293b] rounded-xl p-6 flex flex-col md:flex-row shadow-[0_2px_10px_rgba(0,0,0,0.04)] border border-gray-100 dark:border-gray-800 gap-6 w-full relative mb-4 transition-colors">
             {/* Left Section: Icon & Content */}
             <div className="flex-1 flex flex-col">
                 <div className="flex gap-4">
@@ -75,18 +75,18 @@ export default function CourseCard({
 
                     {/* Titles */}
                     <div>
-                        <h3 className="text-lg font-bold text-gray-900 leading-tight mb-1">{title}</h3>
-                        <p className="text-[13px] text-gray-500">{category}</p>
-                        <p className="text-[13px] text-gray-400">{instructor}</p>
+                        <h3 className="text-lg font-bold text-gray-900 dark:text-white leading-tight mb-1 transition-colors">{title}</h3>
+                        <p className="text-[13px] text-gray-500 dark:text-gray-400 transition-colors">{category}</p>
+                        <p className="text-[13px] text-gray-400 dark:text-gray-500 transition-colors">{instructor}</p>
                     </div>
                 </div>
 
                 {/* Progress Bar Row */}
-                <div className="mt-8 mb-2 flex items-center justify-between text-[13px] text-gray-500 font-medium">
+                <div className="mt-8 mb-2 flex items-center justify-between text-[13px] text-gray-500 dark:text-gray-400 font-medium transition-colors">
                     <span>Progress</span>
                     <span>{progress.current} of {progress.total} modules</span>
                 </div>
-                <div className="w-full h-1.5 bg-gray-100 rounded-full overflow-hidden mb-6">
+                <div className="w-full h-1.5 bg-gray-100 dark:bg-gray-800 rounded-full overflow-hidden mb-6 transition-colors">
                     <div
                         className={`h-full rounded-full transition-all duration-500 ease-out ${theme.progressFill}`}
                         style={{ width: `${progressPercentage}%` }}
@@ -96,12 +96,12 @@ export default function CourseCard({
                 {/* Bottom Row: Info & Stats */}
                 <div className="flex items-center gap-12 mt-auto">
                     <div>
-                        <p className="text-[12px] text-gray-400 mb-0.5">Lessons</p>
-                        <p className="text-[14px] font-bold text-gray-800">{lessons.completed}/{lessons.total}</p>
+                        <p className="text-[12px] text-gray-400 dark:text-gray-500 mb-0.5 transition-colors">Lessons</p>
+                        <p className="text-[14px] font-bold text-gray-800 dark:text-gray-200 transition-colors">{lessons.completed}/{lessons.total}</p>
                     </div>
                     <div>
-                        <p className="text-[12px] text-gray-400 mb-0.5">Duration</p>
-                        <p className="text-[14px] font-bold text-gray-800">{duration.completed}/{duration.total} mins</p>
+                        <p className="text-[12px] text-gray-400 dark:text-gray-500 mb-0.5 transition-colors">Duration</p>
+                        <p className="text-[14px] font-bold text-gray-800 dark:text-gray-200 transition-colors">{duration.completed}/{duration.total} mins</p>
                     </div>
                 </div>
             </div>
@@ -109,10 +109,10 @@ export default function CourseCard({
             {/* Right Section: Image & Button */}
             <div className="flex flex-col items-center justify-between gap-4 md:w-[220px] shrink-0">
                 {/* Illustration Placeholder */}
-                <div className="w-full h-[120px] rounded-xl border border-blue-100 bg-blue-50/30 flex items-center justify-center relative overflow-hidden">
+                <div className="w-full h-[120px] rounded-xl border border-blue-100 dark:border-blue-900/30 bg-blue-50/30 dark:bg-blue-900/10 flex items-center justify-center relative overflow-hidden transition-colors">
                     {/* Using a generic colored block as placeholder if we don't have images */}
-                    <div className="text-blue-300 font-medium text-sm flex items-center justify-center h-full w-full">
-                        <svg className="w-12 h-12 opacity-50 text-blue-300" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <div className="text-blue-300 dark:text-blue-700/50 font-medium text-sm flex items-center justify-center h-full w-full">
+                        <svg className="w-12 h-12 opacity-50 text-blue-300 dark:text-blue-700" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1} d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
                         </svg>
                     </div>

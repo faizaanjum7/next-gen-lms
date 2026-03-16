@@ -37,17 +37,17 @@ export default function ProjectsListSection() {
 
     const getStatusStyle = (status: ProjectStatus) => {
         if (status === "Draft") {
-            return "bg-lime-100 text-lime-700"; // Yellowish green
+            return "bg-lime-100 dark:bg-lime-900/30 text-lime-700 dark:text-lime-400"; // Yellowish green
         }
         if (status === "Active" || status === "Completed") {
-            return "bg-indigo-100 text-indigo-500"; // Light purplish blue
+            return "bg-indigo-100 dark:bg-indigo-900/30 text-indigo-500 dark:text-indigo-400"; // Light purplish blue
         }
-        return "bg-gray-100 text-gray-700";
+        return "bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-400";
     };
 
     return (
         <div className="space-y-6">
-            <h2 className="text-lg font-bold text-gray-900">Projects</h2>
+            <h2 className="text-lg font-bold text-gray-900 dark:text-white transition-colors">Projects</h2>
 
             <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
                 <div className="flex items-center gap-2 sm:gap-4 overflow-x-auto scrollbar-hide pb-2 sm:pb-0 w-full sm:w-auto">
@@ -67,14 +67,14 @@ export default function ProjectsListSection() {
 
                 <div className="flex-1"></div>
 
-                <button className="flex items-center gap-3 border border-gray-200 rounded-lg px-4 py-2.5 font-bold text-gray-900 text-[15px] bg-white hover:bg-gray-50 transition-colors shrink-0 shadow-sm">
-                    Last Modified <ChevronDown className="w-4 h-4 text-gray-600" strokeWidth={2.5} />
+                <button className="flex items-center gap-3 border border-gray-200 dark:border-gray-800 rounded-lg px-4 py-2.5 font-bold text-gray-900 dark:text-gray-100 text-[15px] bg-white dark:bg-[#1e293b] hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors shrink-0 shadow-sm">
+                    Last Modified <ChevronDown className="w-4 h-4 text-gray-600 dark:text-gray-400" strokeWidth={2.5} />
                 </button>
             </div>
 
-            <div className="rounded-xl overflow-hidden shadow-none border-none">
+            <div className="rounded-xl overflow-hidden shadow-none border border-transparent dark:border-gray-800">
                 <table className="w-full min-w-[700px]">
-                    <thead className="bg-[#f0f0f0] text-gray-700">
+                    <thead className="bg-[#f0f0f0] dark:bg-gray-800 text-gray-700 dark:text-gray-300 transition-colors">
                         <tr>
                             <th className="py-4 px-6 text-left font-bold w-[30%] text-[15px]">Project Name</th>
                             <th className="py-4 px-6 text-left font-bold w-[25%] text-[15px]">Course</th>
@@ -83,25 +83,25 @@ export default function ProjectsListSection() {
                             <th className="py-4 px-6 text-right font-bold w-[10%] text-[15px]"></th>
                         </tr>
                     </thead>
-                    <tbody className="divide-y divide-gray-100 bg-white">
+                    <tbody className="divide-y divide-gray-100 dark:divide-gray-800 bg-white dark:bg-[#1e293b] transition-colors">
                         {displayProjects.map((project) => (
-                            <tr key={project.id} className="hover:bg-gray-50 transition-colors">
+                            <tr key={project.id} className="hover:bg-gray-50 dark:hover:bg-gray-800/50 transition-colors">
                                 <td className="py-5 px-6">
-                                    <div className="font-bold text-gray-800 text-[15px]">{project.name}</div>
+                                    <div className="font-bold text-gray-800 dark:text-gray-200 text-[15px] transition-colors">{project.name}</div>
                                 </td>
                                 <td className="py-5 px-6">
-                                    <div className="font-bold text-gray-600 text-[15px]">{project.course}</div>
+                                    <div className="font-bold text-gray-600 dark:text-gray-400 text-[15px] transition-colors">{project.course}</div>
                                 </td>
                                 <td className="py-5 px-6">
-                                    <div className="font-bold text-gray-600 text-[15px]">{project.createdOn}</div>
+                                    <div className="font-bold text-gray-600 dark:text-gray-400 text-[15px] transition-colors">{project.createdOn}</div>
                                 </td>
                                 <td className="py-5 px-6">
                                     <span className={`px-4 py-1.5 rounded font-bold text-sm ${getStatusStyle(project.status)}`}>
                                         {project.status}
                                     </span>
                                 </td>
-                                <td className="py-5 px-6 text-right text-gray-400">
-                                    <button className="hover:text-gray-800 transition-colors p-1">
+                                <td className="py-5 px-6 text-right text-gray-400 dark:text-gray-500">
+                                    <button className="hover:text-gray-800 dark:hover:text-gray-200 transition-colors p-1">
                                         <MoreHorizontal className="w-5 h-5" />
                                     </button>
                                 </td>

@@ -21,14 +21,14 @@ export default function QuizInstructionsPage({
     return (
         <div className="w-full h-full flex flex-col items-center">
             {/* Header Area */}
-            <div className="w-full p-6 md:p-8 border-b border-gray-100 flex items-center gap-3">
+            <div className="w-full p-6 md:p-8 border-b border-gray-100 dark:border-gray-800 flex items-center gap-3 transition-colors">
                 <button
                     onClick={() => router.push(`/dashboard/quizzes/${courseId}`)}
                     className="w-8 h-8 rounded-full bg-[#1fc3b7] text-white flex items-center justify-center hover:bg-[#19a59a] transition-colors"
                 >
                     <ChevronLeft className="w-5 h-5" />
                 </button>
-                <h2 className="text-[20px] md:text-[22px] font-bold text-gray-900">
+                <h2 className="text-[20px] md:text-[22px] font-bold text-gray-900 dark:text-white transition-colors">
                     {courseCode} Quiz {quizNum}
                 </h2>
             </div>
@@ -38,16 +38,16 @@ export default function QuizInstructionsPage({
 
                 {/* Top Info Card */}
                 <div className="flex flex-col gap-4">
-                    <h3 className="text-xl font-bold text-gray-900">Take the Quiz</h3>
+                    <h3 className="text-xl font-bold text-gray-900 dark:text-white transition-colors">Take the Quiz</h3>
 
-                    <div className="bg-[#e2f9f5] rounded-xl p-6 md:p-8 flex flex-col sm:flex-row items-center sm:items-start justify-between gap-6 shadow-sm">
+                    <div className="bg-[#e2f9f5] dark:bg-[#1a2e2b] rounded-xl p-6 md:p-8 flex flex-col sm:flex-row items-center sm:items-start justify-between gap-6 shadow-sm transition-colors">
                         <div className="flex flex-col gap-2">
-                            <h4 className="text-xl font-bold text-gray-900 mb-1">
+                            <h4 className="text-xl font-bold text-gray-900 dark:text-white mb-1 transition-colors">
                                 {courseCode} Quiz {quizNum}
                             </h4>
-                            <p className="text-base text-gray-800">No of Questions: 10</p>
-                            <p className="text-base text-gray-800">Duration: 20 min</p>
-                            <p className="text-base text-gray-800">Marks: 10</p>
+                            <p className="text-base text-gray-800 dark:text-gray-300 transition-colors">No of Questions: 10</p>
+                            <p className="text-base text-gray-800 dark:text-gray-300 transition-colors">Duration: 20 min</p>
+                            <p className="text-base text-gray-800 dark:text-gray-300 transition-colors">Marks: 10</p>
                         </div>
 
                         <div className="w-[160px] h-[100px] bg-[#1a233a] rounded-xl flex flex-col items-center justify-center text-white p-2 shadow-md relative overflow-hidden">
@@ -62,10 +62,10 @@ export default function QuizInstructionsPage({
 
                 {/* Instructions Box */}
                 <div className="flex flex-col gap-4">
-                    <h3 className="text-xl font-bold text-gray-900">Instructions</h3>
+                    <h3 className="text-xl font-bold text-gray-900 dark:text-white transition-colors">Instructions</h3>
 
-                    <div className="border border-[#4cdccd] rounded-xl p-6 md:p-8 flex flex-col gap-8 bg-white shadow-sm">
-                        <ul className="space-y-4 text-base text-gray-900">
+                    <div className="border border-[#4cdccd] dark:border-[#2a9c4a] rounded-xl p-6 md:p-8 flex flex-col gap-8 bg-white dark:bg-[#1e293b] shadow-sm transition-colors">
+                        <ul className="space-y-4 text-base text-gray-900 dark:text-gray-200 transition-colors">
                             {[
                                 "The quiz timer will start immediately after you click Start Quiz.",
                                 "Once time is over, the quiz will be auto-submitted.",

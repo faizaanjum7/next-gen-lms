@@ -42,10 +42,10 @@ export default function FAQPage() {
         <div className="p-6 md:p-12 w-full max-w-[1000px] mx-auto min-h-[calc(100vh-80px)]">
             {/* Header Section */}
             <div className="text-center mb-12">
-                <h2 className="text-[28px] md:text-[32px] font-bold text-gray-900 mb-4">
+                <h2 className="text-[28px] md:text-[32px] font-bold text-gray-900 dark:text-white mb-4 transition-colors">
                     Frequently Asked Questions
                 </h2>
-                <p className="text-[17px] text-gray-500 max-w-2xl mx-auto font-medium">
+                <p className="text-[17px] text-gray-500 dark:text-gray-400 max-w-2xl mx-auto font-medium transition-colors">
                     Got questions? We&apos;ve got answers. If you can&apos;t find what you are looking for, feel free to contact us.
                 </p>
             </div>
@@ -57,14 +57,14 @@ export default function FAQPage() {
                     return (
                         <div
                             key={index}
-                            className={`border rounded-2xl overflow-hidden transition-all duration-300 ${isOpen ? "border-[#3bc4b6] shadow-sm" : "border-[#3bc4b6] opacity-90"
+                            className={`border rounded-2xl overflow-hidden transition-all duration-300 ${isOpen ? "border-[#3bc4b6] shadow-sm" : "border-[#3bc4b6] opacity-90 dark:opacity-60"
                                 }`}
                         >
                             <button
                                 onClick={() => toggleFAQ(index)}
-                                className="w-full flex items-center justify-between p-5 md:px-8 md:py-6 bg-white outline-none focus:outline-none"
+                                className="w-full flex items-center justify-between p-5 md:px-8 md:py-6 bg-white dark:bg-[#1e293b] outline-none focus:outline-none transition-colors"
                             >
-                                <span className="text-[16px] font-semibold text-gray-900 text-left pr-4">
+                                <span className="text-[16px] font-semibold text-gray-900 dark:text-white text-left pr-4 transition-colors">
                                     {faq.question}
                                 </span>
                                 <span className="shrink-0 ml-2">
@@ -76,12 +76,12 @@ export default function FAQPage() {
                             </button>
 
                             <div
-                                className={`grid transition-[grid-template-rows,opacity] duration-300 ease-in-out bg-white ${isOpen ? "grid-rows-[1fr] opacity-100" : "grid-rows-[0fr] opacity-0"
+                                className={`grid transition-[grid-template-rows,opacity] duration-300 ease-in-out bg-white dark:bg-[#1e293b] ${isOpen ? "grid-rows-[1fr] opacity-100" : "grid-rows-[0fr] opacity-0"
                                     }`}
                             >
                                 <div className="overflow-hidden">
-                                    <div className="pb-6 px-5 md:px-8 text-gray-600 text-[15px] leading-relaxed">
-                                        <div className="pt-4 border-t border-gray-100">{faq.answer}</div>
+                                    <div className="pb-6 px-5 md:px-8 text-gray-600 dark:text-gray-300 text-[15px] leading-relaxed transition-colors">
+                                        <div className="pt-4 border-t border-gray-100 dark:border-gray-800">{faq.answer}</div>
                                     </div>
                                 </div>
                             </div>

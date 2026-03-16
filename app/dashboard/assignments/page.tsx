@@ -43,8 +43,8 @@ export default function AssignmentsPage() {
     return (
         <div className="p-6 md:p-8 w-full max-w-[1400px] flex flex-col gap-6">
             {/* Current Assignments Section */}
-            <div className="bg-[#f8f9fa] rounded-xl border border-gray-200 p-6 md:p-8">
-                <h2 className="text-[20px] md:text-[22px] font-bold text-black mb-6">
+            <div className="bg-[#f8f9fa] dark:bg-[#1e293b] rounded-xl border border-gray-200 dark:border-gray-800 p-6 md:p-8 transition-colors">
+                <h2 className="text-[20px] md:text-[22px] font-bold text-black dark:text-white mb-6 transition-colors">
                     Current Assignments ({currentAssignments.length})
                 </h2>
 
@@ -52,17 +52,17 @@ export default function AssignmentsPage() {
                     {currentAssignments.map((assignment) => (
                         <div
                             key={assignment.id}
-                            className="bg-white border text-black border-gray-200 rounded-lg p-5 flex flex-col sm:flex-row sm:items-center justify-between gap-4 transition-shadow hover:shadow-sm"
+                            className="bg-white dark:bg-gray-800 border text-black dark:text-gray-200 border-gray-200 dark:border-gray-700 rounded-lg p-5 flex flex-col sm:flex-row sm:items-center justify-between gap-4 transition-all hover:shadow-sm"
                         >
                             <div className="flex items-center gap-4">
                                 <div className="flex-shrink-0">
-                                    <ClipboardList className="w-8 h-8 text-black" strokeWidth={2} />
+                                    <ClipboardList className="w-8 h-8 text-black dark:text-white transition-colors" strokeWidth={2} />
                                 </div>
                                 <div>
-                                    <h3 className="text-base sm:text-[17px] font-medium text-black">
+                                    <h3 className="text-base sm:text-[17px] font-medium text-black dark:text-white mb-0.5 transition-colors">
                                         {assignment.title}
                                     </h3>
-                                    <p className="text-sm text-gray-500 mt-0.5">
+                                    <p className="text-sm text-gray-500 dark:text-gray-400 mt-0.5 transition-colors">
                                         Due: {assignment.dueDate}
                                     </p>
                                 </div>
@@ -76,8 +76,8 @@ export default function AssignmentsPage() {
             </div>
 
             {/* Completed Assignments Section */}
-            <div className="bg-[#f8f9fa] rounded-xl border border-gray-200 p-6 md:p-8">
-                <h2 className="text-[20px] md:text-[22px] font-bold text-black mb-6">
+            <div className="bg-[#f8f9fa] dark:bg-[#1e293b] rounded-xl border border-gray-200 dark:border-gray-800 p-6 md:p-8 transition-colors">
+                <h2 className="text-[20px] md:text-[22px] font-bold text-black dark:text-white mb-6 transition-colors">
                     Completed Assignments ({completedAssignments.length})
                 </h2>
 
@@ -85,17 +85,17 @@ export default function AssignmentsPage() {
                     {completedAssignments.map((assignment) => (
                         <div
                             key={assignment.id}
-                            className="bg-white border text-black border-gray-200 rounded-lg p-5 flex flex-col sm:flex-row sm:items-center justify-between gap-4 transition-shadow hover:shadow-sm"
+                            className="bg-white dark:bg-gray-800 border text-black dark:text-gray-200 border-gray-200 dark:border-gray-700 rounded-lg p-5 flex flex-col sm:flex-row sm:items-center justify-between gap-4 transition-all hover:shadow-sm"
                         >
                             <div className="flex items-center gap-4">
                                 <div className="flex-shrink-0">
-                                    <ClipboardCheck className="w-8 h-8 text-black" strokeWidth={2} />
+                                    <ClipboardCheck className="w-8 h-8 text-black dark:text-white transition-colors" strokeWidth={2} />
                                 </div>
                                 <div>
-                                    <h3 className="text-base sm:text-[17px] font-medium text-black">
+                                    <h3 className="text-base sm:text-[17px] font-medium text-black dark:text-white mb-0.5 transition-colors">
                                         {assignment.title}
                                     </h3>
-                                    <p className="text-sm text-[#22c55e] mt-0.5 font-medium">
+                                    <p className="text-sm text-[#22c55e] dark:text-green-400 mt-0.5 font-medium transition-colors">
                                         {assignment.submittedDate}
                                     </p>
                                 </div>

@@ -85,7 +85,7 @@ export default function QuizzesPage() {
                         }}
                     >
                         {/* Course Image Area */}
-                        <div className="flex items-center justify-center bg-white m-3 rounded-[12px] overflow-hidden relative h-[220px] shrink-0 border border-gray-100">
+                        <div className="flex items-center justify-center bg-white dark:bg-gray-800 m-3 rounded-[12px] overflow-hidden relative h-[220px] shrink-0 border border-gray-100 dark:border-gray-700 transition-colors">
                             {course.imagePath ? (
                                 <div className="absolute inset-0 flex items-center justify-center p-2">
                                     <Image
@@ -118,10 +118,10 @@ export default function QuizzesPage() {
 
                         {/* Card Footer Content */}
                         <div className="px-4 pb-4 pt-1 flex flex-col justify-end">
-                            <h2 className="text-[18px] font-bold text-gray-900 mb-1">
+                            <h2 className="text-[18px] font-bold text-gray-900 dark:text-gray-100 mb-1 transition-colors">
                                 {course.title}
                             </h2>
-                            <p className="text-[14px] text-gray-800 font-medium">
+                            <p className="text-[14px] text-gray-800 dark:text-gray-300 font-medium transition-colors">
                                 {course.quizzesCount} Quizzes
                             </p>
                         </div>

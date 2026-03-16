@@ -18,9 +18,9 @@ export default function QuizResultPage({
     const quizNum = quizId.split('-')[1] || "1";
 
     return (
-        <div className="fixed inset-0 z-[100] bg-[#fafbfc] flex flex-col items-center">
+        <div className="fixed inset-0 z-[100] bg-[#fafbfc] dark:bg-[#0f172a] flex flex-col items-center transition-colors">
             {/* Top Header */}
-            <div className="w-full h-[72px] bg-white border-b border-gray-200 flex items-center justify-start px-6 md:px-12 flex-shrink-0">
+            <div className="w-full h-[72px] bg-white dark:bg-[#1e293b] border-b border-gray-200 dark:border-gray-800 flex items-center justify-start px-6 md:px-12 flex-shrink-0 transition-colors">
                 <h1 className="text-xl font-bold flex gap-2">
                     <span className="text-[#3fc1b3]">{courseName}</span>
                     <span className="text-[#dcab46]">Quiz {quizNum}</span>
@@ -29,7 +29,7 @@ export default function QuizResultPage({
 
             {/* Main Content Area */}
             <div className="flex-1 flex flex-col items-center w-full py-10 px-4 mt-8">
-                <div className="w-full max-w-[1000px] bg-white border border-[#4edfcb] rounded-sm p-8 md:p-16 flex flex-col items-center justify-center min-h-[500px]">
+                <div className="w-full max-w-[1000px] bg-white dark:bg-[#1e293b] border border-[#4edfcb] dark:border-[#2a9c4a] rounded-sm p-8 md:p-16 flex flex-col items-center justify-center min-h-[500px] transition-colors">
 
                     <h2 className="text-2xl md:text-3xl font-bold text-[#2a9c4a] mb-12">
                         Quiz Completed
@@ -38,31 +38,31 @@ export default function QuizResultPage({
                     <div className="flex flex-col sm:flex-row items-center justify-center gap-6 md:gap-12 w-full mb-16">
 
                         {/* Score Box */}
-                        <div className="flex flex-col w-full sm:w-[180px] border border-[#4edfcb] rounded-sm shadow-sm overflow-hidden">
-                            <div className="bg-[#ccf2e2] text-[#2c988a] font-semibold text-center py-3 border-b border-[#4edfcb]">
+                        <div className="flex flex-col w-full sm:w-[180px] border border-[#4edfcb] dark:border-[#2a9c4a] rounded-sm shadow-sm overflow-hidden transition-colors">
+                            <div className="bg-[#ccf2e2] dark:bg-[#1a2e2b] text-[#2c988a] dark:text-[#4edccd] font-semibold text-center py-3 border-b border-[#4edfcb] dark:border-[#2a9c4a] transition-colors">
                                 Score
                             </div>
-                            <div className="bg-[#ebfaf4] text-gray-800 font-bold text-center py-4">
+                            <div className="bg-[#ebfaf4] dark:bg-[#0f172a] text-gray-800 dark:text-gray-200 font-bold text-center py-4 transition-colors">
                                 8 / 10
                             </div>
                         </div>
 
                         {/* Time Taken Box */}
-                        <div className="flex flex-col w-full sm:w-[180px] border border-[#4edfcb] rounded-sm shadow-sm overflow-hidden">
-                            <div className="bg-[#ccf2e2] text-[#2c988a] font-semibold text-center py-3 border-b border-[#4edfcb]">
+                        <div className="flex flex-col w-full sm:w-[180px] border border-[#4edfcb] dark:border-[#2a9c4a] rounded-sm shadow-sm overflow-hidden transition-colors">
+                            <div className="bg-[#ccf2e2] dark:bg-[#1a2e2b] text-[#2c988a] dark:text-[#4edccd] font-semibold text-center py-3 border-b border-[#4edfcb] dark:border-[#2a9c4a] transition-colors">
                                 Time Taken
                             </div>
-                            <div className="bg-[#ebfaf4] text-gray-800 font-bold text-center py-4 text-sm md:text-base">
+                            <div className="bg-[#ebfaf4] dark:bg-[#0f172a] text-gray-800 dark:text-gray-200 font-bold text-center py-4 text-sm md:text-base transition-colors">
                                 15 min 12 sec
                             </div>
                         </div>
 
                         {/* Correct Answers Box */}
-                        <div className="flex flex-col w-full sm:w-[180px] border border-[#4edfcb] rounded-sm shadow-sm overflow-hidden">
-                            <div className="bg-[#ccf2e2] text-[#2c988a] font-semibold text-center py-3 border-b border-[#4edfcb]">
+                        <div className="flex flex-col w-full sm:w-[180px] border border-[#4edfcb] dark:border-[#2a9c4a] rounded-sm shadow-sm overflow-hidden transition-colors">
+                            <div className="bg-[#ccf2e2] dark:bg-[#1a2e2b] text-[#2c988a] dark:text-[#4edccd] font-semibold text-center py-3 border-b border-[#4edfcb] dark:border-[#2a9c4a] transition-colors">
                                 Correct Answers
                             </div>
-                            <div className="bg-[#ebfaf4] text-gray-800 font-bold text-center py-4">
+                            <div className="bg-[#ebfaf4] dark:bg-[#0f172a] text-gray-800 dark:text-gray-200 font-bold text-center py-4 transition-colors">
                                 8
                             </div>
                         </div>

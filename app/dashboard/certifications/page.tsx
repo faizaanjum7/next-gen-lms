@@ -60,7 +60,7 @@ const skills = ["Data Analysis", "Python", "HTML/CSS", "Java Script", "ReactJs"]
 export default function CertificationsPage() {
     return (
         <div className="p-6 md:p-8 w-full max-w-[1400px]">
-            <h2 className="text-[22px] md:text-[24px] font-bold text-gray-900 mb-8">
+            <h2 className="text-[22px] md:text-[24px] font-bold text-gray-900 dark:text-white mb-8 transition-colors">
                 My Learning Milestones
             </h2>
 
@@ -71,15 +71,15 @@ export default function CertificationsPage() {
 
                     {/* Certifications Earned Section */}
                     <section className="flex-1 w-full">
-                        <h3 className="text-[18px] font-semibold text-gray-900 mb-4">Certifications Earned</h3>
+                        <h3 className="text-[18px] font-semibold text-gray-900 dark:text-gray-100 mb-4 transition-colors">Certifications Earned</h3>
                         <div className="flex flex-col gap-4">
                             {earnedCertificates.map((cert, index) => (
                                 <div
                                     key={index}
-                                    className="bg-white rounded-xl p-4 border border-gray-200 shadow-sm flex flex-col md:flex-row md:items-center justify-between gap-4"
+                                    className="bg-white dark:bg-[#1e293b] rounded-xl p-4 border border-gray-200 dark:border-gray-800 shadow-sm flex flex-col md:flex-row md:items-center justify-between gap-4 transition-colors"
                                 >
                                     <div className="flex flex-row items-center gap-4">
-                                        <div className="w-[68px] h-[68px] shrink-0 rounded-lg border border-gray-200 flex items-center justify-center overflow-hidden bg-[#fbfdff]">
+                                        <div className="w-[68px] h-[68px] shrink-0 rounded-lg border border-gray-200 dark:border-gray-700 flex items-center justify-center overflow-hidden bg-[#fbfdff] dark:bg-gray-800 transition-colors">
                                             <Image
                                                 src={cert.image}
                                                 alt={cert.title}
@@ -89,10 +89,10 @@ export default function CertificationsPage() {
                                             />
                                         </div>
                                         <div>
-                                            <h4 className="text-[15px] font-semibold text-gray-900 leading-tight">
+                                            <h4 className="text-[15px] font-semibold text-gray-900 dark:text-white leading-tight transition-colors">
                                                 {cert.title}
                                             </h4>
-                                            <p className="text-[13px] text-gray-500 mt-1">
+                                            <p className="text-[13px] text-gray-500 dark:text-gray-400 mt-1 transition-colors">
                                                 Completion Date: {cert.completionDate} <span className="mx-1">Issued on:</span> {cert.issuedOn}
                                             </p>
                                         </div>
@@ -113,13 +113,13 @@ export default function CertificationsPage() {
 
                     {/* Right Column: Skills Achieved */}
                     <section className="w-full xl:w-[320px] shrink-0">
-                        <h3 className="text-[18px] font-semibold text-gray-900 mb-4">Skills Achieved</h3>
-                        <div className="bg-white rounded-xl p-6 border border-gray-200 shadow-sm min-h-[140px]">
+                        <h3 className="text-[18px] font-semibold text-gray-900 dark:text-gray-100 mb-4 transition-colors">Skills Achieved</h3>
+                        <div className="bg-white dark:bg-[#1e293b] rounded-xl p-6 border border-gray-200 dark:border-gray-800 shadow-sm min-h-[140px] transition-colors">
                             <div className="flex flex-wrap gap-2.5">
                                 {skills.map((skill, index) => (
                                     <span
                                         key={index}
-                                        className="px-4 py-1.5 border border-gray-200 rounded-full text-[13px] text-gray-600 bg-white"
+                                        className="px-4 py-1.5 border border-gray-200 dark:border-gray-700 rounded-full text-[13px] text-gray-600 dark:text-gray-400 bg-white dark:bg-gray-800 transition-colors"
                                     >
                                         {skill}
                                     </span>
@@ -131,14 +131,14 @@ export default function CertificationsPage() {
 
                 {/* Bottom Section: Earn New Certification */}
                 <section className="w-full">
-                    <h3 className="text-[18px] font-semibold text-gray-900 mb-4">Earn New Certification</h3>
+                    <h3 className="text-[18px] font-semibold text-gray-900 dark:text-gray-100 mb-4 transition-colors">Earn New Certification</h3>
                     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
                         {newCertifications.map((cert, index) => (
                             <div
                                 key={index}
-                                className="bg-white rounded-xl p-5 border border-gray-200 shadow-sm flex flex-col hover:border-[#3bc4b6] transition-colors cursor-pointer group"
+                                className="bg-white dark:bg-[#1e293b] rounded-xl p-5 border border-gray-200 dark:border-gray-800 shadow-sm flex flex-col hover:border-[#3bc4b6] transition-all cursor-pointer group"
                             >
-                                <div className="w-16 h-16 rounded-lg border border-gray-200 flex items-center justify-center bg-[#fbfdff] mb-4 overflow-hidden group-hover:border-[#3bc4b6] transition-colors">
+                                <div className="w-16 h-16 rounded-lg border border-gray-200 dark:border-gray-700 flex items-center justify-center bg-[#fbfdff] dark:bg-gray-800 mb-4 overflow-hidden group-hover:border-[#3bc4b6] transition-colors">
                                     <Image
                                         src={cert.image}
                                         alt={cert.title}
@@ -147,10 +147,10 @@ export default function CertificationsPage() {
                                         className="object-contain p-1"
                                     />
                                 </div>
-                                <h4 className="text-[15px] font-semibold text-gray-900 leading-tight mb-1">
+                                <h4 className="text-[15px] font-semibold text-gray-900 dark:text-white leading-tight mb-1 transition-colors">
                                     {cert.title}
                                 </h4>
-                                <p className="text-[13px] text-gray-500">{cert.type}</p>
+                                <p className="text-[13px] text-gray-500 dark:text-gray-400 transition-colors">{cert.type}</p>
                             </div>
                         ))}
                     </div>

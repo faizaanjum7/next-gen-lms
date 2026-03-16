@@ -56,14 +56,14 @@ export default function CourseQuizzesPage({ params }: { params: Promise<{ course
     return (
         <div className="w-full h-full flex flex-col">
             {/* Header Area */}
-            <div className="p-6 md:p-8 border-b border-gray-100 flex items-center gap-3">
+            <div className="p-6 md:p-8 border-b border-gray-100 dark:border-gray-800 flex items-center gap-3 transition-colors">
                 <button
                     onClick={() => router.push("/dashboard/quizzes")}
                     className="w-8 h-8 rounded-full bg-[#1fc3b7] text-white flex items-center justify-center hover:bg-[#19a59a] transition-colors"
                 >
                     <ChevronLeft className="w-5 h-5" />
                 </button>
-                <h2 className="text-[20px] md:text-[22px] font-bold text-gray-900">
+                <h2 className="text-[20px] md:text-[22px] font-bold text-gray-900 dark:text-white transition-colors">
                     {courseTitle} Quiz
                 </h2>
             </div>
@@ -73,7 +73,7 @@ export default function CourseQuizzesPage({ params }: { params: Promise<{ course
                 {mockQuizzes.map((quiz) => (
                     <div
                         key={quiz.id}
-                        className="rounded-lg p-4 sm:p-6 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-6 hover:shadow-md transition-shadow"
+                        className="rounded-lg p-4 sm:p-6 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-6 hover:shadow-md transition-shadow dark:shadow-none bg-opacity-100 dark:bg-opacity-20"
                         style={{ backgroundColor: quiz.cardBg, border: `1px solid ${quiz.iconBg}40` }}
                     >
                         <div className="flex items-center gap-6">
@@ -85,8 +85,8 @@ export default function CourseQuizzesPage({ params }: { params: Promise<{ course
                             </div>
 
                             <div className="flex flex-col gap-1">
-                                <h3 className="text-xl font-bold text-gray-900">{quiz.title}</h3>
-                                <div className="text-sm text-gray-800 space-y-0.5 mt-1">
+                                <h3 className="text-xl font-bold text-gray-900 dark:text-white transition-colors">{quiz.title}</h3>
+                                <div className="text-sm text-gray-800 dark:text-gray-300 space-y-0.5 mt-1 transition-colors">
                                     <p>{quiz.questions} Questions</p>
                                     <p>Duration : {quiz.duration}</p>
                                 </div>
@@ -96,7 +96,7 @@ export default function CourseQuizzesPage({ params }: { params: Promise<{ course
                         <div className="flex flex-col items-center gap-2 w-full sm:w-auto mt-4 sm:mt-0">
                             {quiz.completed ? (
                                 <>
-                                    <span className="text-sm font-semibold text-green-700 bg-white/60 px-3 py-1 rounded-full">
+                                    <span className="text-sm font-semibold text-green-700 dark:text-green-400 bg-white/60 dark:bg-white/10 px-3 py-1 rounded-full transition-colors">
                                         Attempted
                                     </span>
                                     <button
