@@ -24,6 +24,15 @@ export type UserSettings = {
     privateProfile: boolean;
 };
 
+export type ScheduledAssessment = {
+    id: string;
+    course: string;
+    level: string;
+    date: string;
+    time: string;
+    timestamp: number;
+};
+
 type User = {
     name: string;
 } | null;
@@ -31,12 +40,15 @@ type User = {
 interface AuthContextType {
     user: User;
     notifications: Notification[];
+    scheduledAssessments: ScheduledAssessment[];
     userProfile: UserProfile;
     userSettings: UserSettings;
     login: (user: User) => void;
     logout: () => void;
     addNotification: (message: string) => void;
     removeNotification: (id: string) => void;
+    addScheduledAssessment: (assessment: Omit<ScheduledAssessment, "id" | "timestamp">) => void;
+    removeScheduledAssessment: (id: string) => void;
     updateProfile: (profile: Partial<UserProfile>) => void;
     updateSettings: (settings: Partial<UserSettings>) => void;
 }
@@ -62,6 +74,7 @@ const AuthContext = createContext<AuthContextType | undefined>(undefined);
 export function AuthProvider({ children }: { children: React.ReactNode }) {
     const [user, setUser] = useState<User>(null);
     const [notifications, setNotifications] = useState<Notification[]>([]);
+    const [scheduledAssessments, setScheduledAssessments] = useState<ScheduledAssessment[]>([]);
     const [userProfile, setUserProfile] = useState<UserProfile>(defaultProfile);
     const [userSettings, setUserSettings] = useState<UserSettings>(defaultSettings);
     const [mounted, setMounted] = useState(false);
@@ -76,6 +89,11 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
         const storedNotifications = localStorage.getItem("userNotifications");
         if (storedNotifications) {
             setNotifications(JSON.parse(storedNotifications));
+        }
+
+        const storedAssessments = localStorage.getItem("scheduledAssessments");
+        if (storedAssessments) {
+            setScheduledAssessments(JSON.parse(storedAssessments));
         }
 
         const storedProfile = localStorage.getItem("userProfile");
@@ -101,8 +119,10 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     const logout = () => {
         setUser(null);
         setNotifications([]);
+        setScheduledAssessments([]);
         localStorage.removeItem("mockUser");
         localStorage.removeItem("userNotifications");
+        localStorage.removeItem("scheduledAssessments");
         // We might want to keep profile/settings or clear them. 
         // For a mock, let's keep profile/settings for persistent feel unless user resets.
     };
@@ -122,6 +142,23 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
         const updatedNotifications = notifications.filter(n => n.id !== id);
         setNotifications(updatedNotifications);
         localStorage.setItem("userNotifications", JSON.stringify(updatedNotifications));
+    };
+
+    const addScheduledAssessment = (assessment: Omit<ScheduledAssessment, "id" | "timestamp">) => {
+        const newAssessment: ScheduledAssessment = {
+            ...assessment,
+            id: Math.random().toString(36).substr(2, 9),
+            timestamp: Date.now(),
+        };
+        const updated = [newAssessment, ...scheduledAssessments];
+        setScheduledAssessments(updated);
+        localStorage.setItem("scheduledAssessments", JSON.stringify(updated));
+    };
+
+    const removeScheduledAssessment = (id: string) => {
+        const updated = scheduledAssessments.filter(a => a.id !== id);
+        setScheduledAssessments(updated);
+        localStorage.setItem("scheduledAssessments", JSON.stringify(updated));
     };
 
     const updateProfile = (newProfile: Partial<UserProfile>) => {
@@ -158,12 +195,15 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
         <AuthContext.Provider value={{ 
             user, 
             notifications, 
+            scheduledAssessments,
             userProfile, 
             userSettings, 
             login, 
             logout, 
             addNotification, 
             removeNotification,
+            addScheduledAssessment,
+            removeScheduledAssessment,
             updateProfile,
             updateSettings
         }}>

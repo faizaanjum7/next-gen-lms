@@ -176,7 +176,8 @@ function AIHRContent() {
         }
     };
 
-    // Scheduling State
+    // Assessment Scheduling State
+    const { addScheduledAssessment } = useAuth();
     const [isScheduling, setIsScheduling] = useState(false);
     const [scheduleDate, setScheduleDate] = useState("");
     const [scheduleTime, setScheduleTime] = useState("");
@@ -192,7 +193,15 @@ function AIHRContent() {
             return;
         }
 
-        // Simulating an API call/success
+        // Add to global context for dashboard persistence
+        addScheduledAssessment({
+            course: displayCourse,
+            level: displayLevel,
+            date: scheduleDate,
+            time: scheduleTime
+        });
+
+        // Simulating an API call/success notification
         const formattedDate = new Date(scheduleDate).toLocaleDateString();
         const msg = `Assessment scheduled for ${formattedDate} at ${scheduleTime}`;
         addNotification(msg);

@@ -1,8 +1,21 @@
 "use client";
 
 import { Play, FileText, ClipboardList, CheckSquare } from "lucide-react";
+import { useAuth } from "@/lib/AuthContext";
 
 export default function DashboardPage() {
+    const { scheduledAssessments } = useAuth();
+
+    const getMonthName = (dateStr: string) => {
+        const date = new Date(dateStr);
+        return date.toLocaleString('default', { month: 'short' });
+    };
+
+    const getDay = (dateStr: string) => {
+        const date = new Date(dateStr);
+        return date.getDate();
+    };
+
     return (
         <div className="p-6 md:p-8 max-w-[1400px] mx-auto">
             <div className="grid grid-cols-1 xl:grid-cols-3 gap-6">
@@ -250,51 +263,63 @@ export default function DashboardPage() {
                         <h2 className="text-lg font-bold text-gray-900 dark:text-white mb-4 transition-colors">Upcoming</h2>
 
                         <div className="space-y-4">
-                            {/* Event 1 */}
-                             <div className="flex gap-4 items-center">
-                                <div className="bg-[#fcedfc] dark:bg-[#ff8eef]/10 text-center w-[60px] h-[64px] rounded-xl flex flex-col justify-center shrink-0 transition-colors">
-                                    <div className="font-bold text-gray-900 dark:text-white text-lg leading-tight transition-colors">17</div>
-                                    <div className="text-gray-700 dark:text-gray-400 text-xs font-medium transition-colors">Jan</div>
-                                </div>
-                                <div>
-                                    <h4 className="font-bold text-gray-900 dark:text-white text-[15px] mb-1 transition-colors">Practical theory</h4>
-                                    <div className="flex items-center gap-1.5 transition-colors">
-                                        <span className="w-1 h-1 bg-[#ff8eef] rounded-full inline-block"></span>
-                                        <span className="text-[#ff8eef] text-xs font-bold">Assignment</span>
+                            {scheduledAssessments.length > 0 ? (
+                                scheduledAssessments.map((assessment) => (
+                                    <div key={assessment.id} className="flex gap-4 items-center animate-in fade-in slide-in-from-right-4">
+                                        <div className="bg-[#fce5df] dark:bg-[#FF9F1C]/10 text-center w-[60px] h-[64px] rounded-xl flex flex-col justify-center shrink-0 transition-colors">
+                                            <div className="font-bold text-gray-900 dark:text-white text-lg leading-tight transition-colors">
+                                                {getDay(assessment.date)}
+                                            </div>
+                                            <div className="text-gray-700 dark:text-gray-400 text-xs font-medium transition-colors">
+                                                {getMonthName(assessment.date)}
+                                            </div>
+                                        </div>
+                                        <div>
+                                            <h4 className="font-bold text-gray-900 dark:text-white text-[15px] mb-1 transition-colors">
+                                                {assessment.course} Assessment
+                                            </h4>
+                                            <div className="flex items-center gap-1.5 transition-colors">
+                                                <span className="w-1 h-1 bg-[#FF9F1C] rounded-full inline-block"></span>
+                                                <span className="text-[#FF9F1C] text-xs font-bold">Scheduled at {assessment.time}</span>
+                                            </div>
+                                        </div>
                                     </div>
-                                </div>
-                            </div>
-
-                            {/* Event 2 */}
-                             <div className="flex gap-4 items-center">
-                                <div className="bg-[#f0f6cc] dark:bg-[#3ebcb0]/10 text-center w-[60px] h-[64px] rounded-xl flex flex-col justify-center shrink-0 transition-colors">
-                                    <div className="font-bold text-gray-900 dark:text-white text-lg leading-tight transition-colors">19</div>
-                                    <div className="text-gray-700 dark:text-gray-400 text-xs font-medium transition-colors">Jan</div>
-                                </div>
-                                <div>
-                                    <h4 className="font-bold text-gray-900 dark:text-white text-[15px] mb-1 transition-colors">Practical theory 1</h4>
-                                    <div className="flex items-center gap-1.5 transition-colors">
-                                        <span className="w-1 h-1 bg-[#3ebcb0] rounded-full inline-block"></span>
-                                        <span className="text-[#3ebcb0] text-xs font-bold">Test</span>
+                                ))
+                            ) : (
+                                <div className="space-y-4">
+                                    {/* Event 1 */}
+                                    <div className="flex gap-4 items-center opacity-60">
+                                        <div className="bg-[#fcedfc] dark:bg-[#ff8eef]/10 text-center w-[60px] h-[64px] rounded-xl flex flex-col justify-center shrink-0 transition-colors">
+                                            <div className="font-bold text-gray-900 dark:text-white text-lg leading-tight transition-colors">17</div>
+                                            <div className="text-gray-700 dark:text-gray-400 text-xs font-medium transition-colors">Jan</div>
+                                        </div>
+                                        <div>
+                                            <h4 className="font-bold text-gray-900 dark:text-white text-[15px] mb-1 transition-colors">Practical theory</h4>
+                                            <div className="flex items-center gap-1.5 transition-colors">
+                                                <span className="w-1 h-1 bg-[#ff8eef] rounded-full inline-block"></span>
+                                                <span className="text-[#ff8eef] text-xs font-bold">Assignment</span>
+                                            </div>
+                                        </div>
                                     </div>
-                                </div>
-                            </div>
 
-                            {/* Event 3 */}
-                             <div className="flex gap-4 items-center">
-                                <div className="bg-[#fce5df] dark:bg-[#FF9F1C]/10 text-center w-[60px] h-[64px] rounded-xl flex flex-col justify-center shrink-0 transition-colors">
-                                    <div className="font-bold text-gray-900 dark:text-white text-lg leading-tight transition-colors">24</div>
-                                    <div className="text-gray-700 dark:text-gray-400 text-xs font-medium transition-colors">Jan</div>
-                                </div>
-                                <div>
-                                    <h4 className="font-bold text-gray-900 dark:text-white text-[15px] mb-1 transition-colors">Practical theory 2</h4>
-                                    <div className="flex items-center gap-1.5 transition-colors">
-                                        <span className="w-1 h-1 bg-[#FF9F1C] rounded-full inline-block"></span>
-                                        <span className="text-[#FF9F1C] text-xs font-bold">Lesson</span>
+                                    {/* Event 2 */}
+                                    <div className="flex gap-4 items-center opacity-60">
+                                        <div className="bg-[#f0f6cc] dark:bg-[#3ebcb0]/10 text-center w-[60px] h-[64px] rounded-xl flex flex-col justify-center shrink-0 transition-colors">
+                                            <div className="font-bold text-gray-900 dark:text-white text-lg leading-tight transition-colors">19</div>
+                                            <div className="text-gray-700 dark:text-gray-400 text-xs font-medium transition-colors">Jan</div>
+                                        </div>
+                                        <div>
+                                            <h4 className="font-bold text-gray-900 dark:text-white text-[15px] mb-1 transition-colors">Practical theory 1</h4>
+                                            <div className="flex items-center gap-1.5 transition-colors">
+                                                <span className="w-1 h-1 bg-[#3ebcb0] rounded-full inline-block"></span>
+                                                <span className="text-[#3ebcb0] text-xs font-bold">Test</span>
+                                            </div>
+                                        </div>
                                     </div>
+                                    
+                                    <p className="text-xs text-gray-400 dark:text-gray-500 italic text-center pt-2">No new scheduled assessments</p>
                                 </div>
-                            </div>
-
+                            )}
                         </div>
                     </div>
 

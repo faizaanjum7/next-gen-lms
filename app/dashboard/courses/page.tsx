@@ -1,6 +1,8 @@
 "use client";
 
 import React, { useState } from "react";
+import { useRouter } from "next/navigation";
+import { Plus } from "lucide-react";
 import CourseCard, { ThemeColor } from "./CourseCard";
 
 const TABS = ["In Progress", "Saved Courses", "My Collection", "Watched History"];
@@ -113,12 +115,22 @@ export default function CoursesPage() {
     };
 
     const currentCourses = getCoursesForTab();
+    const router = useRouter();
 
     return (
         <div className="p-6 md:p-8 w-full max-w-[1400px] transition-colors">
-            <h2 className="text-[20px] md:text-[22px] font-bold text-gray-900 dark:text-white mb-6">
-                Continue your learning journey...
-            </h2>
+            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-8">
+                <h2 className="text-[20px] md:text-[22px] font-bold text-gray-900 dark:text-white transition-colors">
+                    Continue your learning journey...
+                </h2>
+                <button
+                    onClick={() => router.push("/")}
+                    className="flex items-center justify-center gap-2 bg-[#2EC4B6] hover:bg-[#25a59a] text-white px-5 py-2.5 rounded-xl font-semibold shadow-sm shadow-[#2EC4B6]/20 transition-all hover:scale-[1.02] active:scale-[0.98] w-full sm:w-auto"
+                >
+                    <Plus className="w-5 h-5" />
+                    Add Course
+                </button>
+            </div>
 
             {/* Tabs Navigation */}
             <div className="flex flex-wrap gap-8 border-b border-gray-200 dark:border-gray-800 mb-8 overflow-x-auto scrollbar-hide">

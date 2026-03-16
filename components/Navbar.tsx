@@ -3,7 +3,7 @@
 import { useState, useRef, useEffect } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { Menu, UserCircle, ChevronDown, LogOut, Bell, Settings as SettingsIcon, User as UserIcon, Trash2, X, Moon, Sun } from "lucide-react";
+import { Menu, UserCircle, ChevronDown, LogOut, Bell, Settings as SettingsIcon, User as UserIcon, Trash2, X, Moon, Sun, LayoutDashboard } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { useAuth } from "@/lib/AuthContext";
 
@@ -44,6 +44,15 @@ export default function Navbar() {
                         </div>
                     </div>
                     <div className="hidden md:flex items-center gap-4">
+                        {user && (
+                            <Link
+                                href="/dashboard"
+                                className="hidden lg:flex items-center gap-2 px-5 py-2 rounded-full bg-gradient-to-r from-[#FF9F1C] to-[#2EC4B6] text-white font-bold text-[14px] shadow-md hover:shadow-lg transition-all hover:-translate-y-0.5 active:scale-95"
+                            >
+                                <LayoutDashboard className="w-4 h-4" />
+                                Go to Dashboard
+                            </Link>
+                        )}
                         <button
                             onClick={() => updateSettings({ darkMode: !userSettings.darkMode })}
                             className="p-2 rounded-full text-[#2EC4B6] hover:bg-[#2EC4B6]/10 transition-colors"
@@ -203,7 +212,10 @@ export default function Navbar() {
                                 <>
                                     <div className="flex items-center gap-3 px-3 py-2">
                                         <UserCircle className="w-8 h-8 text-[#2EC4B6]" />
-                                        <span className="text-gray-900 dark:text-white font-medium">{user.name}</span>
+                                        <div className="flex flex-col">
+                                            <span className="text-gray-900 dark:text-white font-medium">{user.name}</span>
+                                            <Link href="/dashboard" onClick={() => setIsOpen(false)} className="text-[#FF9F1C] text-xs font-bold hover:underline">View Dashboard</Link>
+                                        </div>
                                     </div>
                                     <button onClick={() => { logout(); setIsOpen(false); router.push('/'); }} className="flex items-center gap-2 w-full text-red-600 font-semibold px-4 py-2 border border-red-200 rounded-md hover:bg-red-50 transition-colors">
                                         <LogOut className="w-4 h-4" /> Log Out
