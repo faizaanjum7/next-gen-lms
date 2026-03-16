@@ -3,9 +3,35 @@
 import { useState, useRef, useEffect } from "react";
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
-import { Search, Calendar, Bell, User, ChevronDown, Eye, EyeOff, Moon, Sun, LogOut, Settings as SettingsIcon, User as UserIcon, X } from "lucide-react";
+import { Search, Calendar, Bell, User, ChevronDown, Eye, EyeOff, Moon, Sun, LogOut, Settings as SettingsIcon, User as UserIcon, X, Award, GraduationCap, CreditCard, LayoutDashboard, ClipboardList, BookOpen, HelpCircle } from "lucide-react";
 import { useAuth } from "@/lib/AuthContext";
 import { cn } from "@/lib/utils";
+
+interface SearchItem {
+    id: string;
+    title: string;
+    category: "Menu" | "Courses" | "Reports" | "Other";
+    path: string;
+    icon: React.ReactNode;
+}
+
+const searchItems: SearchItem[] = [
+    { id: "dash", title: "Dashboard Overview", category: "Menu", path: "/dashboard", icon: <LayoutDashboard className="w-4 h-4" /> },
+    { id: "courses", title: "My Courses", category: "Courses", path: "/dashboard/courses", icon: <BookOpen className="w-4 h-4" /> },
+    { id: "projects", title: "Projects", category: "Menu", path: "/dashboard/projects", icon: <LayoutDashboard className="w-4 h-4" /> },
+    { id: "payments", title: "Payment History", category: "Reports", path: "/dashboard/payments", icon: <CreditCard className="w-4 h-4" /> },
+    { id: "certs", title: "Certifications", category: "Reports", path: "/dashboard/certifications", icon: <Award className="w-4 h-4" /> },
+    { id: "reports", title: "Learning Reports", category: "Reports", path: "/dashboard/reports", icon: <Award className="w-4 h-4" /> },
+    { id: "quizzes", title: "Quizzes", category: "Menu", path: "/dashboard/quizzes", icon: <ClipboardList className="w-4 h-4" /> },
+    { id: "assignments", title: "Assignments", category: "Menu", path: "/dashboard/assignments", icon: <ClipboardList className="w-4 h-4" /> },
+    { id: "ai-tutor", title: "AI Tutor", category: "Other", path: "/dashboard/ai-tutor", icon: <GraduationCap className="w-4 h-4" /> },
+    { id: "profile", title: "Edit Profile", category: "Other", path: "/dashboard/profile", icon: <UserIcon className="w-4 h-4" /> },
+    { id: "settings", title: "Settings", category: "Other", path: "/dashboard/settings", icon: <SettingsIcon className="w-4 h-4" /> },
+    { id: "faq", title: "FAQ", category: "Other", path: "/dashboard/faq", icon: <HelpCircle className="w-4 h-4" /> },
+    { id: "web-dev", title: "Web Development Masterclass", category: "Courses", path: "/dashboard/courses", icon: <BookOpen className="w-4 h-4" /> },
+    { id: "ui-ux", title: "Modern UI/UX Design", category: "Courses", path: "/dashboard/courses", icon: <BookOpen className="w-4 h-4" /> },
+    { id: "node-js", title: "Mastering Node.js Backend", category: "Courses", path: "/dashboard/courses", icon: <BookOpen className="w-4 h-4" /> },
+];
 
 interface DashboardNavbarProps {
     showHorizontalMenuToggle?: boolean;
@@ -19,9 +45,20 @@ export default function DashboardNavbar({ showHorizontalMenuToggle, isAiTutorMen
     const { user, logout, notifications, removeNotification, userSettings, updateSettings } = useAuth();
     const [isProfileMenuOpen, setIsProfileMenuOpen] = useState(false);
     const [isNotificationsOpen, setIsNotificationsOpen] = useState(false);
+    const [searchQuery, setSearchQuery] = useState("");
+    const [isSearchFocused, setIsSearchFocused] = useState(false);
+    const [selectedIndex, setSelectedIndex] = useState(-1);
     const profileMenuRef = useRef<HTMLDivElement>(null);
     const notificationsMenuRef = useRef<HTMLDivElement>(null);
+    const searchRef = useRef<HTMLDivElement>(null);
  
+    const filteredResults = searchQuery.trim() === "" 
+        ? [] 
+        : searchItems.filter(item => 
+            item.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
+            item.category.toLowerCase().includes(searchQuery.toLowerCase())
+          );
+
     useEffect(() => {
         function handleClickOutside(event: MouseEvent) {
             if (profileMenuRef.current && !profileMenuRef.current.contains(event.target as Node)) {
@@ -30,10 +67,33 @@ export default function DashboardNavbar({ showHorizontalMenuToggle, isAiTutorMen
             if (notificationsMenuRef.current && !notificationsMenuRef.current.contains(event.target as Node)) {
                 setIsNotificationsOpen(false);
             }
+            if (searchRef.current && !searchRef.current.contains(event.target as Node)) {
+                setIsSearchFocused(false);
+            }
         }
         document.addEventListener("mousedown", handleClickOutside);
         return () => document.removeEventListener("mousedown", handleClickOutside);
     }, []);
+
+    const handleKeyDown = (e: React.KeyboardEvent) => {
+        if (!isSearchFocused || filteredResults.length === 0) return;
+
+        if (e.key === "ArrowDown") {
+            e.preventDefault();
+            setSelectedIndex(prev => (prev < filteredResults.length - 1 ? prev + 1 : prev));
+        } else if (e.key === "ArrowUp") {
+            e.preventDefault();
+            setSelectedIndex(prev => (prev > 0 ? prev - 1 : prev));
+        } else if (e.key === "Enter") {
+            if (selectedIndex >= 0) {
+                router.push(filteredResults[selectedIndex].path);
+                setIsSearchFocused(false);
+                setSearchQuery("");
+            }
+        } else if (e.key === "Escape") {
+            setIsSearchFocused(false);
+        }
+    };
 
     const getPageTitle = () => {
         if (pathname.startsWith("/dashboard/courses")) return "Courses";
@@ -64,15 +124,81 @@ export default function DashboardNavbar({ showHorizontalMenuToggle, isAiTutorMen
             </div>
 
             {/* Middle: Search bar */}
-            <div className="flex-1 max-w-[360px] mx-8 hidden md:block">
+            <div className="flex-1 max-w-[360px] mx-8 hidden md:block relative" ref={searchRef}>
                 <div className="relative">
                     <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400" />
                     <input
                         type="text"
                         placeholder="Search here.."
+                        value={searchQuery}
+                        onChange={(e) => {
+                            setSearchQuery(e.target.value);
+                            setSelectedIndex(-1);
+                            if (!isSearchFocused) setIsSearchFocused(true);
+                        }}
+                        onFocus={() => setIsSearchFocused(true)}
+                        onKeyDown={handleKeyDown}
                         className="w-full bg-gray-100 dark:bg-[#0f172a] border-none rounded-lg py-2 pl-9 pr-4 text-[13px] text-gray-900 dark:text-gray-200 focus:outline-none focus:ring-2 focus:ring-[#3fc9b9] transition-all"
                     />
                 </div>
+
+                {/* Search Results Dropdown */}
+                {isSearchFocused && searchQuery.trim() !== "" && (
+                    <div className="absolute top-full left-0 right-0 mt-2 bg-white dark:bg-[#1e293b] rounded-xl shadow-2xl border border-gray-100 dark:border-gray-800 overflow-hidden z-[150] animate-in fade-in slide-in-from-top-2">
+                        {filteredResults.length > 0 ? (
+                            <div className="max-h-[400px] overflow-y-auto py-2">
+                                {["Menu", "Courses", "Reports", "Other"].map(category => {
+                                    const categoryItems = filteredResults.filter(item => item.category === category);
+                                    if (categoryItems.length === 0) return null;
+
+                                    return (
+                                        <div key={category}>
+                                            <div className="px-4 py-1 text-[10px] font-bold text-gray-400 dark:text-gray-500 uppercase tracking-wider bg-gray-50/50 dark:bg-gray-800/30">
+                                                {category}
+                                            </div>
+                                            {categoryItems.map((item) => {
+                                                const globalIndex = filteredResults.indexOf(item);
+                                                return (
+                                                    <button
+                                                        key={item.id}
+                                                        onClick={() => {
+                                                            router.push(item.path);
+                                                            setIsSearchFocused(false);
+                                                            setSearchQuery("");
+                                                        }}
+                                                        onMouseEnter={() => setSelectedIndex(globalIndex)}
+                                                        className={cn(
+                                                            "w-full flex items-center gap-3 px-4 py-2.5 text-left transition-colors",
+                                                            selectedIndex === globalIndex 
+                                                                ? "bg-[#eefbf9] dark:bg-gray-800 text-[#2EC4B6] dark:text-[#3fc9b9]" 
+                                                                : "text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-800/50"
+                                                        )}
+                                                    >
+                                                        <div className={cn(
+                                                            "p-1.5 rounded-lg shrink-0",
+                                                            selectedIndex === globalIndex 
+                                                                ? "bg-white dark:bg-gray-700 shadow-sm" 
+                                                                : "bg-gray-100 dark:bg-gray-800"
+                                                        )}>
+                                                            {item.icon}
+                                                        </div>
+                                                        <span className="text-sm font-medium">{item.title}</span>
+                                                    </button>
+                                                );
+                                            })}
+                                        </div>
+                                    );
+                                })}
+                            </div>
+                        ) : (
+                            <div className="p-8 text-center">
+                                <Search className="w-8 h-8 text-gray-200 dark:text-gray-700 mx-auto mb-2" />
+                                <p className="text-sm font-medium text-gray-900 dark:text-white">No results found</p>
+                                <p className="text-xs text-gray-500 dark:text-gray-400 mt-1">Try a different keyword</p>
+                            </div>
+                        )}
+                    </div>
+                )}
             </div>
 
             {/* Right side: Actions & Profile */}
