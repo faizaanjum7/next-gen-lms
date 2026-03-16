@@ -11,6 +11,14 @@ function AIHRContent() {
     const courseParam = searchParams?.get("course") || "web-dev";
     const levelParam = searchParams?.get("level") || "basic";
 
+    // Helper to format unknown course slugs like "full-stack-java" -> "Full Stack Java"
+    const formatCourseName = (slug: string) => {
+        return slug
+            .split('-')
+            .map(word => word.charAt(0).toUpperCase() + word.slice(1))
+            .join(' ');
+    };
+
     // Assessment Process State
     const [assessmentState, setAssessmentState] = useState<'idle' | 'processing' | 'chat' | 'results'>('idle');
     const [isFullscreen, setIsFullscreen] = useState(false);
@@ -46,7 +54,14 @@ function AIHRContent() {
         ]
     };
 
-    const assessmentQuestions = courseQuestions[courseParam] || courseQuestions["web-dev"];
+    const generateDefaultCourseQuestions = (courseName: string) => [
+        { title: "Question 1", text: `What are the core principles and foundational concepts involved in ${courseName}?` },
+        { title: "Question 2", text: `Can you describe a challenging scenario you might face in ${courseName} and how you would approach solving it?` },
+        { title: "Question 3", text: `What modern tools or frameworks are typically used in ${courseName}, and why are they important?` }
+    ];
+
+    const displayCourseNameRaw = courseParam ? formatCourseName(courseParam) : "Web Development";
+    const assessmentQuestions = courseQuestions[courseParam] || generateDefaultCourseQuestions(displayCourseNameRaw);
 
     const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
     const [chatHistory, setChatHistory] = useState<{ role: 'ai' | 'user', content: React.ReactNode }[]>([
@@ -204,7 +219,7 @@ function AIHRContent() {
         "cybersecurity": "Cybersecurity",
     };
 
-    const displayCourse = courseNames[courseParam] || "Web Development";
+    const displayCourse = courseNames[courseParam] || formatCourseName(courseParam);
 
     // Capitalize first letter of level
     const displayLevel = levelParam.charAt(0).toUpperCase() + levelParam.slice(1);

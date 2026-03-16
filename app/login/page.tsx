@@ -1,9 +1,9 @@
 "use client";
 
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, Suspense } from "react";
 import { Mail, Lock, EyeOff, Eye, LineChart, ClipboardList, Brain, Route, Users } from "lucide-react";
 import Link from "next/link";
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import { useAuth } from "@/lib/AuthContext";
 
 const slides = [
@@ -54,13 +54,13 @@ const slides = [
     }
 ];
 
-export default function LoginPage() {
-    const [activeSlideIndex, setActiveSlideIndex] = useState(0);
+function LoginForm() {
     const [showPassword, setShowPassword] = useState(false);
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const { login } = useAuth();
     const router = useRouter();
+    const searchParams = useSearchParams();
 
     const handleLogin = (e: React.FormEvent) => {
         e.preventDefault();
@@ -69,9 +69,108 @@ export default function LoginPage() {
             // Extract a display name from email (e.g., example@gmail.com -> Example)
             const name = email.split('@')[0].charAt(0).toUpperCase() + email.split('@')[0].slice(1);
             login({ name });
-            router.push('/');
+            
+            const redirectParams = searchParams.get('redirect');
+            if (redirectParams) {
+                router.push(redirectParams);
+            } else {
+                router.push('/');
+            }
         }
     };
+
+    return (
+        <React.Fragment>
+            {/* Logo */}
+            <div className="text-center mb-10">
+                <h1 className="text-4xl md:text-[42px] font-extrabold mb-8">
+                    <span className="bg-gradient-to-r from-[#FF9F1C] to-[#2EC4B6] bg-clip-text text-transparent break-words">
+                        Next-Gen LMS
+                    </span>
+                </h1>
+                <h2 className="text-[26px] font-bold text-gray-900 mb-4">Log in</h2>
+                <Link
+                    href={`/signup${searchParams.toString() ? `?${searchParams.toString()}` : ''}`}
+                    className="inline-block text-[#2EC4B6] underline font-medium hover:text-[#28b0a3] transition-colors"
+                    style={{
+                        fontFamily: "Roboto, sans-serif",
+                        fontSize: "15px",
+                        textUnderlineOffset: "4px",
+                        textDecorationThickness: "1px"
+                    }}
+                >
+                    Create an account
+                </Link>
+            </div>
+
+            {/* Form */}
+            <form onSubmit={handleLogin} className="flex flex-col gap-6">
+                <div className="flex flex-col gap-2">
+                    <label className="text-lg font-bold text-gray-900">Email</label>
+                    <div className="relative">
+                        <Mail className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-800 w-6 h-6" />
+                        <input
+                            type="email"
+                            value={email}
+                            onChange={(e) => setEmail(e.target.value)}
+                            placeholder="example@gmail.com"
+                            required
+                            className="w-full bg-white pl-12 pr-4 py-3.5 rounded-xl border border-gray-300 focus:outline-none focus:border-[#2EC4B6] focus:ring-1 focus:ring-[#2EC4B6] text-gray-800 font-medium placeholder:text-gray-400 placeholder:font-semibold transition-all"
+                        />
+                    </div>
+                </div>
+
+                <div className="flex flex-col gap-2">
+                    <label className="text-lg font-bold text-gray-900">Password</label>
+                    <div className="relative">
+                        <Lock className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-800 w-6 h-6" />
+                        <input
+                            type={showPassword ? "text" : "password"}
+                            value={password}
+                            onChange={(e) => setPassword(e.target.value)}
+                            placeholder="Password"
+                            required
+                            className="w-full bg-white pl-12 pr-12 py-3.5 rounded-xl border border-gray-300 focus:outline-none focus:border-[#2EC4B6] focus:ring-1 focus:ring-[#2EC4B6] text-gray-800 font-medium placeholder:text-gray-400 placeholder:font-semibold transition-all"
+                        />
+                        <button
+                            type="button"
+                            onClick={() => setShowPassword(!showPassword)}
+                            className="absolute right-4 top-1/2 -translate-y-1/2 text-gray-800 hover:text-gray-600 focus:outline-none cursor-pointer"
+                            aria-label={showPassword ? "Hide password" : "Show password"}
+                        >
+                            {showPassword ? (
+                                <Eye className="w-6 h-6" />
+                            ) : (
+                                <EyeOff className="w-6 h-6" />
+                            )}
+                        </button>
+                    </div>
+                </div>
+
+                <button type="submit" className="w-full bg-[#2EC4B6] text-white py-4 rounded-xl text-xl font-semibold mt-2 border-2 border-transparent hover:bg-transparent hover:text-[#2EC4B6] hover:border-[#2EC4B6] transition-all cursor-pointer">
+                    Log in
+                </button>
+
+                <div className="text-center mt-2">
+                    <Link
+                        href="/forgot-password"
+                        className="text-[#2EC4B6] text-[15px] font-medium underline hover:text-[#28b0a3] transition-colors"
+                        style={{
+                            fontFamily: "Roboto, sans-serif",
+                            textUnderlineOffset: "4px",
+                            textDecorationThickness: "1px"
+                        }}
+                    >
+                        Forgot password?
+                    </Link>
+                </div>
+            </form>
+        </React.Fragment>
+    );
+}
+
+export default function LoginPage() {
+    const [activeSlideIndex, setActiveSlideIndex] = useState(0);
 
     useEffect(() => {
         const timer = setInterval(() => {
@@ -87,90 +186,10 @@ export default function LoginPage() {
             <div className="w-full max-w-6xl grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-24 items-center">
                 {/* Left Side: Form */}
                 <div className="flex flex-col w-full max-w-[400px] mx-auto lg:ml-auto order-2 lg:order-1">
-                    {/* Logo */}
-                    <div className="text-center mb-10">
-                        <h1 className="text-4xl md:text-[42px] font-extrabold mb-8">
-                            <span className="bg-gradient-to-r from-[#FF9F1C] to-[#2EC4B6] bg-clip-text text-transparent break-words">
-                                Next-Gen LMS
-                            </span>
-                        </h1>
-                        <h2 className="text-[26px] font-bold text-gray-900 mb-4">Log in</h2>
-                        <Link
-                            href="/signup"
-                            className="inline-block text-[#2EC4B6] underline font-medium hover:text-[#28b0a3] transition-colors"
-                            style={{
-                                fontFamily: "Roboto, sans-serif",
-                                fontSize: "15px",
-                                textUnderlineOffset: "4px",
-                                textDecorationThickness: "1px"
-                            }}
-                        >
-                            Create an account
-                        </Link>
-                    </div>
-
-                    {/* Form */}
-                    <form onSubmit={handleLogin} className="flex flex-col gap-6">
-                        <div className="flex flex-col gap-2">
-                            <label className="text-lg font-bold text-gray-900">Email</label>
-                            <div className="relative">
-                                <Mail className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-800 w-6 h-6" />
-                                <input
-                                    type="email"
-                                    value={email}
-                                    onChange={(e) => setEmail(e.target.value)}
-                                    placeholder="example@gmail.com"
-                                    required
-                                    className="w-full bg-white pl-12 pr-4 py-3.5 rounded-xl border border-gray-300 focus:outline-none focus:border-[#2EC4B6] focus:ring-1 focus:ring-[#2EC4B6] text-gray-800 font-medium placeholder:text-gray-400 placeholder:font-semibold transition-all"
-                                />
-                            </div>
-                        </div>
-
-                        <div className="flex flex-col gap-2">
-                            <label className="text-lg font-bold text-gray-900">Password</label>
-                            <div className="relative">
-                                <Lock className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-800 w-6 h-6" />
-                                <input
-                                    type={showPassword ? "text" : "password"}
-                                    value={password}
-                                    onChange={(e) => setPassword(e.target.value)}
-                                    placeholder="Password"
-                                    required
-                                    className="w-full bg-white pl-12 pr-12 py-3.5 rounded-xl border border-gray-300 focus:outline-none focus:border-[#2EC4B6] focus:ring-1 focus:ring-[#2EC4B6] text-gray-800 font-medium placeholder:text-gray-400 placeholder:font-semibold transition-all"
-                                />
-                                <button
-                                    type="button"
-                                    onClick={() => setShowPassword(!showPassword)}
-                                    className="absolute right-4 top-1/2 -translate-y-1/2 text-gray-800 hover:text-gray-600 focus:outline-none cursor-pointer"
-                                    aria-label={showPassword ? "Hide password" : "Show password"}
-                                >
-                                    {showPassword ? (
-                                        <Eye className="w-6 h-6" />
-                                    ) : (
-                                        <EyeOff className="w-6 h-6" />
-                                    )}
-                                </button>
-                            </div>
-                        </div>
-
-                        <button type="submit" className="w-full bg-[#2EC4B6] text-white py-4 rounded-xl text-xl font-semibold mt-2 border-2 border-transparent hover:bg-transparent hover:text-[#2EC4B6] hover:border-[#2EC4B6] transition-all cursor-pointer">
-                            Log in
-                        </button>
-
-                        <div className="text-center mt-2">
-                            <Link
-                                href="/forgot-password"
-                                className="text-[#2EC4B6] text-[15px] font-medium underline hover:text-[#28b0a3] transition-colors"
-                                style={{
-                                    fontFamily: "Roboto, sans-serif",
-                                    textUnderlineOffset: "4px",
-                                    textDecorationThickness: "1px"
-                                }}
-                            >
-                                Forgot password?
-                            </Link>
-                        </div>
-                    </form>
+                    {/* Form Component */}
+                    <Suspense fallback={<div className="text-center py-4">Loading form...</div>}>
+                        <LoginForm />
+                    </Suspense>
                 </div>
 
                 {/* Right Side: Features Carousel */}

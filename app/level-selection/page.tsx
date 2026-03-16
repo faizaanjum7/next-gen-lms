@@ -9,6 +9,14 @@ function LevelSelectionContent() {
     const router = useRouter();
     const courseParam = searchParams?.get("course");
 
+    // Helper to format unknown course slugs like "full-stack-java" -> "Full Stack Java"
+    const formatCourseName = (slug: string) => {
+        return slug
+            .split('-')
+            .map(word => word.charAt(0).toUpperCase() + word.slice(1))
+            .join(' ');
+    };
+
     const courseNames: Record<string, string> = {
         "web-dev": "Web development",
         "data-science": "Data Science",
@@ -45,8 +53,14 @@ function LevelSelectionContent() {
         }
     };
 
-    const displayCourse = courseParam ? (courseNames[courseParam] || courseParam) : "Web development";
-    const selectedData = courseParam && courseData[courseParam] ? courseData[courseParam] : courseData["web-dev"];
+    const generateDefaultCourseData = (courseName: string) => ({
+        basic: { title: "Foundations & Basics", list: [`Intro to ${courseName}`, "Core Concepts", "Basic Principles", "Essential Tools"] },
+        intermediate: { title: "Intermediate Applications", list: ["Advanced Concepts", "Practical Implementation", "Best Practices", "Real-world Examples"] },
+        advance: { title: "Advanced Topics & Mastery", list: ["Architecture & Design", "Performance Optimization", "Advanced Strategies", "Industry Workflows"] }
+    });
+
+    const displayCourse = courseParam ? (courseNames[courseParam] || formatCourseName(courseParam)) : "Web development";
+    const selectedData = courseParam && courseData[courseParam] ? courseData[courseParam] : generateDefaultCourseData(displayCourse);
 
     return (
         <main className="min-h-screen bg-[#eefbf9] font-sans text-gray-900 selection:bg-[#3a8d84] selection:text-white pb-32">

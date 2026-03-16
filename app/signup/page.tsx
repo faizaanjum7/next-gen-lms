@@ -1,9 +1,9 @@
 "use client";
 
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, Suspense } from "react";
 import { Mail, Lock, EyeOff, Eye, LineChart, ClipboardList, Brain, Route, Users } from "lucide-react";
 import Link from "next/link";
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import { useAuth } from "@/lib/AuthContext";
 
 const slides = [
@@ -54,8 +54,7 @@ const slides = [
     }
 ];
 
-export default function SignupPage() {
-    const [activeSlideIndex, setActiveSlideIndex] = useState(0);
+function SignupForm() {
     const [showPassword, setShowPassword] = useState(false);
     const [showConfirmPassword, setShowConfirmPassword] = useState(false);
     const [email, setEmail] = useState("");
@@ -63,15 +62,128 @@ export default function SignupPage() {
     const [confirmPassword, setConfirmPassword] = useState("");
     const { login } = useAuth();
     const router = useRouter();
-
+    const searchParams = useSearchParams();
+    
     const handleSignup = (e: React.FormEvent) => {
         e.preventDefault();
         if (email && password && password === confirmPassword) {
             const name = email.split('@')[0].charAt(0).toUpperCase() + email.split('@')[0].slice(1);
             login({ name });
-            router.push('/');
+            
+            const redirectParams = searchParams.get('redirect');
+            if (redirectParams) {
+                router.push(redirectParams);
+            } else {
+                router.push('/');
+            }
         }
     };
+
+    return (
+        <form onSubmit={handleSignup} className="flex flex-col gap-6">
+            <div className="flex flex-col gap-2">
+                <label className="text-[15px] font-bold text-gray-900">Email</label>
+                <div className="relative">
+                    <Mail className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-800 w-6 h-6" />
+                    <input
+                        type="email"
+                        value={email}
+                        onChange={(e) => setEmail(e.target.value)}
+                        placeholder="example@gmail.com"
+                        required
+                        className="w-full bg-white pl-12 pr-4 py-3.5 rounded-xl border border-gray-300 focus:outline-none focus:border-[#2EC4B6] focus:ring-1 focus:ring-[#2EC4B6] text-gray-800 font-medium placeholder:text-gray-400 placeholder:font-semibold transition-all"
+                    />
+                </div>
+            </div>
+
+            <div className="flex flex-col gap-2">
+                <label className="text-[15px] font-bold text-gray-900">Password</label>
+                <div className="relative">
+                    <Lock className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-800 w-6 h-6" />
+                    <input
+                        type={showPassword ? "text" : "password"}
+                        value={password}
+                        onChange={(e) => setPassword(e.target.value)}
+                        placeholder="Password"
+                        required
+                        className="w-full bg-white pl-12 pr-12 py-3.5 rounded-xl border border-gray-300 focus:outline-none focus:border-[#2EC4B6] focus:ring-1 focus:ring-[#2EC4B6] text-gray-800 font-medium placeholder:text-gray-400 placeholder:font-semibold transition-all"
+                    />
+                    <button
+                        type="button"
+                        onClick={() => setShowPassword(!showPassword)}
+                        className="absolute right-4 top-1/2 -translate-y-1/2 text-gray-800 hover:text-gray-600 focus:outline-none cursor-pointer"
+                    >
+                        {showPassword ? (
+                            <Eye className="w-5 h-5" />
+                        ) : (
+                            <EyeOff className="w-5 h-5" />
+                        )}
+                    </button>
+                </div>
+            </div>
+
+            <div className="flex flex-col gap-2">
+                <label className="text-[15px] font-bold text-gray-900">Confirm Password</label>
+                <div className="relative">
+                    <Lock className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-800 w-6 h-6" />
+                    <input
+                        type={showConfirmPassword ? "text" : "password"}
+                        value={confirmPassword}
+                        onChange={(e) => setConfirmPassword(e.target.value)}
+                        placeholder="Type the password again"
+                        required
+                        className="w-full bg-white pl-12 pr-12 py-3.5 rounded-xl border border-gray-300 focus:outline-none focus:border-[#2EC4B6] focus:ring-1 focus:ring-[#2EC4B6] text-gray-800 font-medium placeholder:text-gray-400 placeholder:font-semibold transition-all"
+                    />
+                    <button
+                        type="button"
+                        onClick={() => setShowConfirmPassword(!showConfirmPassword)}
+                        className="absolute right-4 top-1/2 -translate-y-1/2 text-gray-800 hover:text-gray-600 focus:outline-none cursor-pointer"
+                    >
+                        {showConfirmPassword ? (
+                            <Eye className="w-5 h-5" />
+                        ) : (
+                            <EyeOff className="w-5 h-5" />
+                        )}
+                    </button>
+                </div>
+            </div>
+
+            <div className="flex items-center gap-2 mt-1">
+                <input
+                    type="checkbox"
+                    id="terms"
+                    required
+                    className="w-4 h-4 rounded border-gray-300 text-[#2EC4B6] focus:ring-[#2EC4B6]"
+                />
+                <label htmlFor="terms" className="text-[12px] text-gray-600 font-medium">
+                    I agree with <a href="#" className="text-blue-600 hover:underline">Terms & Conditions and Privacy Policy</a>
+                </label>
+            </div>
+
+            <button type="submit" className="w-full bg-[#2EC4B6] text-white py-4 rounded-xl text-xl font-semibold mt-2 border-2 border-transparent hover:bg-transparent hover:text-[#2EC4B6] hover:border-[#2EC4B6] transition-all cursor-pointer">
+                Sign Up
+            </button>
+
+            <div className="text-center mt-4">
+                <span className="text-gray-900 text-[14px] font-bold">Already have account? </span>
+                <Link
+                    href={`/login${searchParams.toString() ? `?${searchParams.toString()}` : ''}`}
+                    className="text-[#2EC4B6] text-[14px] font-bold underline hover:text-[#28b0a3] transition-colors"
+                    style={{
+                        fontFamily: "Roboto, sans-serif",
+                        textUnderlineOffset: "4px",
+                        textDecorationThickness: "1px"
+                    }}
+                >
+                    Login
+                </Link>
+            </div>
+        </form>
+    );
+}
+
+export default function SignupPage() {
+    const [activeSlideIndex, setActiveSlideIndex] = useState(0);
 
     useEffect(() => {
         const timer = setInterval(() => {
@@ -98,105 +210,9 @@ export default function SignupPage() {
                     </div>
 
                     {/* Form */}
-                    <form onSubmit={handleSignup} className="flex flex-col gap-6">
-                        <div className="flex flex-col gap-2">
-                            <label className="text-[15px] font-bold text-gray-900">Email</label>
-                            <div className="relative">
-                                <Mail className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-800 w-6 h-6" />
-                                <input
-                                    type="email"
-                                    value={email}
-                                    onChange={(e) => setEmail(e.target.value)}
-                                    placeholder="example@gmail.com"
-                                    required
-                                    className="w-full bg-white pl-12 pr-4 py-3.5 rounded-xl border border-gray-300 focus:outline-none focus:border-[#2EC4B6] focus:ring-1 focus:ring-[#2EC4B6] text-gray-800 font-medium placeholder:text-gray-400 placeholder:font-semibold transition-all"
-                                />
-                            </div>
-                        </div>
-
-                        <div className="flex flex-col gap-2">
-                            <label className="text-[15px] font-bold text-gray-900">Password</label>
-                            <div className="relative">
-                                <Lock className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-800 w-6 h-6" />
-                                <input
-                                    type={showPassword ? "text" : "password"}
-                                    value={password}
-                                    onChange={(e) => setPassword(e.target.value)}
-                                    placeholder="Password"
-                                    required
-                                    className="w-full bg-white pl-12 pr-12 py-3.5 rounded-xl border border-gray-300 focus:outline-none focus:border-[#2EC4B6] focus:ring-1 focus:ring-[#2EC4B6] text-gray-800 font-medium placeholder:text-gray-400 placeholder:font-semibold transition-all"
-                                />
-                                <button
-                                    type="button"
-                                    onClick={() => setShowPassword(!showPassword)}
-                                    className="absolute right-4 top-1/2 -translate-y-1/2 text-gray-800 hover:text-gray-600 focus:outline-none cursor-pointer"
-                                >
-                                    {showPassword ? (
-                                        <Eye className="w-5 h-5" />
-                                    ) : (
-                                        <EyeOff className="w-5 h-5" />
-                                    )}
-                                </button>
-                            </div>
-                        </div>
-
-                        <div className="flex flex-col gap-2">
-                            <label className="text-[15px] font-bold text-gray-900">Confirm Password</label>
-                            <div className="relative">
-                                <Lock className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-800 w-6 h-6" />
-                                <input
-                                    type={showConfirmPassword ? "text" : "password"}
-                                    value={confirmPassword}
-                                    onChange={(e) => setConfirmPassword(e.target.value)}
-                                    placeholder="Type the password again"
-                                    required
-                                    className="w-full bg-white pl-12 pr-12 py-3.5 rounded-xl border border-gray-300 focus:outline-none focus:border-[#2EC4B6] focus:ring-1 focus:ring-[#2EC4B6] text-gray-800 font-medium placeholder:text-gray-400 placeholder:font-semibold transition-all"
-                                />
-                                <button
-                                    type="button"
-                                    onClick={() => setShowConfirmPassword(!showConfirmPassword)}
-                                    className="absolute right-4 top-1/2 -translate-y-1/2 text-gray-800 hover:text-gray-600 focus:outline-none cursor-pointer"
-                                >
-                                    {showConfirmPassword ? (
-                                        <Eye className="w-5 h-5" />
-                                    ) : (
-                                        <EyeOff className="w-5 h-5" />
-                                    )}
-                                </button>
-                            </div>
-                        </div>
-
-                        <div className="flex items-center gap-2 mt-1">
-                            <input
-                                type="checkbox"
-                                id="terms"
-                                required
-                                className="w-4 h-4 rounded border-gray-300 text-[#2EC4B6] focus:ring-[#2EC4B6]"
-                            />
-                            <label htmlFor="terms" className="text-[12px] text-gray-600 font-medium">
-                                I agree with <a href="#" className="text-blue-600 hover:underline">Terms & Conditions and Privacy Policy</a>
-                            </label>
-                        </div>
-
-                        <button type="submit" className="w-full bg-[#2EC4B6] text-white py-4 rounded-xl text-xl font-semibold mt-2 border-2 border-transparent hover:bg-transparent hover:text-[#2EC4B6] hover:border-[#2EC4B6] transition-all cursor-pointer">
-                            Sign Up
-                        </button>
-
-                        <div className="text-center mt-4">
-                            <span className="text-gray-900 text-[14px] font-bold">Already have account? </span>
-                            <Link
-                                href="/login"
-                                className="text-[#2EC4B6] text-[14px] font-bold underline hover:text-[#28b0a3] transition-colors"
-                                style={{
-                                    fontFamily: "Roboto, sans-serif",
-                                    textUnderlineOffset: "4px",
-                                    textDecorationThickness: "1px"
-                                }}
-                            >
-                                Login
-                            </Link>
-                        </div>
-                    </form>
+                    <Suspense fallback={<div className="text-center py-4">Loading form...</div>}>
+                        <SignupForm />
+                    </Suspense>
                 </div>
 
                 {/* Right Side: Features Carousel */}

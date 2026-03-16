@@ -1,4 +1,6 @@
 import { useState } from "react";
+import { useRouter } from "next/navigation";
+import { useAuth } from "@/lib/AuthContext";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
@@ -64,6 +66,8 @@ const courses = [
 export default function Courses() {
     const [showAll, setShowAll] = useState(false);
     const [searchQuery, setSearchQuery] = useState("");
+    const router = useRouter();
+    const { user } = useAuth();
 
     const filteredCourses = courses.filter((course) =>
         course.title.toLowerCase().includes(searchQuery.toLowerCase())
@@ -111,7 +115,21 @@ export default function Courses() {
                                     </div>
                                 </div>
                                 <div className="pt-2 border-t border-gray-100">
-                                    <Button variant="orange" className="w-full mt-4 rounded-full font-semibold transition-transform hover:scale-[1.02] shadow-md">
+                                    <Button 
+                                        variant="orange" 
+                                        className="w-full mt-4 rounded-full font-semibold transition-transform hover:scale-[1.02] shadow-md"
+                                        onClick={() => {
+                                            // Make course title URL-safe (e.g. "Java Programming" -> "java-programming")
+                                            const courseId = course.title.toLowerCase().replace(/[^a-z0-9]+/g, '-');
+                                            const redirectUrl = encodeURIComponent(`/level-selection?course=${courseId}`);
+                                            
+                                            if (user) {
+                                                router.push(`/level-selection?course=${courseId}`);
+                                            } else {
+                                                router.push(`/signup?redirect=${redirectUrl}`);
+                                            }
+                                        }}
+                                    >
                                         Enroll Now
                                     </Button>
                                 </div>
