@@ -34,7 +34,7 @@ export default function HorizontalDashboardMenuBar() {
     ];
 
     return (
-        <div className="w-full bg-white border-b border-gray-200 shrink-0 z-10 box-border px-6 py-4 flex items-center justify-center gap-6 overflow-x-auto scrollbar-hide">
+        <div className="w-full bg-white dark:bg-[#1e293b] border-b border-gray-200 dark:border-gray-800 shrink-0 z-10 box-border px-6 py-4 flex items-center justify-center gap-6 overflow-x-auto scrollbar-hide transition-colors">
             {primaryNavItems.map((item) => {
                 const isActive = pathname === item.href || (item.href !== "/dashboard" && pathname.startsWith(item.href));
                 return (

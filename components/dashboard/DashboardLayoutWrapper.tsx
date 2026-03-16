@@ -22,7 +22,7 @@ export default function DashboardLayoutWrapper({ children }: { children: React.R
     }, [isAiTutorPage]);
 
     return (
-        <div className="flex flex-col h-screen w-full bg-[#f6f9f8] overflow-hidden font-sans">
+        <div className="flex flex-col h-screen w-full bg-[#f6f9f8] dark:bg-[#0f172a] overflow-hidden font-sans transition-colors">
             <DashboardNavbar
                 showHorizontalMenuToggle={isAiTutorPage}
                 isAiTutorMenuBarVisible={isAiTutorMenuBarVisible}

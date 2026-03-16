@@ -27,7 +27,7 @@ export default function Navbar() {
     }, []);
 
     return (
-        <nav className="fixed w-full z-50 bg-[#eefbf9]/80 backdrop-blur-md">
+        <nav className="fixed w-full z-50 bg-[#eefbf9]/80 dark:bg-[#0f172a]/80 backdrop-blur-md border-b border-transparent dark:border-gray-800 transition-colors duration-300">
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 <div className="flex items-center justify-between h-20">
                     <div className="flex-shrink-0">
@@ -50,23 +50,23 @@ export default function Navbar() {
                                     onClick={() => setIsProfileMenuOpen(!isProfileMenuOpen)}
                                     className="group flex items-center gap-2 px-4 py-2 rounded-full transition-all duration-300 hover:bg-[#2EC4B6] border border-transparent hover:border-[#2EC4B6]"
                                 >
-                                    <UserCircle className="w-8 h-8 text-gray-700 group-hover:text-white transition-colors" />
-                                    <span className="text-gray-900 font-medium text-base group-hover:text-black transition-colors">{user.name}</span>
-                                    <ChevronDown className="w-5 h-5 text-gray-500 group-hover:text-white transition-colors" />
+                                    <UserCircle className="w-8 h-8 text-gray-700 dark:text-gray-300 group-hover:text-white transition-colors" />
+                                    <span className="text-gray-900 dark:text-gray-100 font-medium text-base group-hover:text-black dark:group-hover:text-white transition-colors">{user.name}</span>
+                                    <ChevronDown className="w-5 h-5 text-gray-500 dark:text-gray-400 group-hover:text-white transition-colors" />
                                 </button>
 
                                 {isProfileMenuOpen && (
-                                    <div className="absolute right-0 mt-2 w-72 bg-white rounded-xl shadow-xl z-50 ring-1 ring-black ring-opacity-5 overflow-hidden flex flex-col border border-gray-100">
-                                        <div className="p-4 border-b border-gray-50 bg-gray-50/50">
-                                            <p className="text-sm font-semibold text-gray-900">{user.name}</p>
-                                            <p className="text-xs text-gray-500 truncate">Account Active</p>
+                                    <div className="absolute right-0 mt-2 w-72 bg-white dark:bg-[#1e293b] rounded-xl shadow-xl z-50 ring-1 ring-black ring-opacity-5 overflow-hidden flex flex-col border border-gray-100 dark:border-gray-800">
+                                        <div className="p-4 border-b border-gray-50 dark:border-gray-800 bg-gray-50/50 dark:bg-gray-800/50">
+                                            <p className="text-sm font-semibold text-gray-900 dark:text-white">{user.name}</p>
+                                            <p className="text-xs text-gray-500 dark:text-gray-400 truncate">Account Active</p>
                                         </div>
 
                                         <div className="py-2">
                                             <Link
                                                 href="/profile"
                                                 onClick={() => setIsProfileMenuOpen(false)}
-                                                className="flex items-center gap-3 px-4 py-2.5 text-sm text-gray-700 hover:bg-[#eefbf9] hover:text-[#2EC4B6] transition-colors"
+                                                className="flex items-center gap-3 px-4 py-2.5 text-sm text-gray-700 dark:text-gray-300 hover:bg-[#eefbf9] dark:hover:bg-gray-800 hover:text-[#2EC4B6] transition-colors"
                                             >
                                                 <UserIcon className="w-4 h-4" />
                                                 Edit Profile
@@ -74,17 +74,17 @@ export default function Navbar() {
                                             <Link
                                                 href="/settings"
                                                 onClick={() => setIsProfileMenuOpen(false)}
-                                                className="flex items-center gap-3 px-4 py-2.5 text-sm text-gray-700 hover:bg-[#eefbf9] hover:text-[#2EC4B6] transition-colors"
+                                                className="flex items-center gap-3 px-4 py-2.5 text-sm text-gray-700 dark:text-gray-300 hover:bg-[#eefbf9] dark:hover:bg-gray-800 hover:text-[#2EC4B6] transition-colors"
                                             >
                                                 <SettingsIcon className="w-4 h-4" />
                                                 Settings
                                             </Link>
                                             
-                                            <div className="border-t border-gray-50 my-1"></div>
+                                            <div className="border-t border-gray-50 dark:border-gray-800 my-1"></div>
                                             
                                             {/* Notifications Section */}
                                             <div className="px-4 py-2 flex items-center justify-between">
-                                                <div className="flex items-center gap-2 text-sm font-bold text-gray-900">
+                                                <div className="flex items-center gap-2 text-sm font-bold text-gray-900 dark:text-white">
                                                     <Bell className="w-4 h-4" />
                                                     Notifications
                                                 </div>
@@ -98,8 +98,8 @@ export default function Navbar() {
                                             <div className="max-h-48 overflow-y-auto px-2 pb-2">
                                                 {notifications.length > 0 ? (
                                                     notifications.map((notif) => (
-                                                        <div key={notif.id} className="group relative bg-gray-50 rounded-lg p-3 mb-2 last:mb-0 border border-transparent hover:border-[#2EC4B6]/20 transition-all">
-                                                            <p className="text-xs text-gray-700 pr-6 leading-relaxed">{notif.message}</p>
+                                                        <div key={notif.id} className="group relative bg-gray-50 dark:bg-gray-800 rounded-lg p-3 mb-2 last:mb-0 border border-transparent hover:border-[#2EC4B6]/20 transition-all">
+                                                            <p className="text-xs text-gray-700 dark:text-gray-300 pr-6 leading-relaxed">{notif.message}</p>
                                                             <button 
                                                                 onClick={(e) => {
                                                                     e.stopPropagation();
@@ -117,7 +117,7 @@ export default function Navbar() {
                                             </div>
                                         </div>
 
-                                        <div className="p-2 border-t border-gray-50 bg-gray-50/30">
+                                        <div className="p-2 border-t border-gray-50 dark:border-gray-800 bg-gray-50/30 dark:bg-gray-800/30">
                                             <button
                                                 onClick={() => {
                                                     logout();
@@ -134,7 +134,7 @@ export default function Navbar() {
                                 )}
                             </div>
                         ) : (
-                            <div className="bg-white border border-gray-100 rounded-lg p-1 flex items-center shadow-sm relative isolate">
+                            <div className="bg-white dark:bg-gray-800 border border-gray-100 dark:border-gray-700 rounded-lg p-1 flex items-center shadow-sm relative isolate transition-colors">
                                 {/* Sliding Background */}
                                 <div
                                     className={cn(
@@ -169,7 +169,7 @@ export default function Navbar() {
                     <div className="-mr-2 flex md:hidden">
                         <button
                             onClick={() => setIsOpen(!isOpen)}
-                            className="inline-flex items-center justify-center p-2 rounded-md text-gray-700 hover:text-[#4CA1AF] focus:outline-none"
+                            className="inline-flex items-center justify-center p-2 rounded-md text-gray-700 dark:text-gray-300 hover:text-[#4CA1AF] focus:outline-none"
                         >
                             <Menu className="h-6 w-6" />
                         </button>
@@ -179,18 +179,18 @@ export default function Navbar() {
 
             {/* Mobile menu */}
             {isOpen && (
-                <div className="md:hidden bg-white/95 backdrop-blur-md">
+                <div className="md:hidden bg-white/95 dark:bg-[#0f172a]/95 backdrop-blur-md transition-colors">
                     <div className="px-2 pt-2 pb-3 space-y-1 sm:px-3">
-                        <Link href="/#home" onClick={() => setIsOpen(false)} className="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-[#FF9F1C] hover:bg-gray-50">Home</Link>
-                        <Link href="/#about" onClick={() => setIsOpen(false)} className="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-[#FF9F1C] hover:bg-gray-50">About Us</Link>
-                        <Link href="/#courses" onClick={() => setIsOpen(false)} className="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-[#FF9F1C] hover:bg-gray-50">Courses</Link>
-                        <Link href="/#faq" onClick={() => setIsOpen(false)} className="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-[#FF9F1C] hover:bg-gray-50">FAQ</Link>
+                        <Link href="/#home" onClick={() => setIsOpen(false)} className="block px-3 py-2 rounded-md text-base font-medium text-gray-700 dark:text-gray-300 hover:text-[#FF9F1C] hover:bg-gray-50 dark:hover:bg-gray-800">Home</Link>
+                        <Link href="/#about" onClick={() => setIsOpen(false)} className="block px-3 py-2 rounded-md text-base font-medium text-gray-700 dark:text-gray-300 hover:text-[#FF9F1C] hover:bg-gray-50 dark:hover:bg-gray-800">About Us</Link>
+                        <Link href="/#courses" onClick={() => setIsOpen(false)} className="block px-3 py-2 rounded-md text-base font-medium text-gray-700 dark:text-gray-300 hover:text-[#FF9F1C] hover:bg-gray-50 dark:hover:bg-gray-800">Courses</Link>
+                        <Link href="/#faq" onClick={() => setIsOpen(false)} className="block px-3 py-2 rounded-md text-base font-medium text-gray-700 dark:text-gray-300 hover:text-[#FF9F1C] hover:bg-gray-50 dark:hover:bg-gray-800">FAQ</Link>
                         <div className="mt-4 flex flex-col space-y-2 px-3">
                             {user ? (
                                 <>
                                     <div className="flex items-center gap-3 px-3 py-2">
                                         <UserCircle className="w-8 h-8 text-[#2EC4B6]" />
-                                        <span className="text-gray-900 font-medium">{user.name}</span>
+                                        <span className="text-gray-900 dark:text-white font-medium">{user.name}</span>
                                     </div>
                                     <button onClick={() => { logout(); setIsOpen(false); router.push('/'); }} className="flex items-center gap-2 w-full text-red-600 font-semibold px-4 py-2 border border-red-200 rounded-md hover:bg-red-50 transition-colors">
                                         <LogOut className="w-4 h-4" /> Log Out

@@ -14,7 +14,7 @@ export default function LearningPathView() {
         }
     };
     return (
-        <div className="min-h-screen bg-[#eefbf9] flex flex-col items-center justify-center pt-24 pb-12 px-4 relative overflow-hidden">
+        <div className="min-h-screen bg-[#eefbf9] dark:bg-[#0f172a] flex flex-col items-center justify-center pt-24 pb-12 px-4 relative overflow-hidden transition-colors">
             {/* Background images removed */}
 
             {/* Main Content */}
@@ -24,11 +24,11 @@ export default function LearningPathView() {
                 </h1>
 
                 <div className="w-full max-w-md bg-transparent flex flex-col items-start gap-4">
-                    <h2 className="text-2xl font-semibold text-gray-900">Courses</h2>
+                    <h2 className="text-2xl font-semibold text-gray-900 dark:text-white transition-colors">Courses</h2>
 
                     <div className="relative w-full">
                         <select
-                            className="w-full appearance-none bg-white border border-gray-200 rounded-lg px-4 py-4 pr-10 text-gray-500 font-medium text-lg focus:outline-none focus:ring-2 focus:ring-[#2EC4B6] focus:border-transparent shadow-sm cursor-pointer"
+                            className="w-full appearance-none bg-white dark:bg-[#1e293b] border border-gray-200 dark:border-gray-800 rounded-lg px-4 py-4 pr-10 text-gray-500 dark:text-gray-400 font-medium text-lg focus:outline-none focus:ring-2 focus:ring-[#2EC4B6] focus:border-transparent shadow-sm cursor-pointer transition-colors"
                             value={selectedCourse}
                             onChange={(e) => setSelectedCourse(e.target.value)}
                         >

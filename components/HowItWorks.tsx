@@ -25,12 +25,12 @@ const steps = [
 
 export default function HowItWorks() {
     return (
-        <section className="py-20 bg-white">
+        <section className="py-20 bg-white dark:bg-[#0f172a] transition-colors duration-300">
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-                <h2 className="text-3xl font-bold mb-4 text-gray-900">
+                <h2 className="text-3xl font-bold mb-4 text-gray-900 dark:text-white">
                     How <span className="text-[#FF9F1C]">Our LMS</span> Works
                 </h2>
-                <p className="text-gray-500 mb-16 max-w-2xl mx-auto">
+                <p className="text-gray-500 dark:text-gray-400 mb-16 max-w-2xl mx-auto">
                     From first login to career launch, our AI guides every step of your learning journey.
                 </p>
 
@@ -42,14 +42,14 @@ export default function HowItWorks() {
 
                         {/* Arrow 1 - positioned between step 1 and 2 */}
                         <div className="absolute top-1/2 left-[33.333%] transform -translate-x-1/2 -translate-y-1/2">
-                            <div className="w-8 h-8 rounded-full bg-white border-2 border-[#2EC4B6] flex items-center justify-center text-[#FF9F1C] shadow-sm z-10">
+                            <div className="w-8 h-8 rounded-full bg-white dark:bg-[#1e293b] border-2 border-[#2EC4B6] flex items-center justify-center text-[#FF9F1C] shadow-sm z-10 transition-colors">
                                 <ArrowRight className="w-4 h-4" />
                             </div>
                         </div>
 
                         {/* Arrow 2 - positioned between step 2 and 3 */}
                         <div className="absolute top-1/2 left-[66.666%] transform -translate-x-1/2 -translate-y-1/2">
-                            <div className="w-8 h-8 rounded-full bg-white border-2 border-[#2EC4B6] flex items-center justify-center text-[#FF9F1C] shadow-sm z-10">
+                            <div className="w-8 h-8 rounded-full bg-white dark:bg-[#1e293b] border-2 border-[#2EC4B6] flex items-center justify-center text-[#FF9F1C] shadow-sm z-10 transition-colors">
                                 <ArrowRight className="w-4 h-4" />
                             </div>
                         </div>
@@ -61,13 +61,13 @@ export default function HowItWorks() {
                             <div key={index} className="flex flex-col items-center">
                                 <div className="relative mb-6">
                                     {/* Circle Icon */}
-                                    <div className="w-24 h-24 rounded-full bg-[#ffba52] flex flex-col items-center justify-center text-white shadow-xl border-4 border-white transition-transform hover:scale-105 duration-300 relative z-20">
+                                    <div className="w-24 h-24 rounded-full bg-[#ffba52] flex flex-col items-center justify-center text-white shadow-xl border-4 border-white dark:border-gray-800 transition-all hover:scale-105 duration-300 relative z-20">
                                         <step.icon className="w-8 h-8 mb-1" />
                                         <span className="text-xs font-bold opacity-90">0{step.id}</span>
                                     </div>
                                 </div>
-                                <h3 className="font-bold text-xl mb-3 text-gray-900">{step.title}</h3>
-                                <p className="text-gray-600 text-sm leading-relaxed px-6">
+                                <h3 className="font-bold text-xl mb-3 text-gray-900 dark:text-white transition-colors">{step.title}</h3>
+                                <p className="text-gray-600 dark:text-gray-400 text-sm leading-relaxed px-6 transition-colors">
                                     {step.description}
                                 </p>
                             </div>
@@ -81,7 +81,7 @@ export default function HowItWorks() {
                             Get Started <ArrowRight className="ml-2 w-5 h-5" />
                         </Button>
                     </Link>
-                    <Button variant="outline" size="lg" className="rounded-full px-8 text-base border-[#3a8d84] text-[#3a8d84] hover:bg-[#3a8d84]/10 hover:text-[#3a8d84]">
+                    <Button variant="outline" size="lg" className="rounded-full px-8 text-base border-[#3a8d84] dark:border-[#2EC4B6] text-[#3a8d84] dark:text-[#2EC4B6] hover:bg-[#3a8d84]/10 dark:hover:bg-[#2EC4B6]/10 hover:text-[#3a8d84] transition-colors">
                         <PlayCircle className="mr-2 w-5 h-5" />
                         Watch Demo
                     </Button>

@@ -43,16 +43,16 @@ export default function SettingsPage() {
             case "account":
                 return (
                     <div className="space-y-8 animate-in fade-in slide-in-from-bottom-2 duration-500">
-                        <div className="bg-white rounded-[32px] p-8 shadow-[0_8px_30px_rgb(0,0,0,0.04)] border border-gray-100">
-                            <h3 className="text-lg font-bold text-gray-900 mb-6 flex items-center gap-2">
+                        <div className="bg-white dark:bg-[#1e293b] rounded-[32px] p-8 shadow-[0_8px_30px_rgb(0,0,0,0.04)] border border-gray-100 dark:border-gray-800 transition-colors">
+                            <h3 className="text-lg font-bold text-gray-900 dark:text-white mb-6 flex items-center gap-2 transition-colors">
                                 <Shield className="w-5 h-5 text-[#2EC4B6]" />
                                 Privacy & Security
                             </h3>
                             <div className="space-y-6">
                                 <div className="flex items-center justify-between">
                                     <div>
-                                        <p className="font-bold text-gray-800">Private Profile</p>
-                                        <p className="text-sm text-gray-500 font-medium">Only allow verified mentors to view your skill assessments.</p>
+                                        <p className="font-bold text-gray-800 dark:text-gray-200 transition-colors">Private Profile</p>
+                                        <p className="text-sm text-gray-500 dark:text-gray-400 font-medium transition-colors">Only allow verified mentors to view your skill assessments.</p>
                                     </div>
                                     <button 
                                         onClick={() => handleToggle('privateProfile')}
@@ -74,16 +74,16 @@ export default function SettingsPage() {
             case "notifications":
                 return (
                     <div className="space-y-8 animate-in fade-in slide-in-from-bottom-2 duration-500">
-                        <div className="bg-white rounded-[32px] p-8 shadow-[0_8px_30px_rgb(0,0,0,0.04)] border border-gray-100">
-                            <h3 className="text-lg font-bold text-gray-900 mb-6 flex items-center gap-2">
+                        <div className="bg-white dark:bg-[#1e293b] rounded-[32px] p-8 shadow-[0_8px_30px_rgb(0,0,0,0.04)] border border-gray-100 dark:border-gray-800 transition-colors">
+                            <h3 className="text-lg font-bold text-gray-900 dark:text-white mb-6 flex items-center gap-2 transition-colors">
                                 <Bell className="w-5 h-5 text-[#FF9F1C]" />
                                 Notification Settings
                             </h3>
                             <div className="space-y-6">
                                 <div className="flex items-center justify-between">
                                     <div>
-                                        <p className="font-bold text-gray-800">Email Marketing</p>
-                                        <p className="text-sm text-gray-500 font-medium">Receive updates about new courses and features.</p>
+                                        <p className="font-bold text-gray-800 dark:text-gray-200 transition-colors">Email Marketing</p>
+                                        <p className="text-sm text-gray-500 dark:text-gray-400 font-medium transition-colors">Receive updates about new courses and features.</p>
                                     </div>
                                     <button 
                                         onClick={() => handleToggle('marketingEmails')}
@@ -100,8 +100,8 @@ export default function SettingsPage() {
                                 </div>
                                 <div className="flex items-center justify-between">
                                     <div>
-                                        <p className="font-bold text-gray-800">Assessment Reminders</p>
-                                        <p className="text-sm text-gray-500 font-medium">Get notified when your scheduled assessments are coming up.</p>
+                                        <p className="font-bold text-gray-800 dark:text-gray-200 transition-colors">Assessment Reminders</p>
+                                        <p className="text-sm text-gray-500 dark:text-gray-400 font-medium transition-colors">Get notified when your scheduled assessments are coming up.</p>
                                     </div>
                                     <button 
                                         onClick={() => handleToggle('assessmentReminders')}
@@ -123,26 +123,26 @@ export default function SettingsPage() {
             case "appearance":
                 return (
                     <div className="space-y-8 animate-in fade-in slide-in-from-bottom-2 duration-500">
-                        <div className="bg-white rounded-[32px] p-8 shadow-[0_8px_30px_rgb(0,0,0,0.04)] border border-gray-100">
-                            <h3 className="text-lg font-bold text-gray-900 mb-6 flex items-center gap-2">
+                        <div className="bg-white dark:bg-[#1e293b] rounded-[32px] p-8 shadow-[0_8px_30px_rgb(0,0,0,0.04)] border border-gray-100 dark:border-gray-800 transition-colors">
+                            <h3 className="text-lg font-bold text-gray-900 dark:text-white mb-6 flex items-center gap-2 transition-colors">
                                 <Moon className="w-5 h-5 text-indigo-500" />
-                                Visual Theme
+                                Theme Preference
                             </h3>
                             <div className="space-y-6">
                                 <div className="flex items-center justify-between">
                                     <div>
-                                        <p className="font-bold text-gray-800">Dark Mode</p>
-                                        <p className="text-sm text-gray-500 font-medium">Switch to a darker interface for low-light environments.</p>
+                                        <p className="font-bold text-gray-800 dark:text-gray-200 transition-colors">Dark Mode</p>
+                                        <p className="text-sm text-gray-500 dark:text-gray-400 font-medium transition-colors">Reduced eye strain in low-light environments.</p>
                                     </div>
                                     <button 
                                         onClick={() => handleToggle('darkMode')}
                                         className={cn(
                                             "w-12 h-6 rounded-full transition-all relative",
-                                            tempSettings.darkMode ? 'bg-[#2EC4B6]' : 'bg-gray-200'
+                                            tempSettings.darkMode ? 'bg-[#2EC4B6]' : 'bg-gray-200 dark:bg-gray-700'
                                         )}
                                     >
                                         <div className={cn(
-                                            "absolute top-1 w-4 h-4 rounded-full bg-white transition-all",
+                                            "absolute top-1 w-4 h-4 rounded-full bg-white transition-all shadow-sm",
                                             tempSettings.darkMode ? 'left-7' : 'left-1'
                                         )} />
                                     </button>
@@ -160,18 +160,18 @@ export default function SettingsPage() {
             case "language":
                 return (
                     <div className="space-y-8 animate-in fade-in slide-in-from-bottom-2 duration-500">
-                        <div className="bg-white rounded-[32px] p-8 shadow-[0_8px_30px_rgb(0,0,0,0.04)] border border-gray-100">
-                            <h3 className="text-lg font-bold text-gray-900 mb-6 flex items-center gap-2">
+                        <div className="bg-white dark:bg-[#1e293b] rounded-[32px] p-8 shadow-[0_8px_30px_rgb(0,0,0,0.04)] border border-gray-100 dark:border-gray-800 transition-colors">
+                            <h3 className="text-lg font-bold text-gray-900 dark:text-white mb-6 flex items-center gap-2 transition-colors">
                                 <Languages className="w-5 h-5 text-[#2EC4B6]" />
                                 Language & Region
                             </h3>
                             <div className="space-y-6">
                                 <div className="space-y-2">
-                                    <label className="text-sm font-bold text-gray-700 ml-1">Preferred Language</label>
+                                    <label className="text-sm font-bold text-gray-700 dark:text-gray-300 ml-1 transition-colors">Preferred Language</label>
                                     <select 
                                         value={tempSettings.language}
                                         onChange={(e) => handleSelect('language', e.target.value)}
-                                        className="w-full px-5 py-3 rounded-xl border border-gray-200 bg-[#f8f9fa] focus:outline-none focus:border-[#2EC4B6] transition-all font-medium text-gray-800 appearance-none bg-[url('data:image/svg+xml;charset=US-ASCII,%3Csvg%20width%3D%2220%22%20height%3D%2220%22%20viewBox%3D%220%200%2020%2020%22%20fill%3D%22none%22%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%3E%3Cpath%20d%3D%22M5%207.5L10%2012.5L15%207.5%22%20stroke%3D%22%236B7280%22%20stroke-width%3D%221.67%22%20stroke-linecap%3D%22round%22%20stroke-linejoin%3D%22round%22/%3E%3C/svg%3E')] bg-[length:20px_20px] bg-[right_1rem_center] bg-no-repeat"
+                                        className="w-full px-5 py-3 rounded-xl border border-gray-200 dark:border-gray-700 bg-[#f8f9fa] dark:bg-[#0f172a] focus:outline-none focus:border-[#2EC4B6] transition-all font-medium text-gray-800 dark:text-gray-200 appearance-none bg-[url('data:image/svg+xml;charset=US-ASCII,%3Csvg%20width%3D%2220%22%20height%3D%2220%22%20viewBox%3D%220%200%2020%2020%22%20fill%3D%22none%22%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%3E%3Cpath%20d%3D%22M5%207.5L10%2012.5L15%207.5%22%20stroke%3D%22%236B7280%22%20stroke-width%3D%221.67%22%20stroke-linecap%3D%22round%22%20stroke-linejoin%3D%22round%22/%3E%3C/svg%3E')] bg-[length:20px_20px] bg-[right_1rem_center] bg-no-repeat"
                                     >
                                         <option value="english">English (US)</option>
                                         <option value="hindi">Hindi (India)</option>
@@ -179,7 +179,7 @@ export default function SettingsPage() {
                                         <option value="french">French (European)</option>
                                     </select>
                                 </div>
-                                <div className="flex items-center gap-2 p-3 bg-gray-50 rounded-lg text-xs font-medium text-gray-500">
+                                <div className="flex items-center gap-2 p-3 bg-gray-50 dark:bg-[#0f172a]/50 rounded-lg text-xs font-medium text-gray-500 dark:text-gray-400 transition-colors">
                                     <Check className="w-3 h-3 text-[#2EC4B6]" />
                                     Standard system time format will be used.
                                 </div>
@@ -198,13 +198,13 @@ export default function SettingsPage() {
                 <div className="max-w-4xl mx-auto">
                     {/* Page Header */}
                     <div className="mb-10 text-center md:text-left">
-                        <h1 className="text-3xl font-extrabold text-gray-900 flex items-center gap-3 justify-center md:justify-start">
-                            <span className="p-2 bg-[#FF9F1C]/10 rounded-lg text-[#FF9F1C]">
+                        <h1 className="text-3xl font-extrabold text-gray-900 dark:text-white flex items-center gap-3 justify-center md:justify-start transition-colors">
+                            <span className="p-2 bg-[#FF9F1C]/10 dark:bg-[#FF9F1C]/20 rounded-lg text-[#FF9F1C]">
                                 <SettingsIcon className="w-8 h-8" />
                             </span>
                             Settings
                         </h1>
-                        <p className="mt-2 text-gray-500 font-medium">Customize your platform experience and manage privacy.</p>
+                        <p className="mt-2 text-gray-500 dark:text-gray-400 font-medium transition-colors">Customize your platform experience and manage privacy.</p>
                     </div>
 
                     <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
@@ -215,7 +215,7 @@ export default function SettingsPage() {
                                     onClick={() => setActiveTab("account")}
                                     className={cn(
                                         "flex items-center gap-3 px-4 py-3 font-bold rounded-xl transition-all",
-                                        activeTab === "account" ? "bg-white text-[#2EC4B6] shadow-sm border border-gray-100" : "text-gray-500 hover:bg-white"
+                                        activeTab === "account" ? "bg-white dark:bg-[#1e293b] text-[#2EC4B6] shadow-sm border border-gray-100 dark:border-gray-800" : "text-gray-500 dark:text-gray-400 hover:bg-white dark:hover:bg-[#1e293b]"
                                     )}
                                 >
                                     <Shield className="w-4 h-4" /> Account
@@ -224,7 +224,7 @@ export default function SettingsPage() {
                                     onClick={() => setActiveTab("notifications")}
                                     className={cn(
                                         "flex items-center gap-3 px-4 py-3 font-bold rounded-xl transition-all",
-                                        activeTab === "notifications" ? "bg-white text-[#2EC4B6] shadow-sm border border-gray-100" : "text-gray-500 hover:bg-white"
+                                        activeTab === "notifications" ? "bg-white dark:bg-[#1e293b] text-[#2EC4B6] shadow-sm border border-gray-100 dark:border-gray-800" : "text-gray-500 dark:text-gray-400 hover:bg-white dark:hover:bg-[#1e293b]"
                                     )}
                                 >
                                     <Bell className="w-4 h-4" /> Notifications
@@ -233,7 +233,7 @@ export default function SettingsPage() {
                                     onClick={() => setActiveTab("appearance")}
                                     className={cn(
                                         "flex items-center gap-3 px-4 py-3 font-bold rounded-xl transition-all",
-                                        activeTab === "appearance" ? "bg-white text-[#2EC4B6] shadow-sm border border-gray-100" : "text-gray-500 hover:bg-white"
+                                        activeTab === "appearance" ? "bg-white dark:bg-[#1e293b] text-[#2EC4B6] shadow-sm border border-gray-100 dark:border-gray-800" : "text-gray-500 dark:text-gray-400 hover:bg-white dark:hover:bg-[#1e293b]"
                                     )}
                                 >
                                     <Moon className="w-4 h-4" /> Appearance
@@ -242,7 +242,7 @@ export default function SettingsPage() {
                                     onClick={() => setActiveTab("language")}
                                     className={cn(
                                         "flex items-center gap-3 px-4 py-3 font-bold rounded-xl transition-all",
-                                        activeTab === "language" ? "bg-white text-[#2EC4B6] shadow-sm border border-gray-100" : "text-gray-500 hover:bg-white"
+                                        activeTab === "language" ? "bg-white dark:bg-[#1e293b] text-[#2EC4B6] shadow-sm border border-gray-100 dark:border-gray-800" : "text-gray-500 dark:text-gray-400 hover:bg-white dark:hover:bg-[#1e293b]"
                                     )}
                                 >
                                     <Languages className="w-4 h-4" /> Language
@@ -255,11 +255,11 @@ export default function SettingsPage() {
                             {renderTabContent()}
                             
                             {/* Save Button Area */}
-                            <div className="flex flex-col md:flex-row items-center gap-4 bg-white/50 p-6 rounded-[24px] border border-dashed border-gray-300">
+                            <div className="flex flex-col md:flex-row items-center gap-4 bg-white/50 dark:bg-[#1e293b]/50 p-6 rounded-[24px] border border-dashed border-gray-300 dark:border-gray-700 transition-colors">
                                 <button 
                                     onClick={handleSave}
                                     disabled={isSaving}
-                                    className="flex items-center justify-center gap-2 bg-[#1A1A1A] text-white font-bold py-3.5 px-8 rounded-xl hover:bg-black transition-all active:scale-[0.98] disabled:opacity-70 w-full md:w-auto"
+                                    className="flex items-center justify-center gap-2 bg-[#1A1A1A] dark:bg-[#2EC4B6] text-white font-bold py-3.5 px-8 rounded-xl hover:bg-black dark:hover:bg-[#26a69a] transition-all active:scale-[0.98] disabled:opacity-70 w-full md:w-auto"
                                 >
                                     {isSaving ? "Saving..." : "Apply All Settings"}
                                     {!isSaving && <Save className="w-4 h-4" />}
@@ -270,7 +270,7 @@ export default function SettingsPage() {
                                     </span>
                                 )}
                                 <div className="flex-1" />
-                                <div className="flex items-center gap-2 text-gray-400 text-sm font-medium">
+                                <div className="flex items-center gap-2 text-gray-400 dark:text-gray-500 text-sm font-medium transition-colors">
                                     <HelpCircle className="w-4 h-4" />
                                     <span>Need help with settings?</span>
                                 </div>

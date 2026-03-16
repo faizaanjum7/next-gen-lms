@@ -50,7 +50,7 @@ export default function Sidebar({ isSidebarOpen, setIsSidebarOpen }: SidebarProp
 
     return (
         <aside
-            className={`relative flex flex-col h-full bg-white border-r border-gray-200 transition-all duration-300 ease-in-out shrink-0 z-20 ${isSidebarOpen ? "w-[240px]" : "w-[72px]"
+            className={`relative flex flex-col h-full bg-white dark:bg-[#1e293b] border-r border-gray-200 dark:border-gray-800 transition-all duration-300 ease-in-out shrink-0 z-20 ${isSidebarOpen ? "w-[240px]" : "w-[72px]"
                 }`}
         >
             {/* Toggle Button Positioned Half In/Half Out */}
@@ -72,8 +72,8 @@ export default function Sidebar({ isSidebarOpen, setIsSidebarOpen }: SidebarProp
                             key={item.name}
                             href={item.href}
                             className={`flex items-center gap-3 px-3 py-2.5 rounded-lg transition-colors ${isActive
-                                ? "bg-[#67ecd3] text-gray-900 shadow-sm font-semibold"
-                                : "text-gray-600 hover:bg-gray-100 hover:text-gray-900 font-medium"
+                                ? "bg-[#67ecd3] dark:bg-[#3fc9b9] text-gray-900 shadow-sm font-semibold"
+                                : "text-gray-600 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-[#0f172a] hover:text-gray-900 dark:hover:text-white font-medium"
                                 }`}
                             title={!isSidebarOpen ? item.name : undefined}
                         >
@@ -90,12 +90,12 @@ export default function Sidebar({ isSidebarOpen, setIsSidebarOpen }: SidebarProp
             </div>
 
             {/* Bottom Actions */}
-            <div className={`p-4 border-t border-gray-100 flex ${isSidebarOpen ? 'justify-around' : 'flex-col items-center space-y-4'} transition-all`}>
+            <div className={`p-4 border-t border-gray-100 dark:border-gray-800 flex ${isSidebarOpen ? 'justify-around' : 'flex-col items-center space-y-4'} transition-all`}>
                 {bottomNavItems.map((item) => (
                     <Link
                         key={item.name}
                         href={item.href}
-                        className="text-[#4fded0] hover:text-[#3bc4b6] p-2 hover:bg-gray-100 rounded-lg transition-colors"
+                        className="text-[#4fded0] hover:text-[#3bc4b6] p-2 hover:bg-gray-100 dark:hover:bg-[#0f172a] rounded-lg transition-colors"
                         title={item.name}
                     >
                         <item.icon className="w-5 h-5" />

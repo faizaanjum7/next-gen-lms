@@ -143,6 +143,17 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
         localStorage.setItem("userSettings", JSON.stringify(updated));
     };
 
+    // Theme logic: Toggle .dark class on <html> tag
+    useEffect(() => {
+        if (!mounted) return;
+        
+        if (userSettings.darkMode) {
+            document.documentElement.classList.add('dark');
+        } else {
+            document.documentElement.classList.remove('dark');
+        }
+    }, [userSettings.darkMode, mounted]);
+
     return (
         <AuthContext.Provider value={{ 
             user, 

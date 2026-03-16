@@ -84,9 +84,9 @@ export default function Features() {
     };
 
     return (
-        <section id="about" className="py-20 bg-[#eefbf9]/30 overflow-hidden">
+        <section id="about" className="py-20 bg-[#eefbf9]/30 dark:bg-[#0f172a]/50 overflow-hidden transition-colors duration-300">
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-                <h2 className="text-3xl font-bold mb-14 text-gray-900">
+                <h2 className="text-3xl font-bold mb-14 text-gray-900 dark:text-white">
                     Why We Are <span className="text-[#aebf50]">Different</span> From Others?
                 </h2>
 
@@ -97,7 +97,7 @@ export default function Features() {
                             onClick={prevSlide}
                             variant="outline"
                             size="icon"
-                            className="rounded-full w-12 h-12 bg-white border-0 shadow-lg text-[#FF9F1C] hover:bg-[#fff9f0] hover:scale-110 transition-all duration-300"
+                            className="rounded-full w-12 h-12 bg-white dark:bg-gray-800 border-0 shadow-lg text-[#FF9F1C] hover:bg-[#fff9f0] dark:hover:bg-gray-700 hover:scale-110 transition-all duration-300"
                         >
                             <ChevronLeft className="w-6 h-6" />
                         </Button>
@@ -107,7 +107,7 @@ export default function Features() {
                             onClick={nextSlide}
                             variant="outline"
                             size="icon"
-                            className="rounded-full w-12 h-12 bg-white border-0 shadow-lg text-[#FF9F1C] hover:bg-[#fff9f0] hover:scale-110 transition-all duration-300"
+                            className="rounded-full w-12 h-12 bg-white dark:bg-gray-800 border-0 shadow-lg text-[#FF9F1C] hover:bg-[#fff9f0] dark:hover:bg-gray-700 hover:scale-110 transition-all duration-300"
                         >
                             <ChevronRight className="w-6 h-6" />
                         </Button>
@@ -133,8 +133,8 @@ export default function Features() {
                                 >
                                     <div
                                         className={cn(
-                                            "bg-white rounded-2xl h-[450px] p-8 flex flex-col items-start text-left overflow-hidden relative group transition-all duration-300",
-                                            isActive ? "border-[3px]" : "border border-gray-200"
+                                            "bg-white dark:bg-[#1e293b] rounded-2xl h-[450px] p-8 flex flex-col items-start text-left overflow-hidden relative group transition-all duration-300",
+                                            isActive ? "border-[3px]" : "border border-gray-200 dark:border-gray-800"
                                         )}
                                         style={isActive ? {
                                             borderColor: feature.hex,
@@ -149,11 +149,11 @@ export default function Features() {
                                             <feature.icon className="w-10 h-10" />
                                         </div>
 
-                                        <h3 className="text-2xl font-bold mb-4 text-gray-900 leading-tight">
+                                        <h3 className="text-2xl font-bold mb-4 text-gray-900 dark:text-white leading-tight">
                                             {feature.title}
                                         </h3>
 
-                                        <p className="text-gray-600 text-base leading-relaxed">
+                                        <p className="text-gray-600 dark:text-gray-400 text-base leading-relaxed">
                                             {feature.description}
                                         </p>
                                     </div>

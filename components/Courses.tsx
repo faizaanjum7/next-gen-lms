@@ -76,9 +76,9 @@ export default function Courses() {
     const displayedCourses = showAll || searchQuery ? filteredCourses : filteredCourses.slice(0, 3);
 
     return (
-        <section id="courses" className="py-20 bg-[#f8fdfc]">
+        <section id="courses" className="py-20 bg-[#f8fdfc] dark:bg-[#0f172a] transition-colors duration-300">
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-                <h2 className="text-3xl font-bold mb-12 text-gray-900">
+                <h2 className="text-3xl font-bold mb-12 text-gray-900 dark:text-white">
                     Explore <span className="text-[#FF9F1C]">Our Top</span> Courses
                 </h2>
 
@@ -91,30 +91,30 @@ export default function Courses() {
                         type="text" 
                         value={searchQuery}
                         onChange={(e) => setSearchQuery(e.target.value)}
-                        className="block w-full pl-10 pr-3 py-3 border border-gray-300 rounded-full leading-5 bg-[#dbeceb] placeholder-gray-500 focus:outline-none focus:placeholder-gray-400 focus:ring-1 focus:ring-[#3a8d84] focus:border-[#3a8d84] sm:text-sm" 
+                        className="block w-full pl-10 pr-3 py-3 border border-gray-300 dark:border-gray-700 rounded-full leading-5 bg-[#dbeceb] dark:bg-gray-800 text-gray-900 dark:text-white placeholder-gray-500 dark:placeholder-gray-400 focus:outline-none focus:placeholder-gray-400 focus:ring-1 focus:ring-[#3a8d84] dark:focus:ring-[#2EC4B6] focus:border-[#3a8d84] dark:focus:border-[#2EC4B6] sm:text-sm transition-colors" 
                         placeholder="Search for courses..." 
                     />
                 </div>
 
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-12">
                     {displayedCourses.map((course, index) => (
-                        <Card key={index} className="overflow-hidden hover:shadow-xl transition-all duration-300 border border-gray-100 shadow-md rounded-2xl bg-white hover:-translate-y-1">
+                        <Card key={index} className="overflow-hidden hover:shadow-xl transition-all duration-300 border border-gray-100 dark:border-gray-800 shadow-md rounded-2xl bg-white dark:bg-[#1e293b] hover:-translate-y-1">
                             <div className={`h-40 ${course.image} flex items-center justify-center relative`}>
                                 {/* Placeholder for course thumbnail */}
                                 <course.icon className={`w-16 h-16 ${course.iconColor}`} />
-                                <Badge className="absolute top-4 left-4 bg-white/90 text-black hover:bg-white border-0 shadow-sm">{course.category}</Badge>
+                                <Badge className="absolute top-4 left-4 bg-white/90 dark:bg-gray-800/90 text-black dark:text-white hover:bg-white dark:hover:bg-gray-700 border-0 shadow-sm transition-colors">{course.category}</Badge>
                             </div>
                             <CardContent className="p-6 text-left">
-                                <h3 className="font-bold text-lg mb-2 text-gray-900">{course.title}</h3>
-                                <div className="flex items-center justify-between text-sm text-gray-500 mb-6">
-                                    <div className="flex items-center bg-gray-50 px-2 py-1 rounded-md">
+                                <h3 className="font-bold text-lg mb-2 text-gray-900 dark:text-white">{course.title}</h3>
+                                <div className="flex items-center justify-between text-sm text-gray-500 dark:text-gray-400 mb-6 font-medium">
+                                    <div className="flex items-center bg-gray-50 dark:bg-gray-800 px-2 py-1 rounded-md transition-colors">
                                         <span className="mr-1">👤</span> {course.students}
                                     </div>
-                                    <div className="flex items-center bg-[#FF9F1C]/10 text-[#FF9F1C] px-2 py-1 rounded-md font-medium">
+                                    <div className="flex items-center bg-[#FF9F1C]/10 text-[#FF9F1C] px-2 py-1 rounded-md font-bold">
                                         <span className="mr-1">★</span> {course.rating}
                                     </div>
                                 </div>
-                                <div className="pt-2 border-t border-gray-100">
+                                <div className="pt-2 border-t border-gray-100 dark:border-gray-800 transition-colors">
                                     <Button 
                                         variant="orange" 
                                         className="w-full mt-4 rounded-full font-semibold transition-transform hover:scale-[1.02] shadow-md"

@@ -29,7 +29,7 @@ export default function DashboardNavbar({ showHorizontalMenuToggle, isAiTutorMen
         return "Dashboard";
     };
     return (
-        <header className="h-16 bg-white border-b border-gray-200 flex items-center justify-between px-6 shrink-0 z-10 box-border">
+        <header className="h-16 bg-white dark:bg-[#1e293b] border-b border-gray-200 dark:border-gray-800 flex items-center justify-between px-6 shrink-0 z-10 box-border transition-colors">
             {/* Left side: Logo & Title */}
             <div className="flex items-center gap-8 md:gap-16">
                 <Link href="/" className="flex items-center">
@@ -37,7 +37,7 @@ export default function DashboardNavbar({ showHorizontalMenuToggle, isAiTutorMen
                         Next-Gen LMS
                     </span>
                 </Link>
-                <h1 className="text-2xl font-bold text-gray-900 hidden md:block">{getPageTitle()}</h1>
+                <h1 className="text-2xl font-bold text-gray-900 dark:text-white hidden md:block transition-colors">{getPageTitle()}</h1>
             </div>
 
             {/* Middle: Search bar */}
@@ -47,7 +47,7 @@ export default function DashboardNavbar({ showHorizontalMenuToggle, isAiTutorMen
                     <input
                         type="text"
                         placeholder="Search here.."
-                        className="w-full bg-gray-100 border-none rounded-lg py-2 pl-9 pr-4 text-[13px] text-gray-900 focus:outline-none focus:ring-2 focus:ring-[#3fc9b9] transition-all"
+                        className="w-full bg-gray-100 dark:bg-[#0f172a] border-none rounded-lg py-2 pl-9 pr-4 text-[13px] text-gray-900 dark:text-gray-200 focus:outline-none focus:ring-2 focus:ring-[#3fc9b9] transition-all"
                     />
                 </div>
             </div>
@@ -73,7 +73,7 @@ export default function DashboardNavbar({ showHorizontalMenuToggle, isAiTutorMen
                 <button className="p-2 rounded-full border border-[#3fc9b9] text-[#3fc9b9] hover:bg-[#3fc9b9] hover:text-white transition-colors">
                     <Bell className="w-4 h-4" />
                 </button>
-                <div className="h-6 w-px bg-gray-200 mx-1 hidden sm:block"></div>
+                <div className="h-6 w-px bg-gray-200 dark:bg-gray-700 mx-1 hidden sm:block"></div>
                 <button className="flex items-center gap-2 hover:bg-[#3fc9b9] p-1 pr-3 rounded-full transition-colors group">
                     <div className="bg-transparent p-1.5 rounded-full border border-[#3fc9b9] group-hover:border-white transition-colors">
                         <User className="w-4 h-4 text-[#3fc9b9] group-hover:text-white transition-colors" />

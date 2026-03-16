@@ -14,7 +14,7 @@ export default function Home() {
   const { user } = useAuth();
 
   return (
-    <main className="min-h-screen bg-white font-sans text-gray-900 selection:bg-[#3a8d84] selection:text-white">
+    <main className="min-h-screen bg-white dark:bg-[#0f172a] font-sans text-gray-900 dark:text-gray-100 selection:bg-[#3a8d84] selection:text-white transition-colors duration-300">
       <Navbar />
       {user ? (
         <LearningPathView />
