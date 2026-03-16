@@ -43,6 +43,7 @@ export default function DashboardNavbar({ showHorizontalMenuToggle, isAiTutorMen
         if (pathname.startsWith("/dashboard/faq")) return "FAQ";
         if (pathname.startsWith("/dashboard/settings")) return "Settings";
         if (pathname.startsWith("/dashboard/help")) return "Help";
+        if (pathname.startsWith("/dashboard/calendar")) return "Calendar";
         return "Dashboard";
     };
     return (
@@ -84,9 +85,9 @@ export default function DashboardNavbar({ showHorizontalMenuToggle, isAiTutorMen
                         )}
                     </button>
                 )}
-                <button className="p-2 rounded-full border border-[#3fc9b9] text-[#3fc9b9] hover:bg-[#3fc9b9] hover:text-white transition-colors hidden sm:block">
+                <Link href="/dashboard/calendar" className="p-2 rounded-full border border-[#3fc9b9] text-[#3fc9b9] hover:bg-[#3fc9b9] hover:text-white transition-colors hidden sm:block">
                     <Calendar className="w-4 h-4" />
-                </button>
+                </Link>
                 <button className="p-2 rounded-full border border-[#3fc9b9] text-[#3fc9b9] hover:bg-[#3fc9b9] hover:text-white transition-colors">
                     <Bell className="w-4 h-4" />
                 </button>
