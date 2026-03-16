@@ -3,7 +3,7 @@
 import { useState, useRef, useEffect } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { Menu, UserCircle, ChevronDown, LogOut, Bell, Settings as SettingsIcon, User as UserIcon, Trash2, X } from "lucide-react";
+import { Menu, UserCircle, ChevronDown, LogOut, Bell, Settings as SettingsIcon, User as UserIcon, Trash2, X, Moon, Sun } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { useAuth } from "@/lib/AuthContext";
 
@@ -12,7 +12,7 @@ export default function Navbar() {
     const [isProfileMenuOpen, setIsProfileMenuOpen] = useState(false);
     const [activeTab, setActiveTab] = useState<'login' | 'signup'>('signup');
     const router = useRouter();
-    const { user, logout, notifications, removeNotification } = useAuth();
+    const { user, logout, notifications, removeNotification, userSettings, updateSettings } = useAuth();
     const profileMenuRef = useRef<HTMLDivElement>(null);
     const [showNotifications, setShowNotifications] = useState(false);
 
@@ -43,7 +43,14 @@ export default function Navbar() {
                             <Link href="/#faq" className="text-[15px] font-medium text-[#2EC4B6] hover:text-[#FF9F1C] transition-colors">FAQ</Link>
                         </div>
                     </div>
-                    <div className="hidden md:flex items-center">
+                    <div className="hidden md:flex items-center gap-4">
+                        <button
+                            onClick={() => updateSettings({ darkMode: !userSettings.darkMode })}
+                            className="p-2 rounded-full text-[#2EC4B6] hover:bg-[#2EC4B6]/10 transition-colors"
+                            title={userSettings.darkMode ? "Switch to Light Mode" : "Switch to Dark Mode"}
+                        >
+                            {userSettings.darkMode ? <Sun className="w-5 h-5" /> : <Moon className="w-5 h-5" />}
+                        </button>
                         {user ? (
                             <div className="relative" ref={profileMenuRef}>
                                 <button
@@ -166,7 +173,13 @@ export default function Navbar() {
                             </div>
                         )}
                     </div>
-                    <div className="-mr-2 flex md:hidden">
+                    <div className="-mr-2 flex items-center md:hidden">
+                        <button
+                            onClick={() => updateSettings({ darkMode: !userSettings.darkMode })}
+                            className="p-2 mr-1 rounded-md text-gray-700 dark:text-gray-300 hover:text-[#4CA1AF] focus:outline-none"
+                        >
+                            {userSettings.darkMode ? <Sun className="h-5 w-5" /> : <Moon className="h-5 w-5" />}
+                        </button>
                         <button
                             onClick={() => setIsOpen(!isOpen)}
                             className="inline-flex items-center justify-center p-2 rounded-md text-gray-700 dark:text-gray-300 hover:text-[#4CA1AF] focus:outline-none"

@@ -2,7 +2,8 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { Search, Calendar, Bell, User, ChevronDown, Eye, EyeOff } from "lucide-react";
+import { Search, Calendar, Bell, User, ChevronDown, Eye, EyeOff, Moon, Sun } from "lucide-react";
+import { useAuth } from "@/lib/AuthContext";
 
 interface DashboardNavbarProps {
     showHorizontalMenuToggle?: boolean;
@@ -12,6 +13,7 @@ interface DashboardNavbarProps {
 
 export default function DashboardNavbar({ showHorizontalMenuToggle, isAiTutorMenuBarVisible, toggleAiTutorMenuBar }: DashboardNavbarProps) {
     const pathname = usePathname();
+    const { userSettings, updateSettings } = useAuth();
 
     const getPageTitle = () => {
         if (pathname.startsWith("/dashboard/courses")) return "Courses";
@@ -72,6 +74,13 @@ export default function DashboardNavbar({ showHorizontalMenuToggle, isAiTutorMen
                 </button>
                 <button className="p-2 rounded-full border border-[#3fc9b9] text-[#3fc9b9] hover:bg-[#3fc9b9] hover:text-white transition-colors">
                     <Bell className="w-4 h-4" />
+                </button>
+                <button 
+                    onClick={() => updateSettings({ darkMode: !userSettings.darkMode })}
+                    className="p-2 rounded-full border border-[#3fc9b9] text-[#3fc9b9] hover:bg-[#3fc9b9] hover:text-white transition-colors"
+                    title={userSettings.darkMode ? "Switch to Light Mode" : "Switch to Dark Mode"}
+                >
+                    {userSettings.darkMode ? <Sun className="w-4 h-4" /> : <Moon className="w-4 h-4" />}
                 </button>
                 <div className="h-6 w-px bg-gray-200 dark:bg-gray-700 mx-1 hidden sm:block"></div>
                 <button className="flex items-center gap-2 hover:bg-[#3fc9b9] p-1 pr-3 rounded-full transition-colors group">
