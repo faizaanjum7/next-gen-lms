@@ -1,5 +1,6 @@
 import { Button } from "@/components/ui/button";
 import { UserPlus, Settings, Rocket, ArrowRight, PlayCircle } from "lucide-react";
+import Link from "next/link";
 
 const steps = [
     {
@@ -75,9 +76,11 @@ export default function HowItWorks() {
                 </div>
 
                 <div className="flex flex-col sm:flex-row gap-4 justify-center mt-16">
-                    <Button variant="orange" size="lg" className="rounded-full px-8 text-base">
-                        Get Started <ArrowRight className="ml-2 w-5 h-5" />
-                    </Button>
+                    <Link href="/signup">
+                        <Button variant="orange" size="lg" className="rounded-full px-8 text-base">
+                            Get Started <ArrowRight className="ml-2 w-5 h-5" />
+                        </Button>
+                    </Link>
                     <Button variant="outline" size="lg" className="rounded-full px-8 text-base border-[#3a8d84] text-[#3a8d84] hover:bg-[#3a8d84]/10 hover:text-[#3a8d84]">
                         <PlayCircle className="mr-2 w-5 h-5" />
                         Watch Demo

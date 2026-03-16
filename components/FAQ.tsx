@@ -4,6 +4,7 @@ import { useState } from "react";
 import { ChevronDown, ChevronUp } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
+import Link from "next/link";
 
 const faqs = [
     {
@@ -70,9 +71,11 @@ export default function FAQ() {
                     ))}
                 </div>
                 <div className="mt-12 text-center">
-                    <Button className="bg-[#2EC4B6] hover:bg-[#25a094] text-white font-semibold py-2 px-6 rounded-md shadow-md transition-all duration-300">
-                        Contact Support
-                    </Button>
+                    <Link href="/contact">
+                        <Button className="bg-[#2EC4B6] hover:bg-[#25a094] text-white font-semibold py-2 px-6 rounded-md shadow-md transition-all duration-300">
+                            Contact Support
+                        </Button>
+                    </Link>
                 </div>
             </div>
         </section>
