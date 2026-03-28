@@ -2,24 +2,12 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import { useAuth } from "@/lib/AuthContext";
+import { useState } from "react";
 import {
-    LayoutGrid,
-    BookOpen,
-    Folder,
-    Sparkles,
-    Wallet,
-    ClipboardList,
-    ClipboardType,
-    Megaphone,
-    Award,
-    LineChart,
-    HelpCircle,
-    Settings,
-    LogOut,
-    ChevronLeft,
-    ChevronRight,
-    Bot,
-    Terminal,
+    LayoutGrid, BookOpen, Folder, Sparkles, Wallet, ClipboardList, ClipboardType,
+    Megaphone, Award, LineChart, HelpCircle, Settings, LogOut, ChevronLeft, ChevronRight,
+    Bot, Terminal, PieChart, Users, Sliders, ShieldCheck, PenTool, CheckCircle, FileBadge
 } from "lucide-react";
 
 interface SidebarProps {
@@ -29,21 +17,32 @@ interface SidebarProps {
 
 export default function Sidebar({ isSidebarOpen, setIsSidebarOpen }: SidebarProps) {
     const pathname = usePathname();
+    const { currentRole, switchRole } = useAuth();
 
-    const primaryNavItems = [
+    const employeeNavItems = [
         { name: "Dashboard", href: "/dashboard", icon: LayoutGrid },
         { name: "Courses", href: "/dashboard/courses", icon: BookOpen },
         { name: "Projects", href: "/dashboard/projects", icon: Folder },
         { name: "Code Play Studio", href: "/dashboard/code-play-studio", icon: Terminal },
         { name: "AI Tutor", href: "/dashboard/ai-tutor", icon: Sparkles },
         { name: "AI HR", href: "/dashboard/ai-hr", icon: Bot },
-        { name: "Payment History", href: "/dashboard/payments", icon: Wallet },
         { name: "Quizzes", href: "/dashboard/quizzes", icon: ClipboardList },
         { name: "Assignments", href: "/dashboard/assignments", icon: ClipboardType },
-        { name: "Announcements", href: "/dashboard/announcements", icon: Megaphone },
         { name: "Certifications", href: "/dashboard/certifications", icon: Award },
+    ];
+
+    const instructorNavItems = [
+        { name: "Course Builder", href: "/dashboard/instructor/course-builder", icon: PenTool },
+        { name: "Assessments", href: "/dashboard/instructor/assessments", icon: CheckCircle },
+        { name: "Student Progress", href: "#", icon: LineChart },
+    ];
+
+    const adminNavItems = [
+        { name: "User Management", href: "/dashboard/admin/users", icon: Users },
+        { name: "Certification Engine", href: "/dashboard/admin/certifications", icon: FileBadge },
+        { name: "System Settings", href: "#", icon: Sliders },
         { name: "Reports", href: "/dashboard/reports", icon: LineChart },
-        { name: "FAQ", href: "/dashboard/faq", icon: HelpCircle },
+        { name: "Analytics", href: "/dashboard/analytics", icon: PieChart },
     ];
 
     const bottomNavItems = [
@@ -52,25 +51,45 @@ export default function Sidebar({ isSidebarOpen, setIsSidebarOpen }: SidebarProp
         { name: "Log Out", href: "/login", icon: LogOut },
     ];
 
+    const renderNavItems = () => {
+        if (currentRole === 'admin') return adminNavItems;
+        if (currentRole === 'instructor') return instructorNavItems;
+        return employeeNavItems;
+    };
+
+    const primaryNavItems = renderNavItems();
+
     return (
         <aside
-            className={`relative flex flex-col h-full bg-white dark:bg-[#1e293b] border-r border-gray-200 dark:border-gray-800 transition-all duration-300 ease-in-out shrink-0 z-20 ${isSidebarOpen ? "w-[240px]" : "w-[72px]"
-                }`}
+            className={`relative flex flex-col h-full bg-white dark:bg-[#1e293b] border-r border-gray-200 dark:border-gray-800 transition-all duration-300 ease-in-out shrink-0 z-20 ${isSidebarOpen ? "w-[240px]" : "w-[72px]"}`}
         >
-            {/* Toggle Button Positioned Half In/Half Out */}
             <button
                 onClick={() => setIsSidebarOpen(!isSidebarOpen)}
                 className="absolute -right-3 top-6 bg-[#4fded0] hover:bg-[#3bc4b6] text-white p-1 rounded-full shadow-md z-30 transition-colors"
+                aria-label="Toggle Sidebar"
             >
                 {isSidebarOpen ? <ChevronLeft className="w-4 h-4" /> : <ChevronRight className="w-4 h-4" />}
             </button>
 
+            {/* Role Indicator */}
+            <div className={`pt-6 px-3 pb-2 border-b border-gray-100 dark:border-gray-800 transition-all ${isSidebarOpen ? 'block' : 'hidden'}`}>
+                <div className="w-full flex items-center justify-center gap-2 px-3 py-2 bg-[#2EC4B6]/10 rounded-lg text-sm font-bold text-[#2EC4B6]">
+                    <ShieldCheck className="w-4 h-4" />
+                    <span className="capitalize">{currentRole} Dashboard</span>
+                </div>
+            </div>
+
+            {/* Compact Role Indicator when collapsed */}
+            <div className={`pt-6 pb-2 border-b border-gray-100 dark:border-gray-800 transition-all flex justify-center ${!isSidebarOpen ? 'block' : 'hidden'}`}>
+                <div onClick={() => setIsSidebarOpen(true)} className="w-10 h-10 rounded-lg bg-[#2EC4B6]/10 flex items-center justify-center cursor-pointer" title={`Current Role: ${currentRole}`}>
+                    <ShieldCheck className="w-5 h-5 text-[#2EC4B6]" />
+                </div>
+            </div>
+
             {/* Top Navigation Links */}
-            <div className="flex-1 overflow-y-auto pt-6 pb-4 px-3 space-y-1.5 scrollbar-hide">
+            <div className="flex-1 overflow-y-auto pt-4 pb-4 px-3 space-y-1.5 scrollbar-hide">
                 {primaryNavItems.map((item) => {
-                    // If pathname strictly matches or starts with href (to handle subpages), active state
-                    // For generic handling, let's just do startsWith, but for /dashboard exactly match
-                    const isActive = pathname === item.href || (item.href !== "/dashboard" && pathname.startsWith(item.href));
+                    const isActive = pathname === item.href || (item.href !== "/dashboard" && pathname.startsWith(item.href) && item.href !== "#");
                     return (
                         <Link
                             key={item.name}

@@ -1,10 +1,21 @@
 "use client";
 
-import { Play, FileText, ClipboardList, CheckSquare } from "lucide-react";
+import { Play, FileText, ClipboardList, CheckSquare, Loader2 } from "lucide-react";
 import { useAuth } from "@/lib/AuthContext";
+import { useEffect } from "react";
+import { useRouter } from "next/navigation";
 
 export default function DashboardPage() {
-    const { scheduledAssessments } = useAuth();
+    const { scheduledAssessments, currentRole } = useAuth();
+    const router = useRouter();
+
+    useEffect(() => {
+        if (currentRole === 'admin') {
+            router.replace('/dashboard/admin/users');
+        } else if (currentRole === 'instructor') {
+            router.replace('/dashboard/instructor/course-builder');
+        }
+    }, [currentRole, router]);
 
     const getMonthName = (dateStr: string) => {
         const date = new Date(dateStr);
@@ -15,6 +26,14 @@ export default function DashboardPage() {
         const date = new Date(dateStr);
         return date.getDate();
     };
+
+    if (currentRole !== 'employee') {
+        return (
+            <div className="min-h-[60vh] flex items-center justify-center">
+                <Loader2 className="w-8 h-8 animate-spin text-[#2EC4B6]" />
+            </div>
+        );
+    }
 
     return (
         <div className="p-6 md:p-8 max-w-[1400px] mx-auto">
@@ -264,7 +283,7 @@ export default function DashboardPage() {
 
                         <div className="space-y-4">
                             {scheduledAssessments.length > 0 ? (
-                                scheduledAssessments.map((assessment) => (
+                                scheduledAssessments.map((assessment: any) => (
                                     <div key={assessment.id} className="flex gap-4 items-center animate-in fade-in slide-in-from-right-4">
                                         <div className="bg-[#fce5df] dark:bg-[#FF9F1C]/10 text-center w-[60px] h-[64px] rounded-xl flex flex-col justify-center shrink-0 transition-colors">
                                             <div className="font-bold text-gray-900 dark:text-white text-lg leading-tight transition-colors">

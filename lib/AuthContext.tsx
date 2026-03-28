@@ -33,6 +33,8 @@ export type ScheduledAssessment = {
     timestamp: number;
 };
 
+export type Role = 'employee' | 'instructor' | 'admin';
+
 type User = {
     name: string;
 } | null;
@@ -51,6 +53,8 @@ interface AuthContextType {
     removeScheduledAssessment: (id: string) => void;
     updateProfile: (profile: Partial<UserProfile>) => void;
     updateSettings: (settings: Partial<UserSettings>) => void;
+    currentRole: Role;
+    switchRole: (role: Role) => void;
 }
 
 const defaultProfile: UserProfile = {
@@ -77,6 +81,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     const [scheduledAssessments, setScheduledAssessments] = useState<ScheduledAssessment[]>([]);
     const [userProfile, setUserProfile] = useState<UserProfile>(defaultProfile);
     const [userSettings, setUserSettings] = useState<UserSettings>(defaultSettings);
+    const [currentRole, setCurrentRole] = useState<Role>('employee');
     const [mounted, setMounted] = useState(false);
 
     useEffect(() => {
@@ -84,6 +89,11 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
         const storedUser = localStorage.getItem("mockUser");
         if (storedUser) {
             setUser(JSON.parse(storedUser));
+        }
+        
+        const storedRole = localStorage.getItem("userRole");
+        if (storedRole) {
+            setCurrentRole(storedRole as Role);
         }
         
         const storedNotifications = localStorage.getItem("userNotifications");
@@ -180,6 +190,11 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
         localStorage.setItem("userSettings", JSON.stringify(updated));
     };
 
+    const switchRole = (role: Role) => {
+        setCurrentRole(role);
+        localStorage.setItem("userRole", role);
+    };
+
     // Theme logic: Toggle .dark class on <html> tag
     useEffect(() => {
         if (!mounted) return;
@@ -205,7 +220,9 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
             addScheduledAssessment,
             removeScheduledAssessment,
             updateProfile,
-            updateSettings
+            updateSettings,
+            currentRole,
+            switchRole
         }}>
             {children}
         </AuthContext.Provider>
