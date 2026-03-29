@@ -1,36 +1,53 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# 🚀 next-gen lms
 
-## Getting Started
+a modern learning management system currently being developed as part of my internship, focused on building a clean, scalable, and user-friendly learning experience.
 
-First, run the development server:
+🔗 live: https://next-gen-lms-app.vercel.app/
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+## ✨ technologies
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+- figma  
+- react.js  
+- javascript  
+- css  
+- ai-based ui conversion (antigravity)  
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## 🚀 features
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+- complete ui designed from scratch in figma  
+- responsive and structured frontend system  
+- clean dashboard-based layout for learning platforms  
+- scalable design system for future backend integration  
 
-## Learn More
+<!--## 🎞️ preview
 
-To learn more about Next.js, take a look at the following resources:
+![preview](./preview.gif)-->
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## 📍 the process
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+this project is part of a startup-focused internship where i’m leading a ui team of 3 members.
 
-## Deploy on Vercel
+i started by designing the entire user interface in figma, focusing on clarity, usability, and scalability. once the design system was finalized, i converted the ui into a working frontend using an ai-based tool (antigravity), which helped speed up the development process.
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+the current focus is on building a strong frontend foundation, with backend integration planned as the next phase.
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## 📚 what i learned
+
+- leading and coordinating a ui team  
+- designing scalable ui systems in figma  
+- translating design into functional frontend  
+- working with ai tools for ui-to-code conversion  
+- thinking about real product structure 
+
+## 💭 improvements
+
+- backend integration for full functionality  
+- authentication and user roles  
+- real-time data handling  
+- improved performance and optimization  
+
+## ⚠️ usage
+
+this project is part of an ongoing startup and is not open for reuse.
+
+the design, structure, and code are proprietary. please do not copy, modify, or distribute any part of this project.
